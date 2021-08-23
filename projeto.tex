@@ -1,0 +1,141 @@
+
+\documentclass[12pt, a4paper, english, brazil]{article}
+
+% Sistema autor-data com títulos nas referências em negrito
+% \usepackage[alf,abnt-emphasize=bf]{abntex2cite}
+
+% \usepackage[alf,abnt-emphasize=bf,abnt-repeated-author-omit=yes,abnt-year-extra-label=yes]{abntex2cite}	% Citações padrão ABNT
+
+\usepackage[alf,abnt-emphasize=bf,abnt-repeated-author-omit=yes]{abntex2cite}
+
+\usepackage[utf8]{inputenc}	
+\usepackage[brazil]{babel}
+\usepackage{graphicx,url}
+\usepackage{subfigure}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\usepackage{physics}
+\usepackage{comment}
+
+\usepackage{lscape}
+
+\usepackage{fancyhdr}
+
+% -
+
+\usepackage{indentfirst}
+% \graphicspath{{img/}}
+%\pagestyle{empty}
+
+\usepackage{color}
+% https://pt.overleaf.com/learn/latex/Errors/LaTeX_Error:_There's_no_line_here_to_end
+% white, black, red, green, blue, cyan, magenta, yellow 
+% \textcolor{red}{easily}
+    % Changes the colour of inline text.
+%\colorbox{BurntOrange}{this text}
+    % Changes the background colour of the text passed as second parameter.
+
+
+% Colorinlistoftodos package: to insert colored comments so authors can collaborate on the content.
+% Link: http://www.inf.ufes.br/~vitorsouza/archive/2020/blog/controle-de-alteracoes-em-latex-usando-git-e-sourcetree/index.html
+
+% Package todonotes Warning: The length marginparwidth is less than 2cm and will most likely cause issues with the appearance of inserted todonotes. The issue can be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to loading the todonotes package. on input line 61.
+\setlength {\marginparwidth}{2cm}
+
+\usepackage[colorinlistoftodos, textwidth=20mm, textsize=footnotesize]{todonotes}
+\newcommand{\ideia}[1]{\todo[author=\textbf{Ideia},color=green!30,caption={#1},inline]{#1}}
+\newcommand{\duvida}[1]{\todo[author=\textbf{Dúvida},color=cyan!30,caption={#1},inline]{#1}}
+\newcommand{\revisar}[1]{\todo[author=\textbf{Revisar},color=yellow!30,caption={#1},inline]{#1}}
+\newcommand{\atencao}[1]{\todo[author=\textbf{Atenção},color=red!30,caption={#1},inline]{#1}}
+
+% -
+\textwidth 16cm \textheight 23.2cm
+\voffset -1.5cm \hoffset -1.4cm
+
+\sloppy
+
+\begin{document}
+
+\rhead{\thepage}
+\pagenumbering{arabic}
+
+\begin{center}
+	\bf{\LARGE{PROJETO DE DISSERTAÇÃO}\\ $\ $\\}
+	\Large{Programa de Mestrado em Ciência da Computação\\
+		Universidade Federal de Uberlândia}\\ $\ $\\
+\end{center}
+
+\begin{center}
+	\bf{Aluno: João Batista Ribeiro\\ $\ $\\
+		Orientador: Prof. Dr. André Ricardo Backes\\ $\ $\\
+		Coorientador: Prof. Dr. Maurício Cunha Escarpinati\\ $\ $\\
+		Data da formalização da coorientação no colegiado: \colorbox{yellow}{xx/xx/2021}\\ $\ $\\
+		Título do Trabalho: \colorbox{yellow}{Detecção de linhas de plantio em plantações de cana-de-açúcar}\\ $\ $\\
+		Data de Início como Aluno Regular: março de 2021\\ $\ $\\
+		Previsão da Defesa: fevereiro de 2023\\ $\ $\\}
+\end{center}
+
+\section{Introdução}
+
+\bigskip
+\textbf{Testes:}
+Ref: a \cite{Silva_2020, Silva_Escarpinati_Backes_2021}.
+
+\revisar{Para revisar}
+\smallskip
+\ideia{Alguma ideia}
+\smallskip
+\duvida{Alguma dúvida}
+\smallskip
+\atencao{Correções/Sugestões/Comentários}
+\bigskip
+
+Contextualize o seu trabalho de forma sucinta. Delimite o seu tema de estudo. Convença o leitor da relevância e importância do seu trabalho.
+
+\subsection{Motivação}
+Introduza o leitor ao assunto, descreva os fatores motivadores para o desenvolvimento do seu trabalho. Descreva brevemente o estado da arte e indique os problemas que ainda não foram resolvidos. Faça um gancho para a próxima subseção em que você descreve os objetivos do seu trabalho.
+
+\subsection{Objetivos e Desafios da Pesquisa}
+Descreva claramente os desafios que o tema propõe e quais os objetivos que se pretende alcançar. Se o tema for muito abrangente, descreva os objetivos em termos de "objetivo geral"e "objetivos específicos". Cuidado com objetivos como "desenvolver um sistema..."; "explorar um método..." Esses objetivos são triviais, ou seja, uma vez desenvolvido o sistema ou explorado o método, independente dos resultados, o objetivo foi atingido. Prefira verbos como: "contribuir", "analisar", "investigar", "comparar". Os membros da banca ao lerem essa seção farão o seguinte questionamento: Algum conhecimento novo para a humanidade foi produzido?
+
+\subsection{Hipótese}
+Descreva claramente quais são as hipóteses da sua pesquisa (Uma hipótese é uma suposição para a solução do problema que você pretende desenvolver). Indique quais perguntas estão associadas a sua hipótese. Lembre-se que as hipóteses deverão ser comprovadas via os experimentos propostos na seção que descreve o método de pesquisa.
+
+\subsection{Contribuições}
+Liste as contribuições do seu trabalho. 
+
+\section{Revisão da Literatura Correlata}
+Descreva os principais trabalhos existentes na literatura da área que estão relacionados com o trabalho que você está propondo e deixe claro qual a sua contribuição em relação a estes trabalhos. O que você está propondo de novo que estes trabalhos não abordaram ou abordaram de forma ineficiente? Eventualmente, se for o caso, introduza nesta seção os conceitos teóricos existentes na literatura que são necessários para a descrição de seu projeto de tese.
+
+\section{Método de Pesquisa}
+Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
+
+\section{Resultados Esperados}
+Liste os resultados mais importantes que você pretende obter a partir de seu trabalho de doutorado.
+
+\section{Esquema Geral do Texto da Dissertação (opcional)}
+Descreva o “esqueleto” de sua dissertação, como vai estruturar os capítulos e seções. Dê um título, mesmo que provisório, a sua dissertação.
+
+\section{Cronograma de Execução}
+Detalhe o cronograma das principais etapas de seu trabalho finalizando pela data da defesa.
+
+\section{Justificativa pelo atraso na entrega do projeto (tópico obrigatório somente no caso de entrega do projeto foram do prazo regulamentar*)}
+Descrever as justificativas que levaram ao atraso na entrega do projeto.
+
+
+% \textbf{*RI-PPGCO/UFU, art. 18, parágrafo único:
+% O projeto de Dissertação de Mestrado deverá ser apresentado pelo estudante até o final do segundo semestre letivo, contado a partir da matrícula de ingresso como aluno regular.}
+
+\bigskip
+\noindent \revisar{\textbf{Uberlândia, 10 de novembro de 2021.}}
+
+% Encaminhar para o e-mail cpgfacom@ufu.br
+
+% \section{Bibliografia}
+\bibliography{references}
+
+\newpage
+\listoftodos[Notes]
+\end{document}
