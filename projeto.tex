@@ -6,6 +6,14 @@
 
 % \usepackage[alf,abnt-emphasize=bf,abnt-repeated-author-omit=yes,abnt-year-extra-label=yes]{abntex2cite}	% Citações padrão ABNT
 
+% ----------------- link in the PDF
+% http://tug.ctan.org/macros/latex/contrib/abntex2/doc/abntex2cite.pdf
+%Usando o pacote abntex2cite autonomamente ... é preciso passar a opção carregando o pacote url antes do abntex2cite
+\usepackage[hyphens]{url}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{hyperref}
+% ----------------- link in the PDF
+
 \usepackage[alf,abnt-emphasize=bf,abnt-repeated-author-omit=yes]{abntex2cite}
 
 \usepackage[utf8]{inputenc}	
@@ -49,6 +57,20 @@
 \newcommand{\revisar}[1]{\todo[author=\textbf{Revisar},color=yellow!30,caption={#1},inline]{#1}}
 \newcommand{\atencao}[1]{\todo[author=\textbf{Atenção},color=red!30,caption={#1},inline]{#1}}
 
+\newcommand{\lineS}[1]{
+    {{\color{black} 
+        \noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+        }}
+    {{\color{red} #1 }}
+
+    {{\color{black}
+        \noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+        % \par\noindent\rule{\textwidth}{0.4pt}
+    }}
+}
+
+\newcommand{\textRed}[1]{{{\color{red} #1 }}}
+
 % -
 \textwidth 16cm \textheight 23.2cm
 \voffset -1.5cm \hoffset -1.4cm
@@ -91,38 +113,71 @@ Ref: a \cite{Silva_2020, Silva_Escarpinati_Backes_2021}.
 \atencao{Correções/Sugestões/Comentários}
 \bigskip
 
-Contextualize o seu trabalho de forma sucinta. Delimite o seu tema de estudo. Convença o leitor da relevância e importância do seu trabalho.
+% \lineS
+
+\lineS{
+Falar sobre:
+
+Agricultura de Precisão
+    VANTs
+Cana-de-açúcar (plantios, linhas de plantio, planta cana e planta soca)
+desafios (pisoteamento da planta soca, falha no plantio)
+
+linhas de plantio (detecção) 
+
+medição de falhas
+
+Processamento digital de Imagens
+}
+
+
+O rápido crescimento populacional, principalmente do último século, tem impulsionado a demanda por alimentos e a utilização inteligente/sustentável dos recursos naturais. Nesse contexto agricultura aliada tecnologia, chamada de Agricultura de Precisão (AP), busca suprir essa demanda utilizando os recursos naturais de uma forma sustentável. A AP engloba técnicas de análise espacial da área plantada, informações do solo e das plantas permitindo aos produtores planejar e monitorar as plantações \cite{Blasch_2020}.
+
+A Agricultura de Precisão \cite{Bolfe_2020, Blasch_20202}
+
+
+% => Contextualize o seu trabalho de forma sucinta. Delimite o seu tema de estudo. Convença o leitor da relevância e importância do seu trabalho.
 
 \subsection{Motivação}
-Introduza o leitor ao assunto, descreva os fatores motivadores para o desenvolvimento do seu trabalho. Descreva brevemente o estado da arte e indique os problemas que ainda não foram resolvidos. Faça um gancho para a próxima subseção em que você descreve os objetivos do seu trabalho.
+% => Introduza o leitor ao assunto, descreva os fatores motivadores para o desenvolvimento do seu trabalho. Descreva brevemente o estado da arte e indique os problemas que ainda não foram resolvidos. Faça um gancho para a próxima subseção em que você descreve os objetivos do seu trabalho.
 
 \subsection{Objetivos e Desafios da Pesquisa}
-Descreva claramente os desafios que o tema propõe e quais os objetivos que se pretende alcançar. Se o tema for muito abrangente, descreva os objetivos em termos de "objetivo geral"e "objetivos específicos". Cuidado com objetivos como "desenvolver um sistema..."; "explorar um método..." Esses objetivos são triviais, ou seja, uma vez desenvolvido o sistema ou explorado o método, independente dos resultados, o objetivo foi atingido. Prefira verbos como: "contribuir", "analisar", "investigar", "comparar". Os membros da banca ao lerem essa seção farão o seguinte questionamento: Algum conhecimento novo para a humanidade foi produzido?
+% => Descreva claramente os desafios que o tema propõe e quais os objetivos que se pretende alcançar. Se o tema for muito abrangente, descreva os objetivos em termos de ``objetivo geral'' e ``objetivos específicos''. Cuidado com objetivos como ``desenvolver um sistema...''; ``explorar um método...'' Esses objetivos são triviais, ou seja, uma vez desenvolvido o sistema ou explorado o método, independente dos resultados, o objetivo foi atingido. Prefira verbos como: ``contribuir'', ``analisar'', ``investigar'', ``comparar''. Os membros da banca ao lerem essa seção farão o seguinte questionamento: Algum conhecimento novo para a humanidade foi produzido?
+
+Este projeto tem como objetivo analisar os métodos de segmentação automática em imagens de VANTs tendo, inicialmente, foco em imagem de plantio de cana-de-açúcar e propor melhorias na deteção de linhas de plantio. 
+
+$=>$ \textcolor{red}{talvez} Inicialmente apenas imagem RGB, ou seja, com as 3 bandas, talvez pode ser interessante depois imagem com a banda infravermelho ou infravermelho próximo (dependendo da disponibilidade)
+
+\begin{itemize}
+    \item Analisar os métodos propostos na literatura correlata, onde utilizam transformada de hough e radon, segmentação (limiarização global, limiarização adaptativa, binarização e método Otsu), redes neurais convolucionais, índices de vegetação, operações morfológicas etc.
+    
+    \item - Talvez analisar imagem com banda infravermelho
+    \item Analisar o método proposto em outros tipos de cultura, como milho, algodão e ...
+\end{itemize}
 
 \subsection{Hipótese}
-Descreva claramente quais são as hipóteses da sua pesquisa (Uma hipótese é uma suposição para a solução do problema que você pretende desenvolver). Indique quais perguntas estão associadas a sua hipótese. Lembre-se que as hipóteses deverão ser comprovadas via os experimentos propostos na seção que descreve o método de pesquisa.
+% => Descreva claramente quais são as hipóteses da sua pesquisa (Uma hipótese é uma suposição para a solução do problema que você pretende desenvolver). Indique quais perguntas estão associadas a sua hipótese. Lembre-se que as hipóteses deverão ser comprovadas via os experimentos propostos na seção que descreve o método de pesquisa.
 
 \subsection{Contribuições}
-Liste as contribuições do seu trabalho. 
+% => Liste as contribuições do seu trabalho. 
 
 \section{Revisão da Literatura Correlata}
-Descreva os principais trabalhos existentes na literatura da área que estão relacionados com o trabalho que você está propondo e deixe claro qual a sua contribuição em relação a estes trabalhos. O que você está propondo de novo que estes trabalhos não abordaram ou abordaram de forma ineficiente? Eventualmente, se for o caso, introduza nesta seção os conceitos teóricos existentes na literatura que são necessários para a descrição de seu projeto de tese.
+% => Descreva os principais trabalhos existentes na literatura da área que estão relacionados com o trabalho que você está propondo e deixe claro qual a sua contribuição em relação a estes trabalhos. O que você está propondo de novo que estes trabalhos não abordaram ou abordaram de forma ineficiente? Eventualmente, se for o caso, introduza nesta seção os conceitos teóricos existentes na literatura que são necessários para a descrição de seu projeto de tese.
 
 \section{Método de Pesquisa}
-Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
+% => Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
 
 \section{Resultados Esperados}
-Liste os resultados mais importantes que você pretende obter a partir de seu trabalho de doutorado.
+% => Liste os resultados mais importantes que você pretende obter a partir de seu trabalho de doutorado.
 
 \section{Esquema Geral do Texto da Dissertação (opcional)}
-Descreva o “esqueleto” de sua dissertação, como vai estruturar os capítulos e seções. Dê um título, mesmo que provisório, a sua dissertação.
+% => Descreva o “esqueleto” de sua dissertação, como vai estruturar os capítulos e seções. Dê um título, mesmo que provisório, a sua dissertação.
 
 \section{Cronograma de Execução}
-Detalhe o cronograma das principais etapas de seu trabalho finalizando pela data da defesa.
+% => Detalhe o cronograma das principais etapas de seu trabalho finalizando pela data da defesa.
 
-\section{Justificativa pelo atraso na entrega do projeto (tópico obrigatório somente no caso de entrega do projeto foram do prazo regulamentar*)}
-Descrever as justificativas que levaram ao atraso na entrega do projeto.
-
+% \section{Justificativa pelo atraso na entrega do projeto (tópico obrigatório somente no caso de entrega do projeto foram do prazo regulamentar*)}
+% => Descrever as justificativas que levaram ao atraso na entrega do projeto.
 
 % \textbf{*RI-PPGCO/UFU, art. 18, parágrafo único:
 % O projeto de Dissertação de Mestrado deverá ser apresentado pelo estudante até o final do segundo semestre letivo, contado a partir da matrícula de ingresso como aluno regular.}
