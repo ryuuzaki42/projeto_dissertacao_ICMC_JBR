@@ -71,6 +71,9 @@
 
 \newcommand{\textRed}[1]{{{\color{red} #1 }}}
 
+\usepackage{tabularx}
+    \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
 % -
 \textwidth 16cm \textheight 23.2cm
 \voffset -1.5cm \hoffset -1.4cm
@@ -100,22 +103,24 @@
 
 \section{Introdução}
 
-\bigskip
-\textbf{Testes:}
-Ref: a \cite{Silva_2020, Silva_Escarpinati_Backes_2021}.
+% => Contextualize o seu trabalho de forma sucinta. Delimite o seu tema de estudo. Convença o leitor da relevância e importância do seu trabalho.
 
-\revisar{Para revisar}
-\smallskip
-\ideia{Alguma ideia}
-\smallskip
-\duvida{Alguma dúvida}
-\smallskip
-\atencao{Correções/Sugestões/Comentários}
-\bigskip
+% \bigskip
+% \textbf{Testes:}
+% %Ref: a \cite{Silva_2020, Silva_Escarpinati_Backes_2021}.
 
-% \lineS
+% \revisar{Para revisar}
+% \smallskip
+% \ideia{Alguma ideia}
+% \smallskip
+% \duvida{Alguma dúvida}
+% \smallskip
+% \atencao{Correções/Sugestões/Comentários}
+% \bigskip
 
-\lineS{
+% \lineS{texto}
+
+\textRed{
 Falar sobre:
 
 Agricultura de Precisão
@@ -133,26 +138,34 @@ Processamento digital de Imagens
 
 O rápido crescimento populacional, principalmente do último século, tem impulsionado a demanda por alimentos e a utilização inteligente/sustentável dos recursos naturais. Nesse contexto agricultura aliada tecnologia, chamada de Agricultura de Precisão (AP), busca suprir essa demanda utilizando os recursos naturais de uma forma sustentável. A AP engloba técnicas de análise espacial da área plantada, informações do solo e das plantas permitindo aos produtores planejar e monitorar as plantações \cite{Blasch_2020}.
 
-A Agricultura de Precisão \cite{Bolfe_2020, Blasch_20202}
+A Agricultura de Precisão se tornou possível graças ao desenvolvimento e avanços de diferentes tecnologias, como o Sistema de Posicionamento Global (GPS), imagens de satélites, Processamento Digital de Imagem e Visão Computacional, sensoriamento remoto \textRed{adicionar mais próximas ao projeto}. Possibilitando o desenvolvimento de metologias/técnicas/ferramentas/programas que são aplicados nas várias etapas do plantio, desde análise do solo (escassez de determinado nutriente em certa região) até utilização de veículos para fazer a pulverização de defensivos ou colheita. \textRed{Muitos dos avanços na AP estão fortemente dependentes das tecnologias de processamento digital de imagem} \cite{Bolfe_2020}.
 
+As imagens utilizadas na AP inicialmente tinham como fonte câmeras acopladas em balões, aviões e satélites. Como recentes avanços dos Veículos Aéreos Não Tripulados (VANTs) foram preteridos para obtenção dessas imagens (para alguns cenários), pela redução no custo dos VANTs, por possibilitarem acoplamento de câmeras multiespectral, pela rápida captura das imagens e recaptura assim que necessário, imagens com alta resolução espacial etc \textRed{\cite{Delavarpour_2021}}.
 
-% => Contextualize o seu trabalho de forma sucinta. Delimite o seu tema de estudo. Convença o leitor da relevância e importância do seu trabalho.
+Os VANTs são utilizados na obtenção de imagens para vários desafios da AP, como análise do solo, detecção de ervas daninhas, detecção das linhas de plantio e suas falhas, monitoramento do crescimento da plantação para estimativa de produção, gerenciamento de irrigação e estresse hídrico \textRed{\cite{Delavarpour_2021}}.
+
+...
+
+Este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar...
 
 \subsection{Motivação}
 % => Introduza o leitor ao assunto, descreva os fatores motivadores para o desenvolvimento do seu trabalho. Descreva brevemente o estado da arte e indique os problemas que ainda não foram resolvidos. Faça um gancho para a próxima subseção em que você descreve os objetivos do seu trabalho.
 
+
 \subsection{Objetivos e Desafios da Pesquisa}
 % => Descreva claramente os desafios que o tema propõe e quais os objetivos que se pretende alcançar. Se o tema for muito abrangente, descreva os objetivos em termos de ``objetivo geral'' e ``objetivos específicos''. Cuidado com objetivos como ``desenvolver um sistema...''; ``explorar um método...'' Esses objetivos são triviais, ou seja, uma vez desenvolvido o sistema ou explorado o método, independente dos resultados, o objetivo foi atingido. Prefira verbos como: ``contribuir'', ``analisar'', ``investigar'', ``comparar''. Os membros da banca ao lerem essa seção farão o seguinte questionamento: Algum conhecimento novo para a humanidade foi produzido?
 
-Este projeto tem como objetivo analisar os métodos de segmentação automática em imagens de VANTs tendo, inicialmente, foco em imagem de plantio de cana-de-açúcar e propor melhorias na deteção de linhas de plantio. 
+Este projeto tem como objetivo analisar os métodos de segmentação automática em imagens de VANTs tendo, inicialmente, foco em imagem de plantio de cana-de-açúcar e propor melhorias na detecção de linhas de plantio. 
 
 $=>$ \textcolor{red}{talvez} Inicialmente apenas imagem RGB, ou seja, com as 3 bandas, talvez pode ser interessante depois imagem com a banda infravermelho ou infravermelho próximo (dependendo da disponibilidade)
 
+Este projeto tem como objetivos específicos:
 \begin{itemize}
-    \item Analisar os métodos propostos na literatura correlata, onde utilizam transformada de hough e radon, segmentação (limiarização global, limiarização adaptativa, binarização e método Otsu), redes neurais convolucionais, índices de vegetação, operações morfológicas etc.
-    
-    \item - Talvez analisar imagem com banda infravermelho
-    \item Analisar o método proposto em outros tipos de cultura, como milho, algodão e ...
+    \item Estudar e analisar os métodos propostos na literatura correlata para detecção das linhas de plantio em plantações de cana-de-açúcar, como por exemplo, transformada de Hough e Radon, segmentação (limiarização global, limiarização adaptativa, binarização e método Otsu), redes neurais convolucionais, índices de vegetação, operações morfológicas.
+    \item Propor melhorias na detecção das linhas de plantio (com linhas retas e curvas) de imagens obtidas por VANTs nas plantações de cana-de-açúcar com plantas antes do primeiro corte (cana-planta) e depois do primeiro corte (cana-soca)
+    \item ...
+    \item - \textRed{Talvez analisar imagem com banda infravermelho}
+    \item Avaliar o método proposto em outros tipos de cultura, como milho, algodão e ...
 \end{itemize}
 
 \subsection{Hipótese}
@@ -162,7 +175,44 @@ $=>$ \textcolor{red}{talvez} Inicialmente apenas imagem RGB, ou seja, com as 3 b
 % => Liste as contribuições do seu trabalho. 
 
 \section{Revisão da Literatura Correlata}
+Agricultura de Precisão
+
+VANTs (comparar com satélites, GSD, custos e rapidez/temporalidade)
+
+Cana-de-açucar e o Brasil
+
+PDI
+    Pré processamento
+    Segmentação
+    Método de Otsu
+    Transformada de Radon e Hough
+    Operações Morfológicas
+
+Deep Learning/CNN
+
 % => Descreva os principais trabalhos existentes na literatura da área que estão relacionados com o trabalho que você está propondo e deixe claro qual a sua contribuição em relação a estes trabalhos. O que você está propondo de novo que estes trabalhos não abordaram ou abordaram de forma ineficiente? Eventualmente, se for o caso, introduza nesta seção os conceitos teóricos existentes na literatura que são necessários para a descrição de seu projeto de tese.
+
+\bigskip
+\textRed{trabalhos relacionados}
+\bigskip
+    
+    Em \citeonline{Silva_Escarpinati_Backes_2021} os autores desenvolveram um método de detecção de linhas de plantio de cana-de-açúcar utilizando a transformada de Radon e algoritmo genético
+
+\begin{landscape}
+\begin{table}
+\centering
+\caption{Comparação entre trabalhos relacionados}
+\label{tab:trab_rela}
+\begin{tabularx}{\linewidth}{|L|L|L|L|L|L|} 
+\hline
+\textbf{Trabalho} & \textbf{Cultura} & \textbf{Principais tecnologias} & \textbf{Resolução espacial} & \textbf{Resultado} & \textbf{Lacunas e Limitações} \\ \hline
+\cite{Silva_Escarpinati_Backes_2021} & cana-de-açúcar & Algorítimo Genético, Transformada de Radon, Método de Otsu & $~$ 5.3 cm & Detecção das linhas (retas) de plantio próxima do real & Dependência da parte estocástica do AG, não lida bem com linhas curvas e geração de efeito \textit{aliasing} indesejado \\ \hline
+cite trab x & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
+cite trab x & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
+cite trab x & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
+\end{tabularx}
+\end{table}
+\end{landscape}
 
 \section{Método de Pesquisa}
 % => Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
@@ -175,6 +225,47 @@ $=>$ \textcolor{red}{talvez} Inicialmente apenas imagem RGB, ou seja, com as 3 b
 
 \section{Cronograma de Execução}
 % => Detalhe o cronograma das principais etapas de seu trabalho finalizando pela data da defesa.
+
+Para cumprir os objetivos descritos, o plano de pesquisa foi dividido em atividades. O cronograma de atividades do projeto pode ser visualizado na \autoref{tab:cronograma}, onde está definida a
+duração das principais atividades.
+
+\begin{table}[ht]
+\centering
+\caption{Cronograma de atividades}
+\label{tab:cronograma}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+          & \multicolumn{2}{c|}{2021} & \multicolumn{12}{c|}{2022}                    & \multicolumn{2}{c|}{2023} \\ \hline
+Atividade & N           & D           & J & F & M & A & M & J & J & A & S & O & N & D & J           & F           \\ \hline
+A1        & X           & X           & X & X & X & X & X & X & X & X & X &   &   &   &             &             \\ \hline
+A2        &             &             & X & X & X & X & X & X & X & X & X & X &   &   &             &             \\ \hline
+A3        &             &             &   &   &   &   &   &   &   &   &   &   &   &   &             &             \\ \hline
+A4        &             &             &   &   &   &   &   &   &   &   &   &   &   &   &             &             \\ \hline
+A5        &             &             &   &   &   &   &   &   &   &   &   &   &   &   &             &             \\ \hline
+A6        &             &             &   &   &   &   &   &   &   &   &   &   &   &   &             &             \\ \hline
+A7        &             &             &   &   &   &   &   & X & X &   &   &   &   &   &             &             \\ \hline
+A8        &             &             &   &   &   &   &   &   & X & X &   &   &   &   &             &             \\ \hline
+A9        &             &             &   &   &   &   &   &   &   &   & X & X &   &   &             &             \\ \hline
+A10       &             &             &   &   &   &   &   &   &   &   &   & X & X & X &             &             \\ \hline
+A11       &             &             &   &   &   &   &   &   &   &   &   &   &   &   & X           & X           \\ \hline
+\end{tabular}
+\end{table}
+
+As atividades são descritas abaixo:
+
+\begin{itemize}
+    \item A1: revisão bibliográfica sobre os métodos de segmentação e detecção de linhas de plantio.
+    \item A2: avaliação dos algoritmos e métodos encontrados literatura correlata.
+    \item A3: primeira aplicação e análise dos algoritmos e métodos encontrado em imagens reais.
+    \item A4: avaliação dos resultados inciais e propostas de melhorias.
+    \item A5:
+    \item A6:
+    \item A7: avaliação dos resultados.
+    \item A8: readequação de parâmetros e mais experimentos(caso necessário).
+    \item A9: elaboração e submissão de artigos científicos para periódicos e/ou congresso da área.
+    \item A10: elaboração da dissertação.
+    \item A11: defesa da dissertação.
+\end{itemize}
 
 % \section{Justificativa pelo atraso na entrega do projeto (tópico obrigatório somente no caso de entrega do projeto foram do prazo regulamentar*)}
 % => Descrever as justificativas que levaram ao atraso na entrega do projeto.
