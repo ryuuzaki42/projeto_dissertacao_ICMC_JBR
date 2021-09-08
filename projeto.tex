@@ -69,10 +69,16 @@
     }}
 }
 
-\newcommand{\textRed}[1]{{{\color{red} #1 }}}
+\newcommand{\textRed}[1]{{{\color{red} #1}}}
+\newcommand{\textBlue}[1]{{{\color{blue} #1}}}
+
+\newcommand{\dotsBlue}{\colorbox{orange}{\textcolor{blue}{\dots}}}
+% \colorbox{red}{Black text on red background}
+% \fcolorbox{blue}{red} {Black text, red background, blue frame}
 
 \usepackage{tabularx}
-    \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
 
 % -
 \textwidth 16cm \textheight 23.2cm
@@ -120,7 +126,7 @@
 
 % \lineS{texto}
 
-\textRed{
+\textBlue{
 Falar sobre:
 
 Agricultura de Precisão
@@ -157,13 +163,13 @@ Este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar
 
 Este projeto tem como objetivo analisar os métodos de segmentação automática em imagens de VANTs tendo, inicialmente, foco em imagem de plantio de cana-de-açúcar e propor melhorias na detecção de linhas de plantio. 
 
-$=>$ \textcolor{red}{talvez} Inicialmente apenas imagem RGB, ou seja, com as 3 bandas, talvez pode ser interessante depois imagem com a banda infravermelho ou infravermelho próximo (dependendo da disponibilidade)
+$=>$ \textRed{talvez} Inicialmente apenas imagem RGB, ou seja, com as 3 bandas, talvez pode ser interessante depois imagem com a banda infravermelho ou infravermelho próximo (dependendo da disponibilidade)
 
 Este projeto tem como objetivos específicos:
 \begin{itemize}
     \item Estudar e analisar os métodos propostos na literatura correlata para detecção das linhas de plantio em plantações de cana-de-açúcar, como por exemplo, transformada de Hough e Radon, segmentação (limiarização global, limiarização adaptativa, binarização e método Otsu), redes neurais convolucionais, índices de vegetação, operações morfológicas.
     \item Propor melhorias na detecção das linhas de plantio (com linhas retas e curvas) de imagens obtidas por VANTs nas plantações de cana-de-açúcar com plantas antes do primeiro corte (cana-planta) e depois do primeiro corte (cana-soca)
-    \item ...
+    \item \dotsBlue
     \item - \textRed{Talvez analisar imagem com banda infravermelho}
     \item Avaliar o método proposto em outros tipos de cultura, como milho, algodão e ...
 \end{itemize}
@@ -175,28 +181,59 @@ Este projeto tem como objetivos específicos:
 % => Liste as contribuições do seu trabalho. 
 
 \section{Revisão da Literatura Correlata}
+\textBlue{
 Agricultura de Precisão
 
 VANTs (comparar com satélites, GSD, custos e rapidez/temporalidade)
 
-Cana-de-açucar e o Brasil
+Cana-de-açúcar e o Brasil
 
-PDI
+PDI (ou está mais para visão computacional?)
+
     Pré processamento
     Segmentação
     Método de Otsu
-    Transformada de Radon e Hough
+    Transformada de Hough
+    Transformada de Radon
     Operações Morfológicas
 
-Deep Learning/CNN
+Algoritmos Genéticos
+
+Métricas de análise/comparação
+    Coeficiente \textit{Dice}
+
+\textit{Deep Learning}
+    CNN
+    FCN
+    Segmentação semêntica (melhor dentro de PDI?)
+}
 
 % => Descreva os principais trabalhos existentes na literatura da área que estão relacionados com o trabalho que você está propondo e deixe claro qual a sua contribuição em relação a estes trabalhos. O que você está propondo de novo que estes trabalhos não abordaram ou abordaram de forma ineficiente? Eventualmente, se for o caso, introduza nesta seção os conceitos teóricos existentes na literatura que são necessários para a descrição de seu projeto de tese.
 
 \bigskip
 \textRed{trabalhos relacionados}
 \bigskip
-    
-    Em \citeonline{Silva_Escarpinati_Backes_2021} os autores desenvolveram um método de detecção de linhas de plantio de cana-de-açúcar utilizando a transformada de Radon e algoritmo genético
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textheight]{img/2021_Silva_flow_chart.png}
+    \caption{Fluxograma do método desenvolvido por  \citeonline{Silva_Escarpinati_Backes_2021}}
+    \label{fig:2021_silva_flow_chart}
+\end{figure}
+
+\textRed{lincar imagem ou o texto ou não colcoar a imagem}
+
+\citeonline{Silva_Escarpinati_Backes_2021} desenvolveram um método de detecção de linhas de plantio de cana-de-açúcar utilizando algoritmo genético, método de Otsu e transformada de Radon. Para comparar os resultados obtidos foram utilizados 4 \textit{datasets} e suas respectivas linhas de plantio marcadas por um especialista. Os \textit{datasets} utilizados têm canas-de-açúcar em variados estágios (idades), \textRed{contudo} a marcação do especialista foi feita onde existe e deveria existir a linha de plantio, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
+
+O AG foi utilizado para encontrar uma máscara ou \textit{kernel} (com 27 valores, 9 para cada banda RGB), utilizada como filtro convolucional para combinar as bandas da imagem RGB de entrada em uma imagem de saída em escala de cinza. O AG foi executado por 2700 gerações, com população de 200 indivíduos e taxa de mutação de 0.05 e \textit{crossover} de 0.8. A função de avaliação (\textit{fitness}) do AG busca maximizar o valor de Coeficiente \textit{Dice} (comparando a imagem gerada ao aplicar a máscara e em seguida o método de Otsu com a marcação feita pelo especialista).
+
+Para analisar os resultados em função do padrão estocástico do AG e sua convergência, foi utilizado a técnica de validação cruzada com 35 imagens divididas em 5 \textit{fodls}. Os autores afirmam que apesar de ter sido obtido máscaras diferentes para cada cenário, elas foram capazes de produzir uma segmentação semelhante em termos de Coeficiente \textit{Dice}, sendo assim AG foi capaz de calcular uma mascará eficaz independente de conjunto de treinamento utilizado.
+
+O método Otsu foi avaliado na segmentação (nos 4 \textit{datasets}) utilizando o método global e local. No método local utilizaram janelas (\textit{Window}) de W x W pixels com deslocamento (\textit{Stride}) S e o operador OR para combinar as binarizações locais em uma única imagem binarizada. O método de Otsu global não obteve bons resultados, provavelmente pela grande extensão dos mosaicos (\textit{datasets}) e a variedade de luminosidade presente neles. Por outro lado o método de Otsu local teve melhores resultados, sendo W=50 e S=25 um dos melhores resultados. Deste modo os melhores resultados foram obtidos com melhores com janelas menores, que permitem o métodos de capturar as características locais com maior precisão, proporcionado uma melhor binarização e consequentemente um Coeficiente de \textit{Dice} mais próximo de 1.
+
+Para detecção das linhas e refinamento depois da segmentação/binarização foi utilizado a Transformada de Radon com processamento por partes da imagem (\textit{tiling scheme}), utilizando o mesmo esquema do método Otsu, com W e S. \dotsBlue
+
+Como resultado geral, a detecção das linhas de plantio ficaram próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas, gerando um efeito \textit{aliasing} indesejado. \dotsBlue
 
 \begin{landscape}
 \begin{table}
@@ -206,10 +243,11 @@ Deep Learning/CNN
 \begin{tabularx}{\linewidth}{|L|L|L|L|L|L|} 
 \hline
 \textbf{Trabalho} & \textbf{Cultura} & \textbf{Principais tecnologias} & \textbf{Resolução espacial} & \textbf{Resultado} & \textbf{Lacunas e Limitações} \\ \hline
-\cite{Silva_Escarpinati_Backes_2021} & cana-de-açúcar & Algorítimo Genético, Transformada de Radon, Método de Otsu & $~$ 5.3 cm & Detecção das linhas (retas) de plantio próxima do real & Dependência da parte estocástica do AG, não lida bem com linhas curvas e geração de efeito \textit{aliasing} indesejado \\ \hline
-cite trab x & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
-cite trab x & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
-cite trab x & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
+\cite{Silva_Escarpinati_Backes_2021} & cana-de-açúcar & Algorítimo Genético, Transformada de Radon, Método de Otsu & $~$ 5.3 cm & Detecção das linhas (retas) de plantio próximas do real & Dependência da parte estocástica do AG, não lida bem com linhas curvas e geração de efeito \textit{aliasing} indesejado \\ \hline
+cite trab 2 & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
+cite trab 3 & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
+cite trab 4 & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
+cite trab 5 & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
 \end{tabularx}
 \end{table}
 \end{landscape}
@@ -217,8 +255,34 @@ cite trab x & cultura & principais tecnologias & resolução espacial & resultad
 \section{Método de Pesquisa}
 % => Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
 
+\textBlue{
+1 obtenção das imagens
+
+    \textit{dataset} de Silva\_Escarpinati\_Backes\_2021? e/ou outros?
+
+2 análise dos métodos propostos na literatura
+
+3 ...
+    pré processamento
+    processamento e/ou segmentação
+    refinamento - detecção das linhas ou reconstrução
+    CNN?
+
+...
+}
+
 \section{Resultados Esperados}
 % => Liste os resultados mais importantes que você pretende obter a partir de seu trabalho de doutorado.
+
+\textBlue{
+1 Um método semi-automático ou automático para detecção de linhas de plantio
+
+2 Falhas também?
+
+3 Que consiga lidar bem com linhas retas, linhas curvas, plantações de cana-de-açúcar em vários estágios (idades diferentes) ?
+
+...
+}
 
 \section{Esquema Geral do Texto da Dissertação (opcional)}
 % => Descreva o “esqueleto” de sua dissertação, como vai estruturar os capítulos e seções. Dê um título, mesmo que provisório, a sua dissertação.
@@ -239,10 +303,10 @@ duração das principais atividades.
 Atividade & N           & D           & J & F & M & A & M & J & J & A & S & O & N & D & J           & F           \\ \hline
 A1        & X           & X           & X & X & X & X & X & X & X & X & X &   &   &   &             &             \\ \hline
 A2        &             &             & X & X & X & X & X & X & X & X & X & X &   &   &             &             \\ \hline
-A3        &             &             &   &   &   &   &   &   &   &   &   &   &   &   &             &             \\ \hline
-A4        &             &             &   &   &   &   &   &   &   &   &   &   &   &   &             &             \\ \hline
-A5        &             &             &   &   &   &   &   &   &   &   &   &   &   &   &             &             \\ \hline
-A6        &             &             &   &   &   &   &   &   &   &   &   &   &   &   &             &             \\ \hline
+A3        &             &             &   &   & X & X &   &   &   &   &   &   &   &   &             &             \\ \hline
+A4        &             &             &   &   &   & X & X & X &   &   &   &   &   &   &             &             \\ \hline
+A5        &             &             &   &   &   &   & X & X &   &   &   &   &   &   &             &             \\ \hline
+A6        &             &             &   &   &   &   &   & X & X &   &   &   &   &   &             &             \\ \hline
 A7        &             &             &   &   &   &   &   & X & X &   &   &   &   &   &             &             \\ \hline
 A8        &             &             &   &   &   &   &   &   & X & X &   &   &   &   &             &             \\ \hline
 A9        &             &             &   &   &   &   &   &   &   &   & X & X &   &   &             &             \\ \hline
@@ -258,8 +322,8 @@ As atividades são descritas abaixo:
     \item A2: avaliação dos algoritmos e métodos encontrados literatura correlata.
     \item A3: primeira aplicação e análise dos algoritmos e métodos encontrado em imagens reais.
     \item A4: avaliação dos resultados inciais e propostas de melhorias.
-    \item A5:
-    \item A6:
+    \item A5: \dotsBlue
+    \item A6: \dotsBlue
     \item A7: avaliação dos resultados.
     \item A8: readequação de parâmetros e mais experimentos(caso necessário).
     \item A9: elaboração e submissão de artigos científicos para periódicos e/ou congresso da área.
