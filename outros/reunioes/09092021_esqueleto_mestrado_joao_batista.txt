@@ -1,0 +1,27 @@
+
+- Introdução
+    Agricultura de Precisão
+    VANTs (comparar com satélites, GSD, custos e rapidez/temporalidade)
+    Definição do problema
+    Cana-de-açúcar e o Brasil
+
+- Objetivos
+
+- Revisão da Literatura Correlata
+    Falar das técnicas computacionais
+    PDI, Deep Learning, segmentação
+    Transformada de Radon, de Hough
+    Trabalhos relacionados (trabalhos publicados sobre o assunto)
+
+- Metodologia de pesquisa
+    Precisa pre-processar as imagens
+    Como será feita a segmentação
+    Pós-processamento, tem que refinar as linhas?
+    Tem que tratar linhas curvas
+    Como será feita a avaliação dos resultados
+    etc
+
+- Resultados Esperados
+    O que eu espero obter
+
+- Cronograma

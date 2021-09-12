@@ -1,0 +1,69 @@
+
+---------------------------------------
+
+latex símbolos
+https://www.caam.rice.edu/~heinken/latex/symbols.pdf
+
+---------------------------------------
+
+\usepackage[colorinlistoftodos, textwidth=20mm, textsize=footnotesize]{todonotes}
+\newcommand{\ideia}[1]{\todo[author=\textbf{Ideia},color=green!30,caption={#1},inline]{#1}}
+\newcommand{\duvida}[1]{\todo[author=\textbf{Dúvida},color=cyan!30,caption={#1},inline]{#1}}
+\newcommand{\revisar}[1]{\todo[author=\textbf{Revisar},color=yellow!30,caption={#1},inline]{#1}}
+\newcommand{\atencao}[1]{\todo[author=\textbf{Atenção},color=red!30,caption={#1},inline]{#1}}
+
+\newcommand{\lineS}[1]{
+    {{\color{black}         \noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}} }}
+    {{\color{red} #1 }}
+
+    {{\color{black}        \noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+        % \par\noindent\rule{\textwidth}{0.4pt}
+    }}
+}
+
+% Colorinlistoftodos package: to insert colored comments so authors can collaborate on the content.
+% Link: http://www.inf.ufes.br/~vitorsouza/archive/2020/blog/controle-de-alteracoes-em-latex-usando-git-e-sourcetree/index.html
+
+% Package todonotes Warning: The length marginparwidth is less than 2cm and will most likely cause issues with the appearance of inserted todonotes. The issue can be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to loading the todonotes package. on input line 61.
+\setlength {\marginparwidth}{2cm}
+
+
+% before end document
+%  list of todos [Notes]
+\newpage
+\listoftodos[Notes]
+
+---------------------------------------
+
+% \bigskip
+% \textbf{Testes:}
+% %Ref: a \cite{Silva_2020, Silva_Escarpinati_Backes_2021}.
+
+% \revisar{Para revisar}
+% \smallskip
+% \ideia{Alguma ideia}
+% \smallskip
+% \duvida{Alguma dúvida}
+% \smallskip
+% \atencao{Correções/Sugestões/Comentários}
+% \bigskip
+
+% \lineS{texto}
+
+\revisar{\textbf{Uberlândia, 10 de novembro de 2021.}}
+---------------------------------------
+
+\usepackage{color}
+% https://pt.overleaf.com/learn/latex/Errors/LaTeX_Error:_There's_no_line_here_to_end
+% white, black, red, green, blue, cyan, magenta, yellow 
+% \textcolor{red}{easily}
+    % Changes the colour of inline text.
+%\colorbox{BurntOrange}{this text}
+    % Changes the background colour of the text passed as second parameter.
+
+---------------------------------------
+
+% \colorbox{red}{Black text on red background}
+% \fcolorbox{blue}{red} {Black text, red background, blue frame}
+
+---------------------------------------

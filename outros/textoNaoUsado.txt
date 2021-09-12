@@ -1,0 +1,24 @@
+
+--------------------------------------------------
+VANTs
+
+As imagens de balões e aviões geralmente têm custo maior para serem capturadas em comparação com as de satélites e VANTs, além de ser mais demorada a sua captura, dificultando a sua disponibilidade.
+
+Por outro lado as imagens de satélites podem ser obtidas gratuitamente em determinados sistemas, com alta temporalidade (numa mesma área imagens de épocas diferentes), mas com menor nível de detalhes e sofrendo bastante com as condições climáticas (e.g., nuvens). A recaptura ou atualização da imagens é de dias
+
+\dotsBlue elas são de altas altitudes e com grande GSD
+uteis para alguns cenários (e.g., detecção/mapeamento de cultura)
+
+As imagens utilizadas na AP inicialmente tinham como fonte câmeras acopladas em balões, aviões e de satélites. Com os recentes avanços dos Veículos Aéreos Não Tripulados (VANTs) e sua redução de custo, eles foram preteridos para obtenção das imagens para vários cenários.
+
+Os VANTs permitem capturar imagens em altitudes baixas e médias (50 a 400 m), proporcionado um pequeno GSD (\textit{Ground sample distance}, distância da amostra do solo), assim maior riqueza de detalhes da região analisada em relação aos outros métodos citados.
+
+Os VANTs permitem capturar imagens em altitudes baixas e médias (50 a 400 m), proporcionado um pequeno GSD (\textit{Ground sample distance}, distância da amostra do solo), assim maior riqueza de detalhes da região analisada em relação aos outros métodos citados.
+
+Satélites, Essa limitação em conjunto com alto GSD dificulta a utilização dessas.
+
+Os VANTs podem fornecer dados de imagens com resolução espacial e temporal adequada para diferentes aplicações.
+
+Os VANTs são utilizados na obtenção de imagens para vários desafios da AP, como análise do solo, detecção de ervas daninhas, detecção das linhas de plantio e suas falhas, monitoramento do crescimento da plantação para estimativa de produção, gerenciamento de irrigação e estresse hídrico.
+
+--------------------------------------------------
