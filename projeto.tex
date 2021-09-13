@@ -32,7 +32,6 @@
 \usepackage{fancyhdr}
 
 % -
-
 \usepackage{indentfirst}
 % \graphicspath{{img/}}
 %\pagestyle{empty}
@@ -41,15 +40,12 @@
 
 \newcommand{\textRed}[1]{{{\color{red} #1}}}
 \newcommand{\textBlue}[1]{{{\color{blue} #1}}}
-
 \newcommand{\dotsBlue}{\colorbox{orange}{\textcolor{blue}{\dots}}}
-
 \newcommand{\boxRed}[1]{\colorbox{red}{#1}}
 \newcommand{\boxYellow}[1]{\colorbox{yellow}{#1}}
 
 \usepackage{tabularx}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
-
 % -
 
 \textwidth 16cm \textheight 23.2cm
@@ -79,8 +75,6 @@
 \end{center}
 
 \section{Introdução}
-    % => Contextualize o seu trabalho de forma sucinta. Delimite o seu tema de estudo. Convença o leitor da relevância e importância do seu trabalho.
-
 \textBlue{
 Falar sobre:
 Agricultura de Precisão
@@ -97,37 +91,42 @@ O rápido crescimento populacional, principalmente do último século, tem impul
 
 A Agricultura de Precisão se tornou possível graças ao desenvolvimento e avanços de diferentes tecnologias, como o Sistema de Posicionamento Global (GPS), imagens de satélites, Processamento Digital de Imagens (PDI) e Visão Computacional, sensoriamento remoto entre outras. Possibilitando o desenvolvimento de metologias/técnicas/ferramentas/programas que são aplicados nas várias etapas da agricultura, desde análise e preparação do solo (escassez de determinado nutriente em certa região) até utilização de veículos autônomos para fazer a pulverização de defensivos (com quantidade específica para cada parte do talhão) e na colheita seguindo as linhas de plantio. Muitos dos avanços na AP são fortemente dependentes das tecnologias de processamento digital de imagens \cite{Bolfe_2020}.
 
-As imagens utilizadas na AP têm variadas fontes (e.g., câmeras acopladas em Veículos Aéreos Não Tripulados (VANTs) e satélites) dependendo da aplicação e do \textit{Ground Sample Distance} (GSD) requisitado. GSD refere-se à distância da amostra ao solo, ou seja, quanto cada pixel da imagem obtida representa da regão fotografada. Assim quanto menor for o GSD, mais detalhes a imagem terá da região analisada \cite{Messina_2020}.
+As imagens utilizadas na AP têm variadas fontes (e.g., câmeras acopladas em Veículos Aéreos Não Tripulados (VANTs) e satélites) dependendo da aplicação e do \textit{Ground Sample Distance} (GSD) requisitado. GSD refere-se à distância da amostra ao solo, ou seja, quanto cada pixel da imagem obtida representa da regão fotografada. Assim quanto menor for o GSD, mais detalhes a imagem terá da região analisada. Satélites (com GSD em média de metros) conseguem imagem de grande regiões mais facilmente que os VANTs (GSD em média de centímetros), que necessitam de planos de voo para abranger toda região e mosaicagem para combinar as imagens obtidas \cite{Messina_2020}.
 
-As imagens de satélites podem ter custo baixo até elevado (dependendo da qualidade das imagens), mas com baixa temporalidade (imagens de uma mesma área em momentos diferentes), baixo nível de detalhes (maior GSD) em relação aos VANTs e sofrem bastante com as condições climáticas (e.g., nuvens). Por outro lado os VANTs, geralmente têm custo baixo, possibilitam a captura (e recaptura) das imagens assim que necessário (alta temporalidade e disponibilidade), com grande nível de detalhes (pequeno GSD) e não sofrem muito com as nuvens devido a altitude de voo \cite{Candiago_2015, Delavarpour_2021}.
+As imagens de satélites podem ter custo baixo até elevado (dependendo da qualidade das imagens), mas com baixa temporalidade (imagens de uma mesma área em momentos diferentes), baixo nível de detalhes (maior GSD) em relação aos VANTs e sofrem bastante com as condições climáticas (e.g., nuvens). Por outro lado os VANTs, geralmente têm custo baixo para aquisição das imagens, possibilitam a captura (e recaptura) das imagens assim que necessário (alta temporalidade e disponibilidade), com grande nível de detalhes (pequeno GSD) e não sofrem muito com as nuvens devido a altitude de voo \cite{Candiago_2015, Delavarpour_2021}.
 
 \boxYellow{Definição do problema}
 
-Uma das aplicações importantes da AP é a detecção das linhas de plantio, principalmente porque é utilizado como uma etapa importante para outras aplicações da AP (e.g., detecção de ervas daninhas, mapeamento e previsão de produção de safra, detecção de falhas), além de ser usada por veículos autônomos
-\cite{Hassanein_2019}.
+Uma das aplicações importantes da AP é a detecção das linhas de plantio, principalmente porque é utilizado como uma etapa importante para outras aplicações da AP (e.g., detecção de ervas daninhas, mapeamento e previsão de produção de safra, detecção de falhas), além de ser usada por veículos autônomos \cite{Hassanein_2019}.
+
+\textRed{Dificuldades da detecção das linhas de plantio}
 
 \boxYellow{Cana-de-açúcar e o Brasil}
 
-Um dos cenários de utilização da Agricultura de precisão no Brasil é no cultivo de cana-de-açúcar, motivando pesquisadores (e.g., \citeonline{Souza_2017, Souza_2018, Silva_Escarpinati_Backes_2021}) e empresas (e.g., \citeonline{AERO_2017, Sensix_2020, Inforow_2021}) a desenvolverem soluções na área.
+Um dos cenários de grande utilização da Agricultura de precisão no Brasil é no cultivo de cana-de-açúcar (\textit{Saccharum officinarum}), motivando pesquisadores (e.g., \citeonline{Souza_2017, Souza_2018, Silva_Escarpinati_Backes_2021}) e empresas (e.g., \citeonline{AERO_2017, Sensix_2020, Inforow_2021}) a desenvolverem soluções na área.
 
-
-O Brasil é um dos maiores produtores de cana-de-açúcar (\cite{Ritchie_2020}) 
-
+O Brasil é o maior produtor e exportador de cana-de-açúcar, com aproximadamente 10 milhões de hectares de área plantada, sendo que mundialmente esse valor é um pouco mais de 26 milhões de hectares \cite{Ritchie_2020, IBGE_2021, FAOSTAT_2021}. O seu cultivo é de grande importância para a economia brasileira devido as suas diversas aplicações. A cana-de-açúcar pode, por exemplo, ser consumida fresco na alimentação humana e forragem na alimentação animal, produção de açúcar, bebidas, energia e combustíveis,além dos seus subprodutos como o bagaço e a palha poderem ser utilizados na fertilização dos solos \cite{Oliveira_2018}.
 
 \dotsBlue
 
-Na literatura, o trabalho de \cite{Silva_Escarpinati_Backes_2021} contribuiu significativamente para detecção das linhas de plantio, contudo \dotsBlue
+Na literatura, o trabalho de \citeonline{Silva_Escarpinati_Backes_2021} contribuiu significativamente para detecção das linhas de plantio, contudo não obteve bons resultados com linhas curvas (gerando um efeito serrilhamento indesejado) \textRed{e não utilizou métodos de \textit{deep learning} que são promissores no processamento de imagens}. 
+
+Outro ponto importante, não foi encontrado nenhum \textit{software} gratuito e de código aberto que faça detecção das linhas de plantio suficiente bem (em cana-de-açúcar ou outra tipo de cultura), apenas \textit{softwares} comerciais. Assim este projeto também busca desenvolver uma metodologia de detecção de imagens que possa ser utiliza no desenvolvimento de um \textit{software}, promovendo uma democratização do conhecimento.
+
+
+Deste modo este projeto busca estudar as técnicas disponíveis para detecção de linhas de plantio e sugerir melhorias.
+
 
 Assim, a contribuição do trabalho se dará em
 \dotsBlue em imagens de VANTs na AP.
 
 
-Considerando o cenário que grande utilização de VANTs para obtenção de imagens de Agricultura de precisão, a grande importância da detecção das linhas de plantio, este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar.
+Considerando o cenário de grande utilização de VANTs para obtenção de imagens de Agricultura de precisão, a grande importância da detecção das linhas de plantio, este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar (uma dos principais cultivos do Brasil, fortemente depende detecção das linhas de plantio para o replantio - correção de falhas -, estimativa de produção, qualidade de vegetação entre outros).
 
 \dotsBlue
 
-\subsection{Motivação}
-    % => Introduza o leitor ao assunto, descreva os fatores motivadores para o desenvolvimento do seu trabalho. Descreva brevemente o estado da arte e indique os problemas que ainda não foram resolvidos. Faça um gancho para a próxima subseção em que você descreve os objetivos do seu trabalho.
+%\subsection{Motivação}
+    % Deixar dentro da introdução
  
 \subsection{Objetivos e Desafios da Pesquisa}
     % => Descreva claramente os desafios que o tema propõe e quais os objetivos que se pretende alcançar. Se o tema for muito abrangente, descreva os objetivos em termos de ``objetivo geral'' e ``objetivos específicos''. Cuidado com objetivos como ``desenvolver um sistema...''; ``explorar um método...'' Esses objetivos são triviais, ou seja, uma vez desenvolvido o sistema ou explorado o método, independente dos resultados, o objetivo foi atingido. Prefira verbos como: ``contribuir'', ``analisar'', ``investigar'', ``comparar''. Os membros da banca ao lerem essa seção farão o seguinte questionamento: Algum conhecimento novo para a humanidade foi produzido?
@@ -139,9 +138,15 @@ $=>$ \textRed{talvez} Inicialmente apenas imagem RGB, ou seja, com as 3 bandas, 
 Este projeto tem como objetivos específicos:
 \begin{itemize}
     \item Estudar e analisar os métodos propostos na literatura correlata para detecção das linhas de plantio em plantações de cana-de-açúcar, como por exemplo, transformada de Hough e Radon, segmentação (limiarização global, limiarização adaptativa, binarização e método Otsu), redes neurais convolucionais, índices de vegetação, operações morfológicas.
-    \item Propor melhorias na detecção das linhas de plantio (com linhas retas e curvas) de imagens obtidas por VANTs nas plantações de cana-de-açúcar com plantas antes do primeiro corte (cana-planta) e depois do primeiro corte (cana-soca)
+
+    \item Propor melhorias na detecção das linhas de plantio (com linhas retas e curvas) de imagens obtidas por VANTs nas plantações de cana-de-açúcar com plantas antes do primeiro corte (cana-planta) e depois do primeiro corte (cana-soca).
+
     \item \dotsBlue
+
     \item - \textRed{Talvez analisar imagem com banda infravermelho}
+
+    \item Avaliar a detecção de linhas de plantio utilizando as imagens de VANTs em métodos de \textit{deep learning} com índice de vegetação (IV). Vale mais a pena usar apenas as imagens brutas para treinar uma rede neural ou fazer um pré-processamento e utilizar como entradas a imagem e variados IV?
+
     \item Avaliar o método proposto em outros tipos de cultura, como milho, algodão e \dotsBlue
 \end{itemize}
 
@@ -199,6 +204,8 @@ Métricas de análise/comparação
 
 \subsection{Trabalhos relacionados}
 
+\citeonline{Silva_Escarpinati_Backes_2021} desenvolveram um método de detecção de linhas de plantio de cana-de-açúcar utilizando algoritmo genético, método de Otsu e transformada de Radon (\autoref{fig:2021_silva_flow_chart}). Para comparar os resultados obtidos foram utilizados 4 \textit{datasets} e suas respectivas linhas de plantio marcadas por um especialista. Os \textit{datasets} utilizados têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\textheight]{img/2021_Silva_flow_chart.png}
@@ -206,19 +213,19 @@ Métricas de análise/comparação
     \label{fig:2021_silva_flow_chart}
 \end{figure}
 
-\textRed{lincar imagem ou o texto ou não colocar a imagem}
-
-\citeonline{Silva_Escarpinati_Backes_2021} desenvolveram um método de detecção de linhas de plantio de cana-de-açúcar utilizando algoritmo genético, método de Otsu e transformada de Radon. Para comparar os resultados obtidos foram utilizados 4 \textit{datasets} e suas respectivas linhas de plantio marcadas por um especialista. Os \textit{datasets} utilizados têm canas-de-açúcar em variados estágios (idades), \textRed{contudo} a marcação do especialista foi feita onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
-
-O AG foi utilizado para encontrar uma máscara (\textit{kernel}) (com 27 valores, 9 para cada banda RGB), utilizada como filtro convolucional para combinar as bandas da imagem RGB de entrada em uma imagem de saída em escala de cinza. O AG foi executado por 2700 gerações, com população de 200 indivíduos e taxa de mutação de 0.05 e \textit{crossover} de 0.8. A função de avaliação (\textit{fitness}) do AG busca maximizar o valor de Coeficiente de \textit{Dice} (comparando a imagem gerada ao aplicar a máscara e em seguida o método de Otsu com a marcação feita pelo especialista).
+Algoritmo Genético (AG) foi utilizado para encontrar uma máscara (\textit{kernel}) (com 27 valores, 9 para cada banda RGB), que é utilizada como filtro convolucional para combinar as bandas da imagem RGB em uma imagem em escala de cinza. O AG foi executado por 2700 gerações, com população de 200 indivíduos e taxa de mutação de 0.05 e \textit{crossover} de 0.8. A função de avaliação (\textit{fitness}) do AG busca maximizar o valor de Coeficiente de \textit{Dice} (comparando a imagem gerada ao aplicar a máscara e em seguida o método de Otsu com a marcação feita pelo especialista).
 
 Para analisar os resultados em função do padrão estocástico do AG e sua convergência, foi utilizado a técnica de validação cruzada com 35 imagens divididas em 5 \textit{fodls}. Os autores afirmam que apesar de ter sido obtido máscaras diferentes para cada cenário, elas foram capazes de produzir uma segmentação semelhante em termos de Coeficiente de \textit{Dice}, sendo assim AG foi capaz de calcular uma mascará eficaz independente de conjunto de treinamento utilizado.
 
-O método Otsu foi avaliado na segmentação (nos 4 \textit{datasets}) utilizando o método global e local. No método local utilizaram janelas (\textit{Window}) de $W \times W$ pixels com deslocamento (\textit{Stride}) $S$ e o operador $OR$ para combinar as binarizações locais em uma única imagem binarizada. O método de Otsu global não obteve bons resultados, provavelmente pela grande extensão dos mosaicos (\textit{datasets}) e a variedade de luminosidade presente neles. Por outro lado o método de Otsu local teve melhores resultados, sendo $W=50$ e $S=25$ um dos melhores resultados. As janelas menores permitem o método de capturar as características locais com maior precisão, proporcionado uma melhor binarização e consequentemente um Coeficiente de \textit{Dice} mais próximo de 1.
+O método Otsu foi avaliado na segmentação (nos 4 \textit{datasets}) utilizando o método global e local. No método local utilizaram janelas (\textit{Window}) de $W \times W$ pixels com deslocamento (\textit{Stride}) $S$ e o operador $OR$ para combinar as binarizações locais em uma única imagem binarizada. O método de Otsu global não obteve bons resultados, provavelmente pela grande extensão dos mosaicos (\textit{datasets}) e a variedade de luminosidade presente neles. Por outro lado o método de Otsu local teve melhores resultados, sendo $W=50$ e $S=25$ obteve um dos melhores resultados. Deste modo, as janelas (valor $W$) menores permitem o método de capturar as características locais com maior precisão, proporcionado uma melhor binarização e consequentemente um Coeficiente de \textit{Dice} mais próximo de 1.
 
 Para detecção das linhas e refinamento depois da binarização foi utilizado a Transformada de Radon com o método de janelamento (\textit{tiling scheme}), utilizando o mesmo esquema usado no método Otsu, com $W$ e $S$. \dotsBlue
 
-Como resultado geral, a detecção das linhas de plantio ficaram próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas, gerando um efeito serrilhamento (\textit{aliasing}) indesejado. \dotsBlue
+Como resultado geral, a detecção das linhas de plantio ficaram próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas, gerando um efeito serrilhamento (\textit{aliasing}) indesejado. 
+
+\dotsBlue
+
+Um resumo das principais características e informações dos trabalhos relacionados pode ser encontrada na \autoref{tab:trab_rela}.
 
 \begin{landscape}
 \begin{table}
@@ -227,8 +234,8 @@ Como resultado geral, a detecção das linhas de plantio ficaram próximas do re
 \label{tab:trab_rela}
 \begin{tabularx}{\linewidth}{|L|L|L|L|L|L|} 
 \hline
-\textbf{Trabalho} & \textbf{Cultura} & \textbf{Principais tecnologias} & \textbf{Resolução espacial} & \textbf{Resultado} & \textbf{Lacunas e Limitações} \\ \hline
-\cite{Silva_Escarpinati_Backes_2021} & cana-de-açúcar & Algorítimo Genético, Transformada de Radon, Método de Otsu & 5.3 cm, RGB & Detecção das linhas (retas) de plantio próximas do real & Dependência da parte estocástica do AG, não lida bem com linhas curvas e geração de efeito \textit{aliasing} indesejado \\ \hline
+\textbf{Trabalho} & \textbf{Cultura} & \textbf{Principais tecnologias} & \textbf{Imagens} & \textbf{Resultado} & \textbf{Lacunas e Limitações} \\ \hline
+\cite{Silva_Escarpinati_Backes_2021} & cana-de-açúcar & Algorítimo Genético, Transformada de Radon, Método de Otsu & Imagens de VANTs, com 5.3 cm de GSD e modelo de cor RGB & Detecção das linhas (retas) de plantio próximas do real & Dependência da parte estocástica do AG, não lida bem com linhas curvas e geração de efeito \textit{aliasing} indesejado \\ \hline
 cite trab 2 & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
 cite trab 3 & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
 cite trab 4 & cultura & principais tecnologias & resolução espacial & resultado & limitações \\ \hline
@@ -237,7 +244,7 @@ cite trab 5 & cultura & principais tecnologias & resolução espacial & resultad
 \end{table}
 \end{landscape}
 
-\section{Método de Pesquisa}
+\section{Metodologia de pesquisa}
 % => Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
 
 \textBlue{
@@ -269,7 +276,7 @@ cite trab 5 & cultura & principais tecnologias & resolução espacial & resultad
 ...
 }
 
-\section{Esquema Geral do Texto da Dissertação (opcional)}
+%\section{Esquema Geral do Texto da Dissertação (opcional)}
 % => Descreva o “esqueleto” de sua dissertação, como vai estruturar os capítulos e seções. Dê um título, mesmo que provisório, a sua dissertação.
 
 \section{Cronograma de execução}
@@ -310,7 +317,7 @@ As atividades são descritas abaixo:
     \item A5: \item A2: estudo dos algoritmos e métodos encontrados literatura correlata sobre \textit{deep learning}.
     \item A6: \dotsBlue
     \item A7: avaliação dos resultados.
-    \item A8: readequação de parâmetros e mais experimentos(caso necessário).
+    \item A8: readequação dos parâmetros e mais experimentos (caso necessário).
     \item A9: elaboração e submissão de artigos científicos para periódicos e/ou congresso da área.
     \item A10: elaboração da dissertação.
     \item A11: defesa da dissertação.

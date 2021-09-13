@@ -1,5 +1,5 @@
 
---------------------------------------------------
+----------------------------------------------------
 VANTs
 
 As imagens de balões e aviões geralmente têm custo maior para serem capturadas em comparação com as de satélites e VANTs, além de ser mais demorada a sua captura, dificultando a sua disponibilidade.
@@ -21,4 +21,4 @@ Os VANTs podem fornecer dados de imagens com resolução espacial e temporal ade
 
 Os VANTs são utilizados na obtenção de imagens para vários desafios da AP, como análise do solo, detecção de ervas daninhas, detecção das linhas de plantio e suas falhas, monitoramento do crescimento da plantação para estimativa de produção, gerenciamento de irrigação e estresse hídrico.
 
---------------------------------------------------
+----------------------------------------------------

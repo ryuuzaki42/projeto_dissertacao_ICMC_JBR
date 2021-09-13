@@ -1,4 +1,8 @@
 
+----------------------------------------------
+Prof. André
+----------------------------------------------
+
 - Introdução
     Agricultura de Precisão
     VANTs (comparar com satélites, GSD, custos e rapidez/temporalidade)
@@ -25,3 +29,68 @@
     O que eu espero obter
 
 - Cronograma
+
+----------------------------------------------
+Minhas
+----------------------------------------------
+
+Introdução
+    AP
+    VANTs
+    Definição do problema
+        tipo de imagens que vai trabalhar
+
+Remover
+    Hipótese
+    Contribuição
+
+Objetivos
+    Podemos colocar a nossa hipótese ("eu acho que dá pra fazer isso", são seus objetivos)
+
+Motivação
+    Deixar dentro da Introdução
+
+Revisão da Literatura Correlata
+    - AP e VANTs, direto na Introdução
+
+    - Técnicas que o pessoal está utilizando no trabalhos relacionados
+    - Técnicas computacionais que vamos utilizar
+
+    PDI
+    Focando mais em:
+        Segmentação
+        Deep Learning
+            Redes neurais
+
+    Algoritmos Genéticos - a principio não precisa
+
+    Transformada de Radon
+    Transformada de Hough
+
+    Trabalhos relacionados
+
+Metodologia de pesquisa
+    Similar ao artigo do Silva 2021 e suas etapas
+        Pré, processamento, pós, transformada radon, tratar linhas curvas, janelamento, análise dos resultados etc
+
+Resulados esperados
+    Um sistema automático que consiga segmentar culturas de cana-de-açucar em diferentes estágios ...
+
+Cronograma
+    Revisão bibliográfica de artigos relacionados
+    Revisão de técnicas de processamento e segmentação de imagens
+    Revisão de técnicas de deep learning
+    Avaliação dos resultados
+    Escrita da dissertação
+    Defesa da dissertação
+
+Talvez ir mais para área de DL
+    Comparar uma redes diferentes e ver o conseguimos obter
+    Um pré-processamento, talvez um modelo de cor que ajude, índice de vegetação (entra em pré-processamento)
+
+    Usar as imagens com índice de vegetação (IV) vale mais a pena que usar as imagens brutas?
+    
+    Em vez de usar a imagem como entrar (apenas uma imagem), utilizar várias camadas, a imagem e um ou vários índice de vegetação combinados (como combinar eles?
+        Testar a rede só com a imagem
+        Com imagem e IV x e com o IV y
+    
