@@ -51,6 +51,7 @@ https://www.caam.rice.edu/~heinken/latex/symbols.pdf
 % \lineS{texto}
 
 \revisar{\textbf{Uberlândia, 10 de novembro de 2021.}}
+
 ---------------------------------------
 
 \usepackage{color}

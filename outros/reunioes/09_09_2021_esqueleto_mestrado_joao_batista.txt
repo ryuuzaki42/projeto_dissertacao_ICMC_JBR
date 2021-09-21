@@ -40,6 +40,9 @@ Introdução
     Definição do problema
         tipo de imagens que vai trabalhar
 
+Motivação
+    Deixar dentro da Introdução
+
 Remover
     Hipótese
     Contribuição
@@ -47,13 +50,11 @@ Remover
 Objetivos
     Podemos colocar a nossa hipótese ("eu acho que dá pra fazer isso", são seus objetivos)
 
-Motivação
-    Deixar dentro da Introdução
-
 Revisão da Literatura Correlata
     - AP e VANTs, direto na Introdução
 
     - Técnicas que o pessoal está utilizando no trabalhos relacionados
+
     - Técnicas computacionais que vamos utilizar
 
     PDI
@@ -73,8 +74,8 @@ Metodologia de pesquisa
     Similar ao artigo do Silva 2021 e suas etapas
         Pré, processamento, pós, transformada radon, tratar linhas curvas, janelamento, análise dos resultados etc
 
-Resulados esperados
-    Um sistema automático que consiga segmentar culturas de cana-de-açucar em diferentes estágios ...
+Resultados esperados
+    Um sistema automático que consiga segmentar culturas de cana-de-açúcar em diferentes estágios ...
 
 Cronograma
     Revisão bibliográfica de artigos relacionados
@@ -93,4 +94,3 @@ Talvez ir mais para área de DL
     Em vez de usar a imagem como entrar (apenas uma imagem), utilizar várias camadas, a imagem e um ou vários índice de vegetação combinados (como combinar eles?
         Testar a rede só com a imagem
         Com imagem e IV x e com o IV y
-    

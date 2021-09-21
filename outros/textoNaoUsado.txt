@@ -22,3 +22,20 @@ Os VANTs podem fornecer dados de imagens com resolução espacial e temporal ade
 Os VANTs são utilizados na obtenção de imagens para vários desafios da AP, como análise do solo, detecção de ervas daninhas, detecção das linhas de plantio e suas falhas, monitoramento do crescimento da plantação para estimativa de produção, gerenciamento de irrigação e estresse hídrico.
 
 ----------------------------------------------------
+% Fim da Introdução
+
+Deste modo este projeto busca estudar as técnicas disponíveis para detecção de linhas de plantio e sugerir melhorias. \dotsBlue 
+
+Assim, a contribuição do trabalho se dará em
+\dotsBlue em imagens de VANTs na AP.
+
+----------------------------------------------------
+
+Trabalho relacionado
+
+Em silva 2020 fizeram duas abordagens, a primeira utilizando AG resultando em silva 2021 e a segunda utilizando redes neurais artificiais.
+
+Na abordagem com redes neurais foi testado 3 redes (a b c) para ver qual tinha melhor resultado com a segmentação semântica. "O núcleo" dessas redes foi uma vvg16 já treinada com o imagenet. Utilizaram o CD pra comparar a similaridade entre a imagem segmentada e a marcação do especialista. Como resultado, 0.80 ou mais para os 4 \textit{datasets}, melhor que a abordagem com AG que foi 0.78% ou menos. Também foi analisado a aplicação da transformada de Radon na busca de refinar as linhas, contudo com a aplicação, o CD piorava. Por outro lado se a imagem tiver muitas falhas nas linhas detectadas o refinamento melhora o CD. Analisaram utilizar o refinamento em imagem com 30\% ou menos de conteúdo (valor de pixel 1) e imagens com 20 linhas.
+Como resultado o CD ficou melhor em algumas imagens e pior em outras, assim essa é uma parte que  ainda precisa ser melhor explorada.
+
+----------------------------------------------------

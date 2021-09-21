@@ -44,6 +44,9 @@
 \newcommand{\boxRed}[1]{\colorbox{red}{#1}}
 \newcommand{\boxYellow}[1]{\colorbox{yellow}{#1}}
 
+
+\newcommand{\linePage}{--------------------------------------------------------------------------------------------------------------}
+
 \usepackage{tabularx}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 % -
@@ -91,39 +94,47 @@ O rápido crescimento populacional, principalmente do último século, tem impul
 
 A Agricultura de Precisão se tornou possível graças ao desenvolvimento e avanços de diferentes tecnologias, como o Sistema de Posicionamento Global (GPS), imagens de satélites, Processamento Digital de Imagens (PDI) e Visão Computacional, sensoriamento remoto entre outras. Possibilitando o desenvolvimento de metologias/técnicas/ferramentas/programas que são aplicados nas várias etapas da agricultura, desde análise e preparação do solo (escassez de determinado nutriente em certa região) até utilização de veículos autônomos para fazer a pulverização de defensivos (com quantidade específica para cada parte do talhão) e na colheita seguindo as linhas de plantio. Muitos dos avanços na AP são fortemente dependentes das tecnologias de processamento digital de imagens \cite{Bolfe_2020}.
 
-As imagens utilizadas na AP têm variadas fontes (e.g., câmeras acopladas em Veículos Aéreos Não Tripulados (VANTs) e satélites) dependendo da aplicação e do \textit{Ground Sample Distance} (GSD) requisitado. GSD refere-se à distância da amostra ao solo, ou seja, quanto cada pixel da imagem obtida representa da regão fotografada. Assim quanto menor for o GSD, mais detalhes a imagem terá da região analisada. Satélites (com GSD em média de metros) conseguem imagem de grande regiões mais facilmente que os VANTs (GSD em média de centímetros), que necessitam de planos de voo para abranger toda região e mosaicagem para combinar as imagens obtidas \cite{Messina_2020}.
+As imagens utilizadas na AP têm variadas fontes (e.g., câmeras acopladas em Veículos Aéreos Não Tripulados (VANTs) e satélites) dependendo da aplicação e do \textit{Ground Sample Distance} (GSD) requisitado. GSD refere-se à distância da amostra ao solo, ou seja, quanto cada pixel da imagem obtida representa da região fotografada. Assim quanto menor for o GSD, mais detalhes a imagem terá da região analisada. Satélites (com GSD em média de metros) conseguem imagem de grande regiões mais facilmente que os VANTs (GSD em média de centímetros), que necessitam de planos de voo para abranger toda região e mosaicagem para combinar as imagens obtidas \cite{Messina_2020}.
 
 As imagens de satélites podem ter custo baixo até elevado (dependendo da qualidade das imagens), mas com baixa temporalidade (imagens de uma mesma área em momentos diferentes), baixo nível de detalhes (maior GSD) em relação aos VANTs e sofrem bastante com as condições climáticas (e.g., nuvens). Por outro lado os VANTs, geralmente têm custo baixo para aquisição das imagens, possibilitam a captura (e recaptura) das imagens assim que necessário (alta temporalidade e disponibilidade), com grande nível de detalhes (pequeno GSD) e não sofrem muito com as nuvens devido a altitude de voo \cite{Candiago_2015, Delavarpour_2021}.
 
 \boxYellow{Definição do problema}
 
-Uma das aplicações importantes da AP é a detecção das linhas de plantio, principalmente porque é utilizado como uma etapa importante para outras aplicações da AP (e.g., detecção de ervas daninhas, mapeamento e previsão de produção de safra, detecção de falhas), além de ser usada por veículos autônomos \cite{Hassanein_2019}.
+Uma das aplicações importantes da AP é a detecção das linhas de plantio, principalmente porque é utilizada como uma etapa importante para outras aplicações da AP (e.g., detecção de ervas daninhas, mapeamento e previsão de produção de safra, detecção de falhas), além de ser usada pelos veículos autônomos \cite{Hassanein_2019}.
 
 \textRed{Dificuldades da detecção das linhas de plantio}
+
+A detecção de linhas de plantio é uma tarefa complexa e com vários desafios. Por exemplo, presença de ervas daninhas com assinatura espectral e cor semelhantes a linhas da cultura. Crescimento irregular da cultura, falhas no plantio, imperfeições e oclusões linha de plantio, manchas solo e tipos diferentes na mesma plantação, presença de artefatos bloqueando a visão de linha de cultivo (e.g., árvores), sombras, além de variações nas condições climáticas e de iluminação \cite{Rabab_2021, Doha_2021}.
+
+\dotsBlue
 
 \boxYellow{Cana-de-açúcar e o Brasil}
 
 Um dos cenários de grande utilização da Agricultura de precisão no Brasil é no cultivo de cana-de-açúcar (\textit{Saccharum officinarum}), motivando pesquisadores (e.g., \citeonline{Souza_2017, Souza_2018, Silva_Escarpinati_Backes_2021}) e empresas (e.g., \citeonline{AERO_2017, Sensix_2020, Inforow_2021}) a desenvolverem soluções na área.
 
-O Brasil é o maior produtor e exportador de cana-de-açúcar, com aproximadamente 10 milhões de hectares de área plantada, sendo que mundialmente esse valor é um pouco mais de 26 milhões de hectares \cite{Ritchie_2020, IBGE_2021, FAOSTAT_2021}. O seu cultivo é de grande importância para a economia brasileira devido as suas diversas aplicações. A cana-de-açúcar pode, por exemplo, ser consumida fresco na alimentação humana e forragem na alimentação animal, produção de açúcar, bebidas, energia e combustíveis,além dos seus subprodutos como o bagaço e a palha poderem ser utilizados na fertilização dos solos \cite{Oliveira_2018}.
+O Brasil é o maior produtor e exportador de cana-de-açúcar, com aproximadamente 10 milhões de hectares de área plantada, sendo que mundialmente esse valor é de um pouco mais de 26 milhões de hectares \cite{Ritchie_2020, IBGE_2021, FAOSTAT_2021}. O seu cultivo é de grande importância para a economia brasileira devido as suas diversas aplicações. A cana-de-açúcar pode, por exemplo, ser consumida fresca na alimentação humana e forragem na alimentação animal, produção de açúcar, bebidas, energia e combustíveis, além dos seus subprodutos como o bagaço e a palha podem ser utilizados na fertilização dos solos \cite{Oliveira_2018}.
+
+A cana-de-açúcar é uma cultura semi-perene (seu manejo pode durar anos sem ser necessário um novo plantio), o que adiciona uma motivação a mais para detectar as suas linhas de plantio em relação a outras culturas (e.g., milho). Após a primeira colheira a rebrota da soqueiras são colhidas anualmente por cerca de 5 a 7 anos ou mais \cite{Rudorff_2010}. Contudo também adiciona um desafio, dependendo do estágio da plantação, folhas secas estão presentes no solo entre as linhas da cultura, dificultando a análise computacional.
 
 \dotsBlue
 
-Na literatura, o trabalho de \citeonline{Silva_Escarpinati_Backes_2021} contribuiu significativamente para detecção das linhas de plantio, contudo não obteve bons resultados com linhas curvas (gerando um efeito serrilhamento indesejado) \textRed{e não utilizou métodos de \textit{deep learning} que são promissores no processamento de imagens}. 
-
-Outro ponto importante, não foi encontrado nenhum \textit{software} gratuito e de código aberto que faça detecção das linhas de plantio suficiente bem (em cana-de-açúcar ou outra tipo de cultura), apenas \textit{softwares} comerciais. Assim este projeto também busca desenvolver uma metodologia de detecção de imagens que possa ser utiliza no desenvolvimento de um \textit{software}, promovendo uma democratização do conhecimento.
+Na literatura, o trabalho de \citeonline{Silva_Escarpinati_Backes_2021} contribuiu significativamente para detecção das linhas de plantio, contudo não obteve bons resultados com linhas curvas (gerando um efeito serrilhamento indesejado) 
 
 
-Deste modo este projeto busca estudar as técnicas disponíveis para detecção de linhas de plantio e sugerir melhorias.
+\textRed{e não utilizou métodos de \textit{deep learning} que são promissores no processamento de imagens}.
 
+\textRed{Adicionar também a dissertação? \cite{Silva_2020} Parte de DL e desafios com a folhas da cana após a colheita}
 
-Assim, a contribuição do trabalho se dará em
-\dotsBlue em imagens de VANTs na AP.
+Apesar de na literatura já existir muitos trabalhos para detectar linhas de plantio, a maioria deles são para outras culturas (e.g., milho e beterraba) e com imagens de muito baixas altitudes ($< 2$ m), tiradas a partir do solo (manualmente ou acopladas maquinário agrícola) ou de alta altitudes (imagens de satélites).
 
-
-Considerando o cenário de grande utilização de VANTs para obtenção de imagens de Agricultura de precisão, a grande importância da detecção das linhas de plantio, este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar (uma dos principais cultivos do Brasil, fortemente depende detecção das linhas de plantio para o replantio - correção de falhas -, estimativa de produção, qualidade de vegetação entre outros).
+Outro ponto importante, não foi encontrado nenhum \textit{software} gratuito e de código aberto que faça detecção das linhas de plantio suficiente bem (em cana-de-açúcar ou outra tipo de cultura), apenas \textit{softwares} comerciais. Assim este projeto também busca desenvolver uma metodologia de detecção das linhas de plantio que possa ser utilizada no desenvolvimento de um \textit{software}, promovendo uma democratização do conhecimento.
 
 \dotsBlue
+
+Considerando o cenário de grande utilização de VANTs para obtenção de imagens de Agricultura de precisão, a grande importância da detecção das linhas de plantio, este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar (uma dos principais cultivos do Brasil, fortemente depende detecção das linhas de plantio para o replantio - correção de falhas, estimativa de produção, qualidade de vegetação entre outros).
+
+\dotsBlue
+
 
 %\subsection{Motivação}
     % Deixar dentro da introdução
@@ -169,7 +180,7 @@ Cana-de-açúcar e o Brasil
 
 PDI (ou está mais para visão computacional?)
 
-    Pré processamento
+    Pré-processamento
     Segmentação
     Método de Otsu
     Transformada de Hough
@@ -188,23 +199,50 @@ Métricas de análise/comparação
     Segmentação semântica (melhor dentro de PDI?)
 }
 
+Esta seção apresentará os principais conceitos utilizados neste projeto, bem como alguns trabalhos relacionados.
+
+
 \subsection{Processamento Digital de Imagens}
 
-\subsubsection{Pré-processamento}
+\textRed{mudar o título par Pré-processamento?}
+
+O Processamento Digital de Imagens (PDI) compreende a manipulação de imagens digitais por um computador de modo a atingir um objetivo específico com procedimentos envolvendo varias etapas. 
+
+O pré-processamento é uma dessas importantes etapas, onde são feitos ajustes na intensidade dos pixels (sem conhecimento sobre o que representam). Esses ajustes visam remover imperfeições (e.g., presença de pixels ruidosos, contraste e/ou brilho inadequado) geradas no processo aquisição das imagens e realçar detalhes importantes para análise. Assim tem como objetivo melhorar a imagem original para ser utilizada no processamento principal \cite{Marques_Filho_1999}.
+
+Dependendo do contexto da aplicação muitas as técnicas de pré-processamento podem ser utilizadas, dentre elas a correção de brilho e contraste, realce de brilho, realce de bordas. Neste projeto serão utilizadas para preparar as imagens para etapa de segmentação e destacar as linhas de plantio.
 
 \subsubsection{Segmentação}
+A segmentação de imagens tem como objetivo dividir a imagem em regiões ou objetos de interesse. O nível de divisões depende do problema a ser resolvido e processo deve ser parado somente após detectar todos objetos de interesse. A segmentação de imagens é considerada umas das tarefas mais difíceis do PDI, já que implica diretamente no resultado da etapa de análise. Assim é importante analisar bem qual técnica de segmentação utilizar para aumentar a probabilidade de se obter uma segmentação precisa \cite{Gonzalez_Woods_2010}.
 
-\subsubsection{Binarização}
+Ao fim da etapa de segmentação a imagem está divididas em várias regiões e sem sobreposição entre elas, ou seja, cada pixel pertence somente a uma região de interesse. \dotsBlue
+
+\subsubsection{Limiarização}
+A Limiarização (\textit{Thresholding}, em inglês) consiste na divisão da imagem em duas classes (fundo e objeto) a partir de um limiar $T$. Caso o valor do pixel for maior ou igual a $T$ terá valor 1 na imagem gerada, caso contrário recebe valor 0. Como resultado produzirá uma imagem binária (com pixels de valor 0 ou 1), processo também chamado de binarização \cite{Kuruvilla_2016}.
+
+A escolha do limiar é uma tarefa complicada e pode não conseguir separar bem as duas classes. Deste modo um limiar local, utilizando pequenas regiões da imagem pode ter melhor resultado. Outra abordagem é a utilização múltiplos limiares, onde a imagem é divida em função dos intervalos dos limiares \cite{Gonzalez_Woods_2010}.
+
+O limiar pode ser escolhido manualmente ou através de algoritmos. Para escolha desse limiar muitos trabalhos na área de segmentação das linhas de plantio utilizam o método de Otsu. Este método \cite{Otsu_1979} utiliza histograma da imagem e busca um limiar ideal que separe a imagem em duas classes (objeto e fundo), de modo maximizar a variância entre as classes e minimizar a variância interna das classes.
 
 \subsubsection{Transformada de Radon}
 
 \subsubsection{Transformada de Hough}
 
+\subsubsection{Índices de vegetação}
+
 \subsection{Deep Learning}
 
 \subsection{Trabalhos relacionados}
 
-\citeonline{Silva_Escarpinati_Backes_2021} desenvolveram um método de detecção de linhas de plantio de cana-de-açúcar utilizando algoritmo genético, método de Otsu e transformada de Radon (\autoref{fig:2021_silva_flow_chart}). Para comparar os resultados obtidos foram utilizados 4 \textit{datasets} e suas respectivas linhas de plantio marcadas por um especialista. Os \textit{datasets} utilizados têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
+\cite{Souza_2017} \dotsBlue
+
+\linePage
+
+\cite{Souza_2018} \dotsBlue
+
+\linePage
+
+Em \citeonline{Silva_2020} foi desenvolvido duas abordagens para detecção de linhas de plantio de cana-de-açúcar, a primeira utilizando algoritmo genético resultando em \citeonline{Silva_Escarpinati_Backes_2021} e a segunda utilizando redes neurais artificiais. Na primeira abordagem também foi utilizado método de Otsu e transformada de Radon (\autoref{fig:2021_silva_flow_chart}). Para comparar os resultados obtidos foram utilizados 4 \textit{datasets} e suas respectivas linhas de plantio marcadas por um especialista. Os \textit{datasets} utilizados têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
 
 \begin{figure}[htbp]
     \centering
@@ -215,17 +253,37 @@ Métricas de análise/comparação
 
 Algoritmo Genético (AG) foi utilizado para encontrar uma máscara (\textit{kernel}) (com 27 valores, 9 para cada banda RGB), que é utilizada como filtro convolucional para combinar as bandas da imagem RGB em uma imagem em escala de cinza. O AG foi executado por 2700 gerações, com população de 200 indivíduos e taxa de mutação de 0.05 e \textit{crossover} de 0.8. A função de avaliação (\textit{fitness}) do AG busca maximizar o valor de Coeficiente de \textit{Dice} (comparando a imagem gerada ao aplicar a máscara e em seguida o método de Otsu com a marcação feita pelo especialista).
 
-Para analisar os resultados em função do padrão estocástico do AG e sua convergência, foi utilizado a técnica de validação cruzada com 35 imagens divididas em 5 \textit{fodls}. Os autores afirmam que apesar de ter sido obtido máscaras diferentes para cada cenário, elas foram capazes de produzir uma segmentação semelhante em termos de Coeficiente de \textit{Dice}, sendo assim AG foi capaz de calcular uma mascará eficaz independente de conjunto de treinamento utilizado.
+Para analisar os resultados em função do padrão estocástico do AG e sua convergência, foi utilizado a técnica de validação cruzada com 35 imagens divididas em 5 \textit{fodls}. Os autores afirmam que apesar de ter sido obtido máscaras diferentes para cada cenário, elas foram capazes de produzir uma segmentação semelhante em termos de Coeficiente de \textit{Dice} (CD), sendo assim AG foi capaz de calcular uma mascará eficaz independente de conjunto de treinamento utilizado.
 
 O método Otsu foi avaliado na segmentação (nos 4 \textit{datasets}) utilizando o método global e local. No método local utilizaram janelas (\textit{Window}) de $W \times W$ pixels com deslocamento (\textit{Stride}) $S$ e o operador $OR$ para combinar as binarizações locais em uma única imagem binarizada. O método de Otsu global não obteve bons resultados, provavelmente pela grande extensão dos mosaicos (\textit{datasets}) e a variedade de luminosidade presente neles. Por outro lado o método de Otsu local teve melhores resultados, sendo $W=50$ e $S=25$ obteve um dos melhores resultados. Deste modo, as janelas (valor $W$) menores permitem o método de capturar as características locais com maior precisão, proporcionado uma melhor binarização e consequentemente um Coeficiente de \textit{Dice} mais próximo de 1.
 
-Para detecção das linhas e refinamento depois da binarização foi utilizado a Transformada de Radon com o método de janelamento (\textit{tiling scheme}), utilizando o mesmo esquema usado no método Otsu, com $W$ e $S$. \dotsBlue
+Para detecção das linhas e refinamento depois da binarização foi utilizado a Transformada de Radon com o método de janelamento (\textit{tiling scheme}), utilizando o mesmo esquema usado no método Otsu, com $W$ e $S$. Com melhor resultado com janelas grandes e pequena sobreposição entre as janelas.
 
 Como resultado geral, a detecção das linhas de plantio ficaram próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas, gerando um efeito serrilhamento (\textit{aliasing}) indesejado. 
 
+Na segunda abordagem foi comparado 3 redes neurais artificiais (LinkNet, PSPNet, Unet) na segmentação semântica das linhas de plantio.
+O \textRed{encoder} das redes foi substituído pelo da VGG16 pré-treinada a partir do \textit{dataset} ImageNet. Depois foram treinadas por 50 épocas, com taxa de aprendizado de 0.001 utilizando as imagens ($256 \times 256 \times 3$) do primeiro \textit{dataset}.
+
+A LinkNet teve o melhor resultado ($CD = 0.90 \pm 0.0062$), sendo escolhida para testes nos outros \textit{datasets}. O coeficiente de \textit{Dice} foi um pouco pior nos outros \textit{datasets} ($CD >= 0.80$), contudo melhor que a abordagem com AG ($CD <= 0.78$). Também foi analisado a aplicação da transformada de Radon na busca de refinar as linhas no resultado da rede neural, contudo com a aplicação, o CD piorava em muitos casos. Como resultado o CD ficou melhor em algumas imagens e pior em outras, essa é uma parte que ainda precisa ser melhor explorada.
+
+LinkNet teve melhor resultado que o AG por utilizar não apenas o tem avermelhado do solo e esverdado da plantas, mas outras características que as redes neurais conseguem extrair, \textRed{contudo ainda é uma área que merece ser melhor explorada e analisada.} \dotsBlue
+
+
+\linePage
+
+\citeonline{Oliveira_2020} desenvolveu uma abordagem similar a \citeonline{Silva_2020}, na detecção das linhas de plantio de cana-de-açúcar, utilizando Algoritmo Genético para Multilimiarização, a Transformada
+Discreta de Wavelet e Transformada de Hough Probabilística.
 \dotsBlue
 
-Um resumo das principais características e informações dos trabalhos relacionados pode ser encontrada na \autoref{tab:trab_rela}.
+\linePage
+
+\citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow}. Como esperado os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não sendo possível detectar pequenas falhas  ($<= 1 m$) quando a planta já tinha certa altura ($ >= 1m $) através do \textit{software}. Neste trabalho tem-se sugestões do melhor momento para obter as imagens e sobre o GSD, além de \textRed{monstrar} que mesmo o \textit{software} comercial utilizado não teve bons resultados. \dotsBlue
+
+\linePage
+
+\dotsBlue
+
+Um resumo das principais características e informações dos \textRed{principais} trabalhos relacionados pode ser encontrada na \autoref{tab:trab_rela}.
 
 \begin{landscape}
 \begin{table}
@@ -246,6 +304,13 @@ cite trab 5 & cultura & principais tecnologias & resolução espacial & resultad
 
 \section{Metodologia de pesquisa}
 % => Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
+A metodologia deste projeto é composta por 4 etapas.
+
+A primeira é aquisição de imagens (\textit{datsets}) de VANTs \textRed{utilizando câmera RGB}.
+
+A segunda etapa é o processamento, onde serão testados e propostos métodos para melhorar a segmentação de dessas imagens
+
+
 
 \textBlue{
 1 obtenção das imagens

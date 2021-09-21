@@ -1,7 +1,14 @@
 
-O custo das imagens satélites é menor que o dos VANTs?
+P: O custo das imagens satélites é menor que o dos VANTs?
+    R: Satélites é maior, para imagens de boa qualidade é preciso comprar
 
-Dissertação, silva,
+P: Colocar dissertação e teste também ou focar mais em artigos/papers?
+    R: Colocar ambos
 
+P: Dissertação, silva,
     => SOUZA; ESCARPINATI; ABDALA, 2018) They assumed the images are well segmented and, from a cloud of points representing the plants in filed
 
+    R:
+    
+P: Focar mais em detecção das linhas ou também na detecção das falhas?
+    R:
