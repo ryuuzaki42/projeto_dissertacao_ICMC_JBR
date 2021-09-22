@@ -43,8 +43,6 @@
 \newcommand{\dotsBlue}{\colorbox{orange}{\textcolor{blue}{\dots}}}
 \newcommand{\boxRed}[1]{\colorbox{red}{#1}}
 \newcommand{\boxYellow}[1]{\colorbox{yellow}{#1}}
-
-
 \newcommand{\linePage}{--------------------------------------------------------------------------------------------------------------}
 
 \usepackage{tabularx}
@@ -77,18 +75,9 @@
 		Previsão da Defesa: fevereiro de 2023\\ $\ $\\}
 \end{center}
 
-\section{Introdução}
-\textBlue{
-Falar sobre:
-Agricultura de Precisão
-    VANTs
-Cana-de-açúcar (plantações-área plantada, linhas de plantio, planta cana e planta soca)
-desafios (pisoteamento da planta soca, falha no plantio)
-linhas de plantio (detecção) 
-medição de falhas
-Processamento digital de Imagens
-}
+\textRed{Versão 0.1 - 22/09/2021}
 
+\section{Introdução}
 
 O rápido crescimento populacional, principalmente do último século, tem impulsionado a demanda por alimentos e a utilização inteligente/sustentável dos recursos naturais. Nesse contexto agricultura aliada tecnologia, chamada de Agricultura de Precisão (AP), busca suprir essa demanda utilizando os recursos sob medida com base nas informações fornecidas pela tecnologia. A AP engloba técnicas de análise espacial da área plantada, informações do solo e das plantas, permitindo aos produtores planejar e monitorar suas plantações \cite{Blasch_2020}.
 
@@ -98,43 +87,24 @@ As imagens utilizadas na AP têm variadas fontes (e.g., câmeras acopladas em Ve
 
 As imagens de satélites podem ter custo baixo até elevado (dependendo da qualidade das imagens), mas com baixa temporalidade (imagens de uma mesma área em momentos diferentes), baixo nível de detalhes (maior GSD) em relação aos VANTs e sofrem bastante com as condições climáticas (e.g., nuvens). Por outro lado os VANTs, geralmente têm custo baixo para aquisição das imagens, possibilitam a captura (e recaptura) das imagens assim que necessário (alta temporalidade e disponibilidade), com grande nível de detalhes (pequeno GSD) e não sofrem muito com as nuvens devido a altitude de voo \cite{Candiago_2015, Delavarpour_2021}.
 
-\boxYellow{Definição do problema}
-
 Uma das aplicações importantes da AP é a detecção das linhas de plantio, principalmente porque é utilizada como uma etapa importante para outras aplicações da AP (e.g., detecção de ervas daninhas, mapeamento e previsão de produção de safra, detecção de falhas), além de ser usada pelos veículos autônomos \cite{Hassanein_2019}.
-
-\textRed{Dificuldades da detecção das linhas de plantio}
 
 A detecção de linhas de plantio é uma tarefa complexa e com vários desafios. Por exemplo, presença de ervas daninhas com assinatura espectral e cor semelhantes a linhas da cultura. Crescimento irregular da cultura, falhas no plantio, imperfeições e oclusões linha de plantio, manchas solo e tipos diferentes na mesma plantação, presença de artefatos bloqueando a visão de linha de cultivo (e.g., árvores), sombras, além de variações nas condições climáticas e de iluminação \cite{Rabab_2021, Doha_2021}.
 
-\dotsBlue
-
-\boxYellow{Cana-de-açúcar e o Brasil}
-
 Um dos cenários de grande utilização da Agricultura de precisão no Brasil é no cultivo de cana-de-açúcar (\textit{Saccharum officinarum}), motivando pesquisadores (e.g., \citeonline{Souza_2017, Souza_2018, Silva_Escarpinati_Backes_2021}) e empresas (e.g., \citeonline{AERO_2017, Sensix_2020, Inforow_2021}) a desenvolverem soluções na área.
 
-O Brasil é o maior produtor e exportador de cana-de-açúcar, com aproximadamente 10 milhões de hectares de área plantada, sendo que mundialmente esse valor é de um pouco mais de 26 milhões de hectares \cite{Ritchie_2020, IBGE_2021, FAOSTAT_2021}. O seu cultivo é de grande importância para a economia brasileira devido as suas diversas aplicações. A cana-de-açúcar pode, por exemplo, ser consumida fresca na alimentação humana e forragem na alimentação animal, produção de açúcar, bebidas, energia e combustíveis, além dos seus subprodutos como o bagaço e a palha podem ser utilizados na fertilização dos solos \cite{Oliveira_2018}.
+O Brasil é o maior produtor e exportador de cana-de-açúcar, com aproximadamente 10 milhões de hectares de área plantada, sendo que mundialmente esse valor é de um pouco mais de 26 milhões de hectares \cite{Ritchie_2020, IBGE_2021, FAOSTAT_2021}. O seu cultivo é de grande importância para a economia brasileira devido as suas diversas aplicações. A cana-de-açúcar pode, por exemplo, ser consumida fresca na alimentação humana e forragem na alimentação animal, produção de açúcar, bebidas, energia e combustíveis, além dos seus subprodutos como o bagaço e a palha podem ser utilizados na fertilização do solo \cite{Oliveira_2018}.
 
-A cana-de-açúcar é uma cultura semi-perene (seu manejo pode durar anos sem ser necessário um novo plantio), o que adiciona uma motivação a mais para detectar as suas linhas de plantio em relação a outras culturas (e.g., milho). Após a primeira colheira a rebrota da soqueiras são colhidas anualmente por cerca de 5 a 7 anos ou mais \cite{Rudorff_2010}. Contudo também adiciona um desafio, dependendo do estágio da plantação, folhas secas estão presentes no solo entre as linhas da cultura, dificultando a análise computacional.
-
-\dotsBlue
-
-Na literatura, o trabalho de \citeonline{Silva_Escarpinati_Backes_2021} contribuiu significativamente para detecção das linhas de plantio, contudo não obteve bons resultados com linhas curvas (gerando um efeito serrilhamento indesejado) 
-
-
-\textRed{e não utilizou métodos de \textit{deep learning} que são promissores no processamento de imagens}.
-
-\textRed{Adicionar também a dissertação? \cite{Silva_2020} Parte de DL e desafios com a folhas da cana após a colheita}
+A cana-de-açúcar é uma cultura semi-perene (seu manejo pode durar anos sem ser necessário um novo plantio), o que adiciona uma motivação a mais para detectar as suas linhas de plantio em relação a outras culturas (e.g., milho). Após a primeira colheira, a rebrota da soqueiras pode colhida anualmente por cerca de 5 a 7 anos ou mais \cite{Rudorff_2010}. Contudo também adiciona um desafio, dependendo do estágio da plantação, folhas secas estão presentes no solo entre as linhas da cultura, dificultando a análise computacional \cite{Silva_2020}.
 
 Apesar de na literatura já existir muitos trabalhos para detectar linhas de plantio, a maioria deles são para outras culturas (e.g., milho e beterraba) e com imagens de muito baixas altitudes ($< 2$ m), tiradas a partir do solo (manualmente ou acopladas maquinário agrícola) ou de alta altitudes (imagens de satélites).
 
 Outro ponto importante, não foi encontrado nenhum \textit{software} gratuito e de código aberto que faça detecção das linhas de plantio suficiente bem (em cana-de-açúcar ou outra tipo de cultura), apenas \textit{softwares} comerciais. Assim este projeto também busca desenvolver uma metodologia de detecção das linhas de plantio que possa ser utilizada no desenvolvimento de um \textit{software}, promovendo uma democratização do conhecimento.
 
-\dotsBlue
+\textRed{Adicionar um parágrafo comentando os principais trabalhos de modo bem resumido?}
+Na literatura, o trabalho de \citeonline{Silva_2020} contribuiu significativamente para detecção das linhas de plantio em plantações de cana-de-açúcar, contudo não obteve bons resultados com linhas curvas (gerando um efeito serrilhamento indesejado). \textRed{Na abordagem com redes neurais \dotsBlue}.
 
-Considerando o cenário de grande utilização de VANTs para obtenção de imagens de Agricultura de precisão, a grande importância da detecção das linhas de plantio, este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar (uma dos principais cultivos do Brasil, fortemente depende detecção das linhas de plantio para o replantio - correção de falhas, estimativa de produção, qualidade de vegetação entre outros).
-
-\dotsBlue
-
+Considerando o cenário de grande utilização dos VANTs para obtenção de imagens para a Agricultura de precisão, a grande importância da detecção das linhas de plantio, este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar (uma dos principais cultivos do Brasil, fortemente depende detecção das linhas de plantio para o replantio - correção de falhas, estimativa de produção, qualidade da vegetação entre outros).
 
 %\subsection{Motivação}
     % Deixar dentro da introdução
@@ -148,17 +118,17 @@ $=>$ \textRed{talvez} Inicialmente apenas imagem RGB, ou seja, com as 3 bandas, 
 
 Este projeto tem como objetivos específicos:
 \begin{itemize}
-    \item Estudar e analisar os métodos propostos na literatura correlata para detecção das linhas de plantio em plantações de cana-de-açúcar, como por exemplo, transformada de Hough e Radon, segmentação (limiarização global, limiarização adaptativa, binarização e método Otsu), redes neurais convolucionais, índices de vegetação, operações morfológicas.
+    \item Estudar e analisar os métodos propostos na literatura correlata para detecção das linhas de plantio, como por exemplo, transformada de Hough e Radon, segmentação, redes neurais convolucionais, índices de vegetação, operações morfológicas.
 
-    \item Propor melhorias na detecção das linhas de plantio (com linhas retas e curvas) de imagens obtidas por VANTs nas plantações de cana-de-açúcar com plantas antes do primeiro corte (cana-planta) e depois do primeiro corte (cana-soca).
+    \item Avaliar a detecção de linhas de plantio utilizando as imagens de VANTs em métodos de \textit{Deep Learning} com Índice de Vegetação. Vale mais a pena usar apenas as imagens brutas para treinar uma rede neural ou fazer um pré-processamento e utilizar como entradas a imagem e variados Índices de Vegetação?
 
-    \item \dotsBlue
+    \item Propor melhorias na detecção das linhas de plantio (com linhas retas e curvas) de imagens obtidas por VANTs nas plantações de cana-de-açúcar com plantas em variados estágios (antes do primeiro corte (cana-planta) e depois do primeiro corte (cana-soca)).
 
-    \item - \textRed{Talvez analisar imagem com banda infravermelho}
+    \item \textRed{Colocar também a parte de detecção das falhas no plantio?}
+    
+    \item Aplicar a proposta em imagem reais de plantações de cana-de-açúcar, analisar e avaliar os resultados provenientes das melhorias com ajuda de especialistas.
 
-    \item Avaliar a detecção de linhas de plantio utilizando as imagens de VANTs em métodos de \textit{deep learning} com índice de vegetação (IV). Vale mais a pena usar apenas as imagens brutas para treinar uma rede neural ou fazer um pré-processamento e utilizar como entradas a imagem e variados IV?
-
-    \item Avaliar o método proposto em outros tipos de cultura, como milho, algodão e \dotsBlue
+    \item \textRed{talvez} Avaliar o método proposto em outros tipos de cultura, como milho, café e algodão.
 \end{itemize}
 
 % \subsection{Hipótese} 
@@ -167,40 +137,12 @@ Este projeto tem como objetivos específicos:
 
 \subsection{Contribuições}
     % => Liste as contribuições do seu trabalho. 
+    \textRed{O que colocar em contribuições?}
 
 \section{Revisão da literatura correlata}
     % => Descreva os principais trabalhos existentes na literatura da área que estão relacionados com o trabalho que você está propondo e deixe claro qual a sua contribuição em relação a estes trabalhos. O que você está propondo de novo que estes trabalhos não abordaram ou abordaram de forma ineficiente? Eventualmente, se for o caso, introduza nesta seção os conceitos teóricos existentes na literatura que são necessários para a descrição de seu projeto de tese.
 
-\textBlue{
-Agricultura de Precisão
-
-VANTs (comparar com satélites, GSD, custos e rapidez/temporalidade)
-
-Cana-de-açúcar e o Brasil
-
-PDI (ou está mais para visão computacional?)
-
-    Pré-processamento
-    Segmentação
-    Método de Otsu
-    Transformada de Hough
-    Transformada de Radon
-    Operações Morfológicas
-    Índices de Vegetação
-
-Algoritmos Genéticos
-
-Métricas de análise/comparação
-    Coeficiente de \textit{Dice}
-
-\textit{Deep Learning}
-    CNN
-    FCN
-    Segmentação semântica (melhor dentro de PDI?)
-}
-
 Esta seção apresentará os principais conceitos utilizados neste projeto, bem como alguns trabalhos relacionados.
-
 
 \subsection{Processamento Digital de Imagens}
 
@@ -227,6 +169,8 @@ O limiar pode ser escolhido manualmente ou através de algoritmos. Para escolha 
 \subsubsection{Transformada de Radon}
 
 \subsubsection{Transformada de Hough}
+
+\subsubsection{Operações Morfológicas}
 
 \subsubsection{Índices de vegetação}
 
@@ -268,7 +212,6 @@ A LinkNet teve o melhor resultado ($CD = 0.90 \pm 0.0062$), sendo escolhida para
 
 LinkNet teve melhor resultado que o AG por utilizar não apenas o tem avermelhado do solo e esverdado da plantas, mas outras características que as redes neurais conseguem extrair, \textRed{contudo ainda é uma área que merece ser melhor explorada e analisada.} \dotsBlue
 
-
 \linePage
 
 \citeonline{Oliveira_2020} desenvolveu uma abordagem similar a \citeonline{Silva_2020}, na detecção das linhas de plantio de cana-de-açúcar, utilizando Algoritmo Genético para Multilimiarização, a Transformada
@@ -277,11 +220,13 @@ Discreta de Wavelet e Transformada de Hough Probabilística.
 
 \linePage
 
-\citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow}. Como esperado os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não sendo possível detectar pequenas falhas  ($<= 1 m$) quando a planta já tinha certa altura ($ >= 1m $) através do \textit{software}. Neste trabalho tem-se sugestões do melhor momento para obter as imagens e sobre o GSD, além de \textRed{monstrar} que mesmo o \textit{software} comercial utilizado não teve bons resultados. \dotsBlue
+\citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow}. Como esperado os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não sendo possível detectar pequenas falhas  ($<= 1 m$) quando a planta já tinha certa altura ($ >= 1m $) através do \textit{software}. Neste trabalho tem-se sugestões do melhor momento para obter as imagens e sobre o GSD, além de \textRed{mostrar} que mesmo o \textit{software} comercial utilizado não teve bons resultados. \dotsBlue
 
 \linePage
 
 \dotsBlue
+
+\textRed{Fazer uma tabela comparando os trabalhos relacionados?}
 
 Um resumo das principais características e informações dos \textRed{principais} trabalhos relacionados pode ser encontrada na \autoref{tab:trab_rela}.
 
@@ -304,35 +249,22 @@ cite trab 5 & cultura & principais tecnologias & resolução espacial & resultad
 
 \section{Metodologia de pesquisa}
 % => Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
-A metodologia deste projeto é composta por 4 etapas.
 
-A primeira é aquisição de imagens (\textit{datsets}) de VANTs \textRed{utilizando câmera RGB}.
+A metodologia deste projeto é composta por 5 etapas. A primeira etapa é aquisição das imagens/\textit{datsets} coletadas por VANTs utilizando câmera RGB em plantações de cana-de-açúcar. A segunda etapa é o pré-processamento dessas imagens, buscando realçar as linhas de plantio e corrigir pequenas imperfeições.
 
-A segunda etapa é o processamento, onde serão testados e propostos métodos para melhorar a segmentação de dessas imagens
+A terceira etapa é o processamento principal, ou seja, a segmentação das imagens. Onde serão testados e propostos métodos para melhorar a segmentação dessas imagens. Na quarta etapa é feito o prós-processamento para otimizar a segmentação e refinar as linhas detectadas na etapa anterior. Além de tratar linhas incompletas e linhas curvas. Por fim, a avaliação dos resultados da detecção das linhas de plantio.
 
-
-
-\textBlue{
-1 obtenção das imagens
-
-    \textit{dataset} de Silva\_Escarpinati\_Backes\_2021? e/ou outros?
-
-2 análise dos métodos propostos na literatura
-
-3 ...
-    pré processamento
-    processamento e/ou segmentação
-    refinamento - detecção das linhas ou reconstrução
-    CNN?
-
-...
-}
+\subsection{Aquisição das imagens}
+\subsection{Pré-processamento}
+\subsection{Segmentação}
+\subsection{Prós-processamento}
+\subsection{Avaliação dos resultados}
 
 \section{Resultados esperados}
 % => Liste os resultados mais importantes que você pretende obter a partir de seu trabalho de doutorado.
 
 \textBlue{
-1 Um método semi-automático ou automático para detecção de linhas de plantio
+1 Um método automático para detecção de linhas de plantio
 
 2 Falhas também?
 
@@ -347,10 +279,10 @@ A segunda etapa é o processamento, onde serão testados e propostos métodos pa
 \section{Cronograma de execução}
 % => Detalhe o cronograma das principais etapas de seu trabalho finalizando pela data da defesa.
 
-Para cumprir os objetivos descritos, o plano de pesquisa foi dividido em atividades. O cronograma de atividades do projeto pode ser visualizado na \autoref{tab:cronograma}, onde está definida a
+Para cumprir os objetivos descritos, o plano de pesquisa foi dividido em atividades e seus respectivos meses. O cronograma de atividades do projeto pode ser visualizado na \autoref{tab:cronograma}, onde está definida a
 duração das principais atividades.
 
-\begin{table}[ht]
+\begin{table}[htb]
 \centering
 \caption{Cronograma de atividades}
 \label{tab:cronograma}
@@ -358,17 +290,16 @@ duração das principais atividades.
 \hline
           & \multicolumn{2}{c|}{2021} & \multicolumn{12}{c|}{2022}                    & \multicolumn{2}{c|}{2023} \\ \hline
 Atividade & N           & D           & J & F & M & A & M & J & J & A & S & O & N & D & J           & F           \\ \hline
-A1        & X           & X           & X & X & X & X & X & X & X & X & X &   &   &   &             &             \\ \hline
-A2        &             &             & X & X & X & X & X & X & X & X & X & X &   &   &             &             \\ \hline
-A3        &             &             &   &   & X & X &   &   &   &   &   &   &   &   &             &             \\ \hline
+A1        & X           & X           & X & X &   &   &   &   &   &   &   &   &   &   &             &             \\ \hline
+A2        &             &             & X & X & X & X &   &   &   &   &   &   &   &   &             &             \\ \hline
+A3        &             &             &   &   & X & X & X &   &   &   &   &   &   &   &             &             \\ \hline
 A4        &             &             &   &   &   & X & X & X &   &   &   &   &   &   &             &             \\ \hline
-A5        &             &             &   &   &   &   & X & X &   &   &   &   &   &   &             &             \\ \hline
-A6        &             &             &   &   &   &   &   & X & X &   &   &   &   &   &             &             \\ \hline
-A7        &             &             &   &   &   &   &   & X & X &   &   &   &   &   &             &             \\ \hline
-A8        &             &             &   &   &   &   &   &   & X & X &   &   &   &   &             &             \\ \hline
-A9        &             &             &   &   &   &   &   &   &   &   & X & X &   &   &             &             \\ \hline
-A10       &             &             &   &   &   &   &   &   &   &   &   & X & X & X &             &             \\ \hline
-A11       &             &             &   &   &   &   &   &   &   &   &   &   &   &   & X           & X           \\ \hline
+A5        &             &             &   &   &   &   & X & X & X &   &   &   &   &   &             &             \\ \hline
+A6        &             &             &   &   &   &   &   & X & X & X &   &   &   &   &             &             \\ \hline
+A7        &             &             &   &   &   &   &   &   & X & X &   &   &   &   &             &             \\ \hline
+A8        &             &             &   &   &   &   &   &   &   & X & X & X &   &   &             &             \\ \hline
+A9        &             &             &   &   &   &   &   &   &   &   &   & X & X & X & X           &             \\ \hline
+A10       &             &             &   &   &   &   &   &   &   &   &   &   &   &   & X           & X           \\ \hline
 \end{tabular}
 \end{table}
 
@@ -376,16 +307,15 @@ As atividades são descritas abaixo:
 
 \begin{itemize}
     \item A1: revisão bibliográfica sobre os métodos de segmentação e detecção de linhas de plantio.
-    \item A2: estudo dos algoritmos e métodos encontrados literatura correlata sobre segmentação de imagens.
-    \item A3: primeira aplicação e análise dos algoritmos e métodos encontrado em imagens reais.
-    \item A4: avaliação dos resultados inciais e propostas de melhorias.
-    \item A5: \item A2: estudo dos algoritmos e métodos encontrados literatura correlata sobre \textit{deep learning}.
-    \item A6: \dotsBlue
-    \item A7: avaliação dos resultados.
-    \item A8: readequação dos parâmetros e mais experimentos (caso necessário).
-    \item A9: elaboração e submissão de artigos científicos para periódicos e/ou congresso da área.
-    \item A10: elaboração da dissertação.
-    \item A11: defesa da dissertação.
+    \item A2: estudo dos algoritmos e métodos encontrados na literatura correlata sobre segmentação de imagens.
+    \item A3: estudo dos algoritmos e métodos encontrados na literatura correlata sobre \textit{deep learning} na segmentação de imagens.
+    \item A4. Avaliação dos algoritmos estudados com relação a possibilidade de aplicar as técnicas estudadas no contexto do nosso trabalho.
+    \item A5: aplicação e análise dos algoritmos e métodos encontrados em imagens reais.
+    \item A6: avaliação dos resultados e propostas de melhorias.
+    \item A7: readequação dos parâmetros e mais experimentos (caso necessário).
+    \item A8: elaboração e submissão de artigos científicos para periódicos e/ou congresso da área.
+    \item A9: elaboração da dissertação (escrita e preparação para a defesa).
+    \item A10: defesa da dissertação.
 \end{itemize}
 
 % \section{Justificativa pelo atraso na entrega do projeto (tópico obrigatório somente no caso de entrega do projeto foram do prazo regulamentar*)}
