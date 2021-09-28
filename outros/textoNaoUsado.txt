@@ -69,6 +69,11 @@ Na abordagem com redes neurais foi testado 3 redes (a b c) para ver qual tinha m
 Como resultado o CD ficou melhor em algumas imagens e pior em outras, assim essa é uma parte que  ainda precisa ser melhor explorada.
 
 ---
+
+\citeonline{Barbosa_Junior_2021}
+Nesse trabalho tem-se sugestões do melhor momento para obter as imagens e sobre o GSD, além de \textRed{mostrar} que mesmo o \textit{software} comercial utilizado não teve bons resultados. \dotsBlue
+
+---
 \dotsBlue
 
 \textRed{Fazer uma tabela comparando os trabalhos relacionados?}
@@ -91,5 +96,33 @@ cite trab 5 & cultura & principais tecnologias & resolução espacial & resultad
 \end{tabularx}
 \end{table}
 \end{landscape}
+
+----
+
+Em \citeonline{Silva_2020} foi desenvolvido duas abordagens para detecção de linhas de plantio de cana-de-açúcar, a primeira utilizando algoritmo genético resultando em \citeonline{Silva_Escarpinati_Backes_2021} e a segunda utilizando redes neurais artificiais. Na primeira abordagem também foi utilizado método de Otsu e transformada de Radon (\autoref{fig:2021_silva_flow_chart}). Para comparar os resultados obtidos foram utilizados 4 \textit{datasets} e suas respectivas linhas de plantio marcadas por um especialista. Os \textit{datasets} utilizados têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textheight]{img/2021_Silva_flow_chart.png}
+    \caption{Fluxograma do método desenvolvido por  \citeonline{Silva_Escarpinati_Backes_2021}}
+    \label{fig:2021_silva_flow_chart}
+\end{figure}
+
+Algoritmo Genético (AG) foi utilizado para encontrar uma máscara (\textit{kernel}) (com 27 valores, 9 para cada banda RGB), que é utilizada como filtro convolucional para combinar as bandas da imagem RGB em uma imagem em escala de cinza. O AG foi executado por 2700 gerações, com população de 200 indivíduos e taxa de mutação de 0.05 e \textit{crossover} de 0.8. A função de avaliação (\textit{fitness}) do AG busca maximizar o valor de Coeficiente de \textit{Dice} (comparando a imagem gerada ao aplicar a máscara e em seguida o método de Otsu com a marcação feita pelo especialista).
+
+Para analisar os resultados em função do padrão estocástico do AG e sua convergência, foi utilizado a técnica de validação cruzada com 35 imagens divididas em 5 \textit{fodls}. Os autores afirmam que apesar de ter sido obtido máscaras diferentes para cada cenário, elas foram capazes de produzir uma segmentação semelhante em termos de Coeficiente de \textit{Dice} (CD), sendo assim AG foi capaz de calcular uma mascará eficaz independente de conjunto de treinamento utilizado.
+
+O método Otsu foi avaliado na segmentação (nos 4 \textit{datasets}) utilizando o método global e local. No método local utilizaram janelas (\textit{Window}) de $W \times W$ pixels com deslocamento (\textit{Stride}) $S$ e o operador $OR$ para combinar as binarizações locais em uma única imagem binarizada. O método de Otsu global não obteve bons resultados, provavelmente pela grande extensão dos mosaicos (\textit{datasets}) e a variedade de luminosidade presente neles. Por outro lado o método de Otsu local teve melhores resultados, sendo $W=50$ e $S=25$ obteve um dos melhores resultados. Deste modo, as janelas (valor $W$) menores permitem o método de capturar as características locais com maior precisão, proporcionado uma melhor binarização e consequentemente um Coeficiente de \textit{Dice} mais próximo de 1.
+
+Para detecção das linhas e refinamento depois da binarização foi utilizado a Transformada de Radon com o método de janelamento (\textit{tiling scheme}), utilizando o mesmo esquema usado no método Otsu, com $W$ e $S$. Com melhor resultado com janelas grandes e pequena sobreposição entre as janelas.
+
+Como resultado geral, a detecção das linhas de plantio ficaram próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas, gerando um efeito serrilhamento (\textit{aliasing}) indesejado. 
+
+Na segunda abordagem foi comparado 3 redes neurais artificiais (LinkNet, PSPNet, Unet) na segmentação semântica das linhas de plantio.
+O \textRed{encoder} das redes foi substituído pelo da VGG16 pré-treinada a partir do \textit{dataset} ImageNet. Depois foram treinadas por 50 épocas, com taxa de aprendizado de 0.001 utilizando as imagens ($256 \times 256 \times 3$) do primeiro \textit{dataset}.
+
+A LinkNet teve o melhor resultado ($CD = 0.90 \pm 0.0062$), sendo escolhida para testes nos outros \textit{datasets}. O coeficiente de \textit{Dice} foi um pouco pior nos outros \textit{datasets} ($CD >= 0.80$), contudo melhor que a abordagem com AG ($CD <= 0.78$). Também foi analisado a aplicação da transformada de Radon na busca de refinar as linhas no resultado da rede neural, contudo com a aplicação, o CD piorava em muitos casos. Como resultado o CD ficou melhor em algumas imagens e pior em outras, essa é uma parte que ainda precisa ser melhor explorada.
+
+LinkNet teve melhor resultado que o AG por utilizar não apenas o tem avermelhado do solo e esverdado da plantas, mas outras características que as redes neurais conseguem extrair, \textRed{contudo ainda é uma área que merece ser melhor explorada e analisada.} \dotsBlue
 
 --------------------------------------------------

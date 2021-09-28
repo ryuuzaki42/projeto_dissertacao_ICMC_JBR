@@ -99,7 +99,7 @@ A cana-de-açúcar é uma cultura semi-perene (seu manejo pode durar anos sem se
 
 Apesar de na literatura já existirem muitos trabalhos para detectar linhas de plantio, a maioria deles são para outras culturas (e.g., milho e beterraba) ou focados em linhas retas \cite{Pereira_Junior_2020}. Além de muitos utilizarem imagens de muito baixas altitudes ($< 2$ m), tiradas a partir do solo (manualmente ou acopladas maquinário agrícola) ou de alta altitudes (imagens de satélites) \cite{Hasan_2021}.
 
-Outro ponto importante, atualmente não é possível encontrar nenhum \textit{software} gratuito e de código aberto que faça a detecção das linhas de plantio corretamente (em cana-de-açúcar ou outro tipo de cultura), apenas \textit{softwares} comerciais. Assim este projeto também busca desenvolver uma metodologia de detecção das linhas de plantio que possa ser utilizada no desenvolvimento de um \textit{software}, promovendo uma democratização do conhecimento.
+Outro ponto importante, atualmente não é possível encontrar (\textRed{não é uma afirmação muito forte o ``não é possível"?}) nenhum \textit{software} gratuito e de código aberto que faça a detecção das linhas de plantio corretamente (em cana-de-açúcar ou outro tipo de cultura), apenas \textit{softwares} comerciais. Assim este projeto também busca desenvolver uma metodologia de detecção das linhas de plantio que possa ser utilizada no desenvolvimento de um \textit{software}, promovendo uma democratização do conhecimento.
 
 Considerando o cenário de grande utilização dos VANTs para obtenção de imagens para a Agricultura de precisão, a grande importância da detecção das linhas de plantio, este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar.
 
@@ -159,31 +159,13 @@ A escolha do limiar é uma tarefa complicada já que um limiar inadequado não c
 O limiar pode ser escolhido manualmente ou através de algoritmos. Para a escolha desse limiar muitos trabalhos na área de imagens utilizam o método de Otsu. Este método \cite{Otsu_1979} utiliza o histograma da imagem e busca um limiar ideal que separe a imagem em duas classes (objeto e fundo), de modo a maximizar a variância entre as classes e minimizar a variância interna das classes.
 
 \subsubsection{Transformada de Hough}
-A transformada de Hough é um método desenvolvido para a detecção de formas parametrizadas (e.g., linhas, círculos) em imagens.
 
+A Transformada de Hough (TH) é um método desenvolvido, inicialmente, para detectar linhas retas em imagens binárias, que depois foi expandido para a detecção de formas parametrizadas (e.g., círculos e elipses). A transformada tem por base um método de votação (acumulador) do espaço da imagem (pixels) para espaço de parâmetros, chamado de espaço de Hough. No espaço de Hough, as coordenadas polares geralmente são preteridas, pois podem ser limitadas em intervalos muito precisos, ao contrário das coordenadas cartesianas \cite{Bah_2020}.
 
-Um ponto cartesiano ($x, y$) é modificado para o sistema de coordenadas polares ($\rho, \theta$), de acordo com a equação da reta abaixo:
-
-\begin{equation}
-\rho = x \cos \theta \times y \sin \theta
-\label{equa:hough}
-\end{equation}
-
- Onde $\rho$ representa a distância da reta até a origem, $\theta$ representa o ângulo entre o eixo $x$ e a reta entre a origem e ponto mais próximo da origem.
-
-\dotsBlue
-
-O ponto ($x, y$) no plano da imagem corresponde a uma curva no sistema de  coordenadas polares
-
-
-
-A transformada de Hough consiste em mapear um pixel da imagem em uma curva no espaço de parâmetros, organizado em forma de um acumulador n dimensional, onde n corresponde ao número de parâmetros. 
-
-\cite{Huiying_2015}
-
-\cite{Bah_2020}
+Uma linha reta em uma imagem é composta por um conjunto de pixels, onde pela TH é mapeada para um único ponto ($\rho, \theta$), no espaço de Hough de acordo com a equação da reta, $\rho = x \cos \theta + y \sin \theta$. Onde $\rho$ representa a distância da reta até a origem; e $\theta$ representa o ângulo entre o eixo $x$ e a reta. A TH é capaz de detectar que um conjunto de pixels pertencem a uma linha reta mesmo que esteja quebrada e/ou com ruídos. Deste modo, todos os pontos alvo ($x, y$) da imagem binária fazem a TH gerando os respectivos ($\rho, \theta$), sendo acumulados caso coincidirem, ou seja, serem pontos colineares \cite{Huiying_2015}.
 
 \subsubsection{Transformada de Radon}
+
 A Transformada de Radon (TR), proposta por Johann Radon em 1917, mapeia uma função de coordenadas cartesianas ($x, y$) para distância e espaço angular ($\rho, \theta$), i.e., para o domínio de Radon. Aplicada em uma imagem, calcula as projeções ao longo dos ângulos especificados. O conjunto dessas projeções é chamado de sinograma. A TR é útil para detectar características lineares em uma imagem, onde transforma uma linha de pixel em um único ponto \cite{Kaur_Sahambi_2015}. É matematicamente definida como:
 
 \begin{equation}
@@ -193,7 +175,23 @@ R(\rho, \theta) = \int\limits _{-\infty}^\infty \int\limits _{-\infty}^\infty i 
 Onde $i (x, y)$ representa a função ou imagem que a transformada foi aplicada, $\delta$ o Delta de Dirac e ($\rho - x\cos \theta - y\sin \theta$) a equação da linha.
 Assim, a transformada de Radon em uma imagem pode ser definida como uma série de integrais de linha por meio de $i (x, y)$ em deslocamentos diferentes da origem \cite{Li_2019}. A TR é muito importante é muitas áreas, principalmente no processamento de imagens, sendo a base para tomografia computadorizada clássica \cite{Silva_Escarpinati_Backes_2021}.
 
-\subsubsection{Operações Morfológicas}
+\subsubsection{Operações morfológicas}
+
+A expressão morfologia é comumente utilizada no ramo da biologia para se referir ao estudo das formas e estruturas dos animais e das plantas. No contexto de processamento de imagens, a morfologia matemática tem sentido similar, sendo utilizada para extrair componentes das imagens que são úteis na representação e na descrição da forma de uma região. A morfologia matemática oferece operações úteis para resolver vários problemas de PDI, como detecção de bordas, segmentação e e realces de objetos presentes na imagem \cite{Marques_Filho_1999}.
+
+A morfologia matemática utiliza a teoria dos conjuntos, onde os conjuntos representam objetos presentes na imagem. Em imagens binárias, os conjuntos são membros do espaço inteiro bidimensional $Z^2$ (onde cada elemento é um vetor de coordenadas ($x, y$)), já em imagem em escala de cinza os elementos são membros do $Z^3$, sendo os dois primeiros as coordenadas do pixel e o terceiro seu nível de cinza \cite{Marques_Filho_1999, Gonzalez_Woods_2010}.
+
+As operações morfológicas utilizam os chamados elementos os estruturantes (pequenos conjuntos ou subimagens) e as operações de conjunto, dentre elas a reflexão (B)$_z$ e a translação $\hat{B}$, como base. A translação é definida por $\hat{B} = \{$w $\arrowvert$ w = -b, para b $\in$ B$\}$, onde os pontos em B, com as coordenadas (x, y) foram substituídas por (-x, -y). A reflexão é definida por (B)$_z$ = $\{$c $\arrowvert$ c = b + z , para b $\in$ B$\}$, onde os pontos em B, com as coordenadas (x, y) foram substituídas por
+(x + z$_1$, y + z$_2$) \cite{Gonzalez_Woods_2010}.
+
+
+Dilatação
+
+Erosão
+
+Abertura
+
+Fechamento
 
 \subsubsection{Índices de vegetação}
 
@@ -213,31 +211,8 @@ Assim, a transformada de Radon em uma imagem pode ser definida como uma série d
 
 \linePage
 
-Em \citeonline{Silva_2020} foi desenvolvido duas abordagens para detecção de linhas de plantio de cana-de-açúcar, a primeira utilizando algoritmo genético resultando em \citeonline{Silva_Escarpinati_Backes_2021} e a segunda utilizando redes neurais artificiais. Na primeira abordagem também foi utilizado método de Otsu e transformada de Radon (\autoref{fig:2021_silva_flow_chart}). Para comparar os resultados obtidos foram utilizados 4 \textit{datasets} e suas respectivas linhas de plantio marcadas por um especialista. Os \textit{datasets} utilizados têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
+Em \citeonline{Silva_2020} foi desenvolvido duas abordagens para detecção de linhas de plantio de cana-de-açúcar, a primeira utilizando Algoritmo Genético (AG) resultando em \citeonline{Silva_Escarpinati_Backes_2021} e a segunda utilizando redes neurais artificiais. Para comparar os resultados, foram utilizados 4 \textit{datasets} (com plantas de variadas idades) e suas respectivas linhas de plantio, marcadas por um especialista. O AG foi utilizado para encontrar uma máscara (filtro convolucional que combina as bandas RGB da imagem para uma em escala de cinza), que maximize o Coeficiente de Dice (CD). Em sequência o método Otsu foi utilizado para binarizar as imagens e por fim, a TR foi utilizada para otimizar a detectação das linhas de plantio. Como resultado, a detecção das linhas ficou próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas (gerando um efeito de serrilhamento indesejado). Na abordagem com redes neurais, a LinkNet teve maior CD do que na abordagem anterior. A TR também foi aplicada nessa aborgem, contudo piorando o CD em muitos casos.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\textheight]{img/2021_Silva_flow_chart.png}
-    \caption{Fluxograma do método desenvolvido por  \citeonline{Silva_Escarpinati_Backes_2021}}
-    \label{fig:2021_silva_flow_chart}
-\end{figure}
-
-Algoritmo Genético (AG) foi utilizado para encontrar uma máscara (\textit{kernel}) (com 27 valores, 9 para cada banda RGB), que é utilizada como filtro convolucional para combinar as bandas da imagem RGB em uma imagem em escala de cinza. O AG foi executado por 2700 gerações, com população de 200 indivíduos e taxa de mutação de 0.05 e \textit{crossover} de 0.8. A função de avaliação (\textit{fitness}) do AG busca maximizar o valor de Coeficiente de \textit{Dice} (comparando a imagem gerada ao aplicar a máscara e em seguida o método de Otsu com a marcação feita pelo especialista).
-
-Para analisar os resultados em função do padrão estocástico do AG e sua convergência, foi utilizado a técnica de validação cruzada com 35 imagens divididas em 5 \textit{fodls}. Os autores afirmam que apesar de ter sido obtido máscaras diferentes para cada cenário, elas foram capazes de produzir uma segmentação semelhante em termos de Coeficiente de \textit{Dice} (CD), sendo assim AG foi capaz de calcular uma mascará eficaz independente de conjunto de treinamento utilizado.
-
-O método Otsu foi avaliado na segmentação (nos 4 \textit{datasets}) utilizando o método global e local. No método local utilizaram janelas (\textit{Window}) de $W \times W$ pixels com deslocamento (\textit{Stride}) $S$ e o operador $OR$ para combinar as binarizações locais em uma única imagem binarizada. O método de Otsu global não obteve bons resultados, provavelmente pela grande extensão dos mosaicos (\textit{datasets}) e a variedade de luminosidade presente neles. Por outro lado o método de Otsu local teve melhores resultados, sendo $W=50$ e $S=25$ obteve um dos melhores resultados. Deste modo, as janelas (valor $W$) menores permitem o método de capturar as características locais com maior precisão, proporcionado uma melhor binarização e consequentemente um Coeficiente de \textit{Dice} mais próximo de 1.
-
-Para detecção das linhas e refinamento depois da binarização foi utilizado a Transformada de Radon com o método de janelamento (\textit{tiling scheme}), utilizando o mesmo esquema usado no método Otsu, com $W$ e $S$. Com melhor resultado com janelas grandes e pequena sobreposição entre as janelas.
-
-Como resultado geral, a detecção das linhas de plantio ficaram próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas, gerando um efeito serrilhamento (\textit{aliasing}) indesejado. 
-
-Na segunda abordagem foi comparado 3 redes neurais artificiais (LinkNet, PSPNet, Unet) na segmentação semântica das linhas de plantio.
-O \textRed{encoder} das redes foi substituído pelo da VGG16 pré-treinada a partir do \textit{dataset} ImageNet. Depois foram treinadas por 50 épocas, com taxa de aprendizado de 0.001 utilizando as imagens ($256 \times 256 \times 3$) do primeiro \textit{dataset}.
-
-A LinkNet teve o melhor resultado ($CD = 0.90 \pm 0.0062$), sendo escolhida para testes nos outros \textit{datasets}. O coeficiente de \textit{Dice} foi um pouco pior nos outros \textit{datasets} ($CD >= 0.80$), contudo melhor que a abordagem com AG ($CD <= 0.78$). Também foi analisado a aplicação da transformada de Radon na busca de refinar as linhas no resultado da rede neural, contudo com a aplicação, o CD piorava em muitos casos. Como resultado o CD ficou melhor em algumas imagens e pior em outras, essa é uma parte que ainda precisa ser melhor explorada.
-
-LinkNet teve melhor resultado que o AG por utilizar não apenas o tem avermelhado do solo e esverdado da plantas, mas outras características que as redes neurais conseguem extrair, \textRed{contudo ainda é uma área que merece ser melhor explorada e analisada.} \dotsBlue
 
 \linePage
 
@@ -247,10 +222,9 @@ Discreta de Wavelet e Transformada de Hough Probabilística.
 
 \linePage
 
-\citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow}. Como esperado os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não sendo possível detectar pequenas falhas  ($<= 1 m$) quando a planta já tinha certa altura ($ >= 1m $) através do \textit{software}. Neste trabalho tem-se sugestões do melhor momento para obter as imagens e sobre o GSD, além de \textRed{mostrar} que mesmo o \textit{software} comercial utilizado não teve bons resultados. \dotsBlue
+\citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow}. Como esperado os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não foi possível detectar pequenas falhas ($<=$ 1 m) quando a planta já tinha certa altura ($>=$ 1 m) através do \textit{software}. Importante notar que mesmo o \textit{software} comercial não obteve bons resultados em certos cenários.
 
 \linePage
-
 
 \textRed{parágrafo comentando os principais trabalhos de modo bem resumido}
 
@@ -260,13 +234,16 @@ Na literatura, o trabalho de \citeonline{Silva_2020} contribuiu significativamen
 \section{Metodologia de pesquisa}
 % => Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
 
-A metodologia deste projeto é composta por 5 etapas. A primeira etapa é aquisição das imagens/\textit{datsets} coletadas por VANTs utilizando câmera RGB em plantações de cana-de-açúcar. A segunda etapa é o pré-processamento dessas imagens, buscando realçar as linhas de plantio e corrigir pequenas imperfeições.
+A metodologia deste projeto é composta por 5 etapas. A primeira etapa é a aquisição das imagens/\textit{datasets} coletadas por VANTs utilizando câmera RGB em plantações de cana-de-açúcar. A segunda etapa é o pré-processamento dessas imagens, buscando realçar as linhas de plantio e corrigir pequenas imperfeições.
 
-A terceira etapa é o processamento principal, ou seja, a segmentação das imagens. Onde serão testados e propostos métodos para melhorar a segmentação dessas imagens. Na quarta etapa é feito o prós-processamento para otimizar a segmentação e refinar as linhas detectadas na etapa anterior. Além de tratar linhas incompletas e linhas curvas. Por fim, a avaliação dos resultados da detecção das linhas de plantio.
+A terceira etapa é o processamento principal, ou seja, a segmentação das imagens. Aqui serão testados e propostos métodos para melhorar a segmentação dessas imagens. Na quarta etapa será feito o pós-processamento para otimizar a segmentação e refinar as linhas detectadas pela etapa anterior, além de tratar linhas incompletas e linhas curvas. Por fim, será feita a avaliação dos resultados da detecção das linhas de plantio.
 
 \subsection{Aquisição das imagens}
 \subsection{Pré-processamento}
 \subsection{Segmentação}
+
+LinkNet teve melhor resultado que o AG por utilizar não apenas o tem avermelhado do solo e esverdado da plantas, mas outras características que as redes neurais conseguem extrair, \textRed{contudo ainda é uma área que merece ser melhor explorada e analisada.} \dotsBlue
+
 \subsection{Prós-processamento}
 \subsection{Avaliação dos resultados}
 
