@@ -47,6 +47,8 @@
 
 \usepackage{tabularx}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\usepackage{amssymb}% \varnothing
+
 % -
 
 \textwidth 16cm \textheight 23.2cm
@@ -172,26 +174,21 @@ A Transformada de Radon (TR), proposta por Johann Radon em 1917, mapeia uma fun�
 R(\rho, \theta) = \int\limits _{-\infty}^\infty \int\limits _{-\infty}^\infty i (x, y) \delta (\rho - x\cos \theta - y\sin \theta ) dxdy
 \end{equation}
 
-Onde $i (x, y)$ representa a função ou imagem que a transformada foi aplicada, $\delta$ o Delta de Dirac e ($\rho - x\cos \theta - y\sin \theta$) a equação da linha.
+Onde $i (x, y)$ representa a função ou imagem que a transformada foi aplicada, $\delta$ o Delta de Dirac e $(\rho - x\cos \theta - y\sin \theta)$ a equação da linha.
 Assim, a transformada de Radon em uma imagem pode ser definida como uma série de integrais de linha por meio de $i (x, y)$ em deslocamentos diferentes da origem \cite{Li_2019}. A TR é muito importante é muitas áreas, principalmente no processamento de imagens, sendo a base para tomografia computadorizada clássica \cite{Silva_Escarpinati_Backes_2021}.
 
 \subsubsection{Operações morfológicas}
 
 A expressão morfologia é comumente utilizada no ramo da biologia para se referir ao estudo das formas e estruturas dos animais e das plantas. No contexto de processamento de imagens, a morfologia matemática tem sentido similar, sendo utilizada para extrair componentes das imagens que são úteis na representação e na descrição da forma de uma região. A morfologia matemática oferece operações úteis para resolver vários problemas de PDI, como detecção de bordas, segmentação e e realces de objetos presentes na imagem \cite{Marques_Filho_1999}.
 
-A morfologia matemática utiliza a teoria dos conjuntos, onde os conjuntos representam objetos presentes na imagem. Em imagens binárias, os conjuntos são membros do espaço inteiro bidimensional $Z^2$ (onde cada elemento é um vetor de coordenadas ($x, y$)), já em imagem em escala de cinza os elementos são membros do $Z^3$, sendo os dois primeiros as coordenadas do pixel e o terceiro seu nível de cinza \cite{Marques_Filho_1999, Gonzalez_Woods_2010}.
+A morfologia matemática utiliza a teoria dos conjuntos, onde os conjuntos representam objetos presentes na imagem. Em imagens binárias, os conjuntos são membros do espaço inteiro bidimensional $Z^2$ (onde cada elemento é um vetor de coordenadas $(x, y)$), já em imagem em escala de cinza os elementos são membros do $Z^3$, sendo os dois primeiros as coordenadas do pixel e o terceiro, seu nível de cinza \cite{Gonzalez_Woods_2010}.
 
-As operações morfológicas utilizam os chamados elementos os estruturantes (pequenos conjuntos ou subimagens) e as operações de conjunto, dentre elas a reflexão (B)$_z$ e a translação $\hat{B}$, como base. A translação é definida por $\hat{B} = \{$w $\arrowvert$ w = -b, para b $\in$ B$\}$, onde os pontos em B, com as coordenadas (x, y) foram substituídas por (-x, -y). A reflexão é definida por (B)$_z$ = $\{$c $\arrowvert$ c = b + z , para b $\in$ B$\}$, onde os pontos em B, com as coordenadas (x, y) foram substituídas por
-(x + z$_1$, y + z$_2$) \cite{Gonzalez_Woods_2010}.
+As operações morfológicas utilizam os chamados elementos os estruturantes (pequenos conjuntos ou subimagens) e as operações de conjunto (e.g., a reflexão e a translação) como base. A translação é definida por: $\hat{B} = \{w | w = -b$, para $b \in B\}$, onde os pontos em B, com as coordenadas $(x, y)$ foram substituídas por $(-x, -y)$. A reflexão é definida por $(B)_z = \{c | c = b + z$, para $b \in B\}$, onde os pontos em B, com as coordenadas (x, y) foram substituídas por
+(x + z$_1$, y + z$_2$) \cite{AlAzawee_2015}.
 
+Dentre as operações morfológicas, aqui será comentado um pouco sobre quatro delas, a dilatação, a erosão, a abertura e o fechamento. As duas primeiras são mais básicas, enquanto as duas últimas são combinações das mesmas. Considerando A e B como conjuntos de $Z^2$ e assim sendo imagens binárias. A dilatação, definida por: $A \oplus B = \{z | (\hat{B})_z \cap A \neq \varnothing \}$, é responsável pelo aumento ou crescimento de limites de objetos na imagem em função do elemento estruturante. Por outro lado, a erosão, definida por: $A \ominus B = \{ z | (B)_z \subseteq A\}$, diminui a quantidade de pixeis de interesse em torno dos objetos dando origem a lacunas \cite{Marques_Filho_1999}.
 
-Dilatação
-
-Erosão
-
-Abertura
-
-Fechamento
+A dilatação pode ser utilizada para preencher lacunas entre os objetos de interesse, já a erosão para separar objetos que estejam ligados por pequenos filamentos. A aplicação de uma dilatação seguida por uma erosão (com o mesmo elemento estruturante) é definida como fechamento morfológico. Por outro lado a abertura é o oposto, uma erosão seguida de uma dilatação. A abertura e o fechamento geralmente suavizam os contornos dos objetos presentes na imagem, mas a abertura tende a quebrar trechos muito obtusos e estreitos, já o fechamento tende a frechar pequenas lacunas e preencher falhas de um contorno \cite{Gonzalez_Woods_2010}.
 
 \subsubsection{Índices de vegetação}
 
@@ -242,7 +239,7 @@ A terceira etapa é o processamento principal, ou seja, a segmentação das imag
 \subsection{Pré-processamento}
 \subsection{Segmentação}
 
-LinkNet teve melhor resultado que o AG por utilizar não apenas o tem avermelhado do solo e esverdado da plantas, mas outras características que as redes neurais conseguem extrair, \textRed{contudo ainda é uma área que merece ser melhor explorada e analisada.} \dotsBlue
+As redes neurais podem ter bom resultado na segmentação, em comparação com os algoritmos tradicionais, por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair, como \dotsBlue
 
 \subsection{Prós-processamento}
 \subsection{Avaliação dos resultados}
