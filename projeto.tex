@@ -83,15 +83,15 @@
 
 O rápido crescimento populacional, principalmente no último século, tem impulsionado a demanda por alimentos e a utilização inteligente/sustentável dos recursos naturais. Nesse contexto, a agricultura aliada tecnologia, chamada de Agricultura de Precisão (AP), busca suprir essa demanda utilizando os recursos sob medida com base nas informações coletadas. A AP engloba uma série de técnicas diferentes, como a análise espacial da área plantada, informações do solo e das plantas, permitindo aos produtores planejar e monitorar suas plantações \cite{Blasch_2020}.
 
-A Agricultura de Precisão se tornou possível graças ao desenvolvimento e avanços de diferentes tecnologias, como o Sistema de Posicionamento Global (GPS), o uso de imagens de satélites, o desenvolvimento de novas técnicas de Processamento Digital de Imagens (PDI) e Visão Computacional, sensoriamento remoto entre outras. Isso possibilitou o desenvolvimento de metologias, técnicas e programas que são aplicados nas várias etapas da agricultura, desde análise e preparação do solo (para determinar a escassez de determinado nutriente numa região) até a utilização de veículos autônomos para fazer a pulverização de defensivos (com quantidade específica para cada parte do talhão) e na colheita seguindo as linhas de plantio. Muitos dos avanços na AP são fortemente dependentes das tecnologias de processamento digital de imagens \cite{Bolfe_2020}.
+A Agricultura de Precisão se tornou possível graças ao desenvolvimento e avanços de diferentes tecnologias, como o Sistema de Posicionamento Global (GPS), o uso de imagens de satélites, o desenvolvimento de novas técnicas de Processamento Digital de Imagens (PDI) e Visão Computacional, sensoriamento remoto entre outras. Isso possibilitou o desenvolvimento de metodologias, técnicas e programas que são aplicados nas várias etapas da agricultura, desde análise e preparação do solo (para determinar a escassez de determinado nutriente numa região) até a utilização de veículos autônomos para fazer a pulverização de defensivos (com quantidade específica para cada parte do talhão) e na colheita seguindo as linhas de plantio. Muitos dos avanços na AP são fortemente dependentes das tecnologias de processamento digital de imagens \cite{Bolfe_2020}.
 
 As imagens utilizadas na AP têm variadas fontes (e.g., câmeras acopladas em Veículos Aéreos Não Tripulados (VANTs) e satélites) dependendo da aplicação e do \textit{Ground Sample Distance} (GSD) requisitado. O GSD refere-se à distância da amostra ao solo, ou seja, quanto cada pixel da imagem obtida representa da região fotografada. Assim quanto menor for o GSD, mais detalhes a imagem terá da região analisada. Satélites (com GSD em média de metros) conseguem imagem de grande regiões mais facilmente que os VANTs (GSD em média de centímetros), que necessitam de planos de voo para abranger toda região e mosaicagem para combinar as imagens obtidas \cite{Messina_2020}.
 
 O custo das imagens de satélites depende muito da qualidade das imagens, elas possuem baixa temporalidade (imagens de uma mesma área em momentos diferentes), um baixo nível de detalhes (maior GSD) em relação aos VANTs e sofrem bastante com as condições climáticas (e.g., nuvens). Por outro lado, os VANTs geralmente têm custo baixo para aquisição das imagens, possibilitam a captura (e recaptura) das imagens sempre que necessário (alta temporalidade e disponibilidade), com grande nível de detalhes (pequeno GSD) e não sofrem muito com as nuvens devido a sua altitude de voo \cite{Candiago_2015, Delavarpour_2021}.
 
-Uma das aplicações importantes da AP é a detecção das linhas de plantio, principalmente porque está é utilizada como uma etapa importante para outras aplicações da AP (e.g., detecção de ervas daninhas, mapeamento e previsão de produção de safra, detecção de falhas) \cite{Hassanein_2019}. Além de ser utilizada pelos veículos autônomos para se guiarem na plantação, assim evitando o pisoteamento da cultura \cite{Doha_2021}.
+Uma das aplicações importantes da AP é a detecção das linhas de plantio, principalmente porque esta é utilizada como uma etapa importante para outras aplicações da AP (e.g., detecção de ervas daninhas, mapeamento e previsão de produção de safra, detecção de falhas) \cite{Hassanein_2019}. Além de ser utilizada pelos veículos autônomos para se guiarem na plantação, assim evitando o pisoteamento da cultura \cite{Doha_2021}.
 
-A detecção de linhas de plantio é uma tarefa complexa e com vários desafios. Por exemplo, pode haver a presença de ervas daninhas com assinatura espectral e cor semelhantes a linhas da cultura, dificultando a sua detecção. Crescimento irregular da cultura, falhas no plantio, imperfeições e oclusões linha de plantio, manchas de solo e tipos diferentes na mesma plantação, presença de artefatos bloqueando a visão de linha de cultivo (e.g., árvores), sombras, além de variações nas condições climáticas e de iluminação, são exemplos de variações presentes nas imagens e que podem atrapalhar, ou mesmo comprometer, o processo de detecção  \cite{Rabab_2021, Doha_2021}.
+A detecção de linhas de plantio é uma tarefa complexa e com vários desafios. Por exemplo, pode haver a presença de ervas daninhas com assinatura espectral e cor semelhantes a linhas da cultura, dificultando a sua detecção. Crescimento irregular da cultura, falhas no plantio, imperfeições e oclusões linha de plantio, manchas de solo e tipos diferentes na mesma plantação, presença de artefatos bloqueando a visão da linha de cultivo (e.g., árvores), sombras, além de variações nas condições climáticas e de iluminação, são exemplos de variações presentes nas imagens e que podem atrapalhar, ou mesmo comprometer, o processo de detecção  \cite{Rabab_2021, Doha_2021}.
 
 Um dos cenários de grande utilização da Agricultura de Precisão no Brasil é no cultivo de cana-de-açúcar (\textit{Saccharum officinarum}), motivando pesquisadores (e.g., \citeonline{Souza_2017, Souza_2018, Silva_Escarpinati_Backes_2021}) e empresas (e.g., \citeonline{AERO_2017, Sensix_2020, Inforow_2021}) a desenvolverem soluções na área.
 
@@ -99,7 +99,7 @@ O Brasil é o maior produtor e exportador de cana-de-açúcar, com aproximadamen
 
 A cana-de-açúcar é uma cultura semi-perene (seu manejo pode durar anos sem ser necessário um novo plantio), o que adiciona uma motivação a mais para detectar as suas linhas de plantio em relação a outras culturas (e.g., milho). Após a primeira colheira, a rebrota das soqueiras é colhida anualmente por cerca de 5 a 7 anos, ou mais \cite{Rudorff_2010}. Contudo, isso também adiciona um desafio, pois dependendo do estágio da plantação, folhas secas estão presentes no solo entre as linhas da cultura, dificultando a análise computacional \cite{Silva_2020}.
 
-Apesar de na literatura já existirem muitos trabalhos para detectar linhas de plantio, a maioria deles são para outras culturas (e.g., milho e beterraba) ou focados em linhas retas \cite{Pereira_Junior_2020}. Além de muitos utilizarem imagens de muito baixas altitudes ($< 2$ m), tiradas a partir do solo (manualmente ou acopladas maquinário agrícola) ou de alta altitudes (imagens de satélites) \cite{Hasan_2021}.
+Apesar de na literatura já existirem muitos trabalhos para detectar linhas de plantio, a maioria deles são para outras culturas (e.g., milho e beterraba) ou focados em linhas retas \cite{Pereira_Junior_2020}. Além de muitos utilizarem imagens de baixíssima altitude ($\le$ 2 m), tiradas a partir do solo (manualmente ou acopladas no maquinário agrícola) ou de alta altitude (imagens de satélites) \cite{Hasan_2021}.
 
 Outro ponto importante, atualmente não é possível encontrar (\textRed{não é uma afirmação muito forte o ``não é possível"?}) nenhum \textit{software} gratuito e de código aberto que faça a detecção das linhas de plantio corretamente (em cana-de-açúcar ou outro tipo de cultura), apenas \textit{softwares} comerciais. Assim este projeto também busca desenvolver uma metodologia de detecção das linhas de plantio que possa ser utilizada no desenvolvimento de um \textit{software}, promovendo uma democratização do conhecimento.
 
@@ -121,9 +121,7 @@ Este projeto tem como objetivos específicos:
     \item Detectar nas imagens das plantações de cana-de-açúcar com plantas em variados estágios (antes do primeiro corte (cana-planta) e depois do primeiro corte (cana-soca)) a linha de plantio.
 
     \item Detectar nas imagens obtidas por VANTs
-    as linhas de plantio com formatos de linhas retas e curvas.
-
-    \item \textRed{Colocar também a parte de detecção das falhas no plantio?}
+    as linhas de plantio com formatos de linhas retas e linhas curvas.
 
     \item Aplicar a proposta em imagem reais de plantações de cana-de-açúcar, analisar e avaliar os resultados provenientes das melhorias com ajuda de especialistas.
 \end{itemize}
@@ -164,11 +162,11 @@ O limiar pode ser escolhido manualmente ou através de algoritmos. Para a escolh
 
 A Transformada de Hough (TH) é um método desenvolvido, inicialmente, para detectar linhas retas em imagens binárias, que depois foi expandido para a detecção de formas parametrizadas (e.g., círculos e elipses). A transformada tem por base um método de votação (acumulador) do espaço da imagem (pixels) para espaço de parâmetros, chamado de espaço de Hough. No espaço de Hough, as coordenadas polares geralmente são preteridas, pois podem ser limitadas em intervalos muito precisos, ao contrário das coordenadas cartesianas \cite{Bah_2020}.
 
-Uma linha reta em uma imagem é composta por um conjunto de pixels, onde pela TH é mapeada para um único ponto ($\rho, \theta$), no espaço de Hough de acordo com a equação da reta, $\rho = x \cos \theta + y \sin \theta$. Onde $\rho$ representa a distância da reta até a origem; e $\theta$ representa o ângulo entre o eixo $x$ e a reta. A TH é capaz de detectar que um conjunto de pixels pertencem a uma linha reta mesmo que esteja quebrada e/ou com ruídos. Deste modo, todos os pontos alvo ($x, y$) da imagem binária fazem a TH gerando os respectivos ($\rho, \theta$), sendo acumulados caso coincidirem, ou seja, serem pontos colineares \cite{Huiying_2015}.
+Uma linha reta em uma imagem é composta por um conjunto de pixels, onde pela TH é mapeada para um único ponto $(\rho, \theta)$ no espaço de Hough, de acordo com a equação da reta, $\rho = x \cos \theta + y \sin \theta$. Onde $\rho$ representa a distância da reta até a origem, e $\theta$ representa o ângulo entre o eixo $x$ e a reta. A TH é capaz de detectar que um conjunto de pixels pertencem a uma linha reta mesmo que ela esteja quebrada (faltando alguns pixels) e/ou com ruídos. Deste modo, todos os pontos alvo $(x, y)$ da imagem binária fazem a TH gerando os respectivos ($\rho, \theta$), sendo acumulados caso coincidirem, ou seja, serem pontos colineares \cite{Huiying_2015}.
 
 \subsubsection{Transformada de Radon}
 
-A Transformada de Radon (TR), proposta por Johann Radon em 1917, mapeia uma função de coordenadas cartesianas ($x, y$) para distância e espaço angular ($\rho, \theta$), i.e., para o domínio de Radon. Aplicada em uma imagem, calcula as projeções ao longo dos ângulos especificados. O conjunto dessas projeções é chamado de sinograma. A TR é útil para detectar características lineares em uma imagem, onde transforma uma linha de pixel em um único ponto \cite{Kaur_Sahambi_2015}. É matematicamente definida como:
+A Transformada de Radon (TR), proposta por Johann Radon em 1917, mapeia uma função de coordenadas cartesianas $(x, y)$ para distância e espaço angular $(\rho, \theta)$, i.e., para o domínio de Radon. Aplicada em uma imagem, calcula as projeções ao longo dos ângulos especificados. O conjunto dessas projeções é chamado de sinograma. A TR é útil para detectar características lineares em uma imagem, onde transforma uma linha de pixel em um único ponto \cite{Kaur_Sahambi_2015}. É matematicamente definida como:
 
 \begin{equation}
 R(\rho, \theta) = \int\limits _{-\infty}^\infty \int\limits _{-\infty}^\infty i (x, y) \delta (\rho - x\cos \theta - y\sin \theta ) dxdy
@@ -179,22 +177,47 @@ Assim, a transformada de Radon em uma imagem pode ser definida como uma série d
 
 \subsubsection{Operações morfológicas}
 
-A expressão morfologia é comumente utilizada no ramo da biologia para se referir ao estudo das formas e estruturas dos animais e das plantas. No contexto de processamento de imagens, a morfologia matemática tem sentido similar, sendo utilizada para extrair componentes das imagens que são úteis na representação e na descrição da forma de uma região. A morfologia matemática oferece operações úteis para resolver vários problemas de PDI, como detecção de bordas, segmentação e e realces de objetos presentes na imagem \cite{Marques_Filho_1999}.
+A expressão morfologia é comumente utilizada no ramo da biologia para se referir ao estudo das formas e estruturas dos animais e das plantas. No contexto de processamento de imagens, a morfologia matemática tem sentido similar, sendo utilizada para extrair componentes das imagens que são úteis na representação e na descrição da forma de uma região. A morfologia matemática oferece operações úteis para resolver vários problemas de PDI, como a detecção de bordas, a segmentação e o realces de objetos presentes na imagem \cite{Marques_Filho_1999}.
 
 A morfologia matemática utiliza a teoria dos conjuntos, onde os conjuntos representam objetos presentes na imagem. Em imagens binárias, os conjuntos são membros do espaço inteiro bidimensional $Z^2$ (onde cada elemento é um vetor de coordenadas $(x, y)$), já em imagem em escala de cinza os elementos são membros do $Z^3$, sendo os dois primeiros as coordenadas do pixel e o terceiro, seu nível de cinza \cite{Gonzalez_Woods_2010}.
 
-As operações morfológicas utilizam os chamados elementos os estruturantes (pequenos conjuntos ou subimagens) e as operações de conjunto (e.g., a reflexão e a translação) como base. A translação é definida por: $\hat{B} = \{w | w = -b$, para $b \in B\}$, onde os pontos em B, com as coordenadas $(x, y)$ foram substituídas por $(-x, -y)$. A reflexão é definida por $(B)_z = \{c | c = b + z$, para $b \in B\}$, onde os pontos em B, com as coordenadas (x, y) foram substituídas por
-(x + z$_1$, y + z$_2$) \cite{AlAzawee_2015}.
+As operações morfológicas utilizam os chamados elementos os estruturantes (pequenos conjuntos ou subimagens) e as operações de conjunto (e.g., a reflexão e a translação) como base. A translação é definida por: $\hat{B} = \{w | w = -b$, para $b \in B\}$, onde os pontos em B, com as coordenadas $(x, y)$ foram substituídas por $(-x, -y)$. A reflexão é definida por $(B)_z = \{c | c = b + z$, para $b \in B\}$, onde os pontos em $B$, com as coordenadas $(x, y)$ foram substituídas por
+$(x + z_1, y + z_2)$ \cite{AlAzawee_2015}.
 
-Dentre as operações morfológicas, aqui será comentado um pouco sobre quatro delas, a dilatação, a erosão, a abertura e o fechamento. As duas primeiras são mais básicas, enquanto as duas últimas são combinações das mesmas. Considerando A e B como conjuntos de $Z^2$ e assim sendo imagens binárias. A dilatação, definida por: $A \oplus B = \{z | (\hat{B})_z \cap A \neq \varnothing \}$, é responsável pelo aumento ou crescimento de limites de objetos na imagem em função do elemento estruturante. Por outro lado, a erosão, definida por: $A \ominus B = \{ z | (B)_z \subseteq A\}$, diminui a quantidade de pixeis de interesse em torno dos objetos dando origem a lacunas \cite{Marques_Filho_1999}.
+Dentre as operações morfológicas, aqui será comentado um pouco sobre quatro delas, a dilatação, a erosão, a abertura e o fechamento. As duas primeiras são mais básicas, enquanto as duas últimas são combinações das mesmas. Considerando A e B como conjuntos de $Z^2$ e assim sendo imagens binárias. A dilatação, definida por: $A \oplus B = \{z | (\hat{B})_z \cap A \neq \varnothing \}$, é responsável pelo aumento ou crescimento dos limites dos objetos na imagem em função do elemento estruturante. Por outro lado, a erosão, definida por: $A \ominus B = \{ z | (B)_z \subseteq A\}$, diminui a quantidade de pixeis de interesse em torno dos objetos dando origem à lacunas \cite{Marques_Filho_1999}.
 
-A dilatação pode ser utilizada para preencher lacunas entre os objetos de interesse, já a erosão para separar objetos que estejam ligados por pequenos filamentos. A aplicação de uma dilatação seguida por uma erosão (com o mesmo elemento estruturante) é definida como fechamento morfológico. Por outro lado a abertura é o oposto, uma erosão seguida de uma dilatação. A abertura e o fechamento geralmente suavizam os contornos dos objetos presentes na imagem, mas a abertura tende a quebrar trechos muito obtusos e estreitos, já o fechamento tende a frechar pequenas lacunas e preencher falhas de um contorno \cite{Gonzalez_Woods_2010}.
+A dilatação pode ser utilizada para preencher lacunas entre os objetos de interesse, já a erosão para separar objetos que estejam ligados por pequenos filamentos. A aplicação de uma dilatação seguida por uma erosão (com o mesmo elemento estruturante) é definida como fechamento morfológico. Por outro lado a abertura é o oposto, uma erosão seguida de uma dilatação. A abertura e o fechamento geralmente suavizam os contornos dos objetos presentes na imagem, mas a abertura tende a quebrar trechos muito obtusos e estreitos, já o fechamento tende a frechar pequenas lacunas e preencher falhas de um contorno \cite{Gonzalez_Woods_2010, Kaur_Sahambi_2015}.
 
 \subsubsection{Índices de vegetação}
 
-\subsection{Deep Learning}
+Índices de Vegetação (IV) são combinações algébricas de várias bandas espectrais, de modo a destacar a vegetação e suas as propriedades (e.g., quantidade de biomassa, ausência de determinados nutrientes, deficiências hídricas, porcentagem de cobertura do solo) \cite{Candiago_2015}. Cada IV tem foco em certas características da vegetação e um momento mais oportuno para seu uso. Dentre eles o índice de Excesso de Verde (do inglês \textit{Excess Green index} (ExG)) é um dos mais usados para câmeras RGB, já o 
+índice de vegetação de diferença normalizada (do inglês \textit{Normalized Difference Vegetation Index} (NDVI)) para câmeras com espectro infravermelho próximo \cite{Pereira_Junior_2020}.
+
+\dotsBlue
+
+\subsection{Deep learning}
+
+O aprendizado profundo (do inglês \textit{Deep Learning} (DL)) é uma subárea do Aprendizado de Máquina, com aprendizado por representações a partir dos dados e aprendizado continuado através das várias camadas (\textit{layers}). Essas camadas dão origem ao \textit{deep} em DL, caraterizando assim redes profundas, onde cada camada apreende informações cada vez mais significativas sobre os dados. Essas redes (neurais artificiais) se tornaram o estado da arte para vários problemas de Visão Computacional e PDI. Dentre elas, as Redes Neurais Convolucionais (do inglês \textit{Convolutional Networks Networks} (CNNs) são uma das mais conhecidas e utilizadas \cite{Ponti_2017}.
+
+As CNNs podem utilizar vários tipos de camadas na sua construção, cujos as principais são \cite{Rawat_Wang_2017}:
+
+\begin{itemize}
+    %\item camada de entrada: recebe imagem(ens) de entrada em tamanho/formato especifico para a rede e outras informações que forem importante (e.g., um rótulo descritivo da imagem).
+
+    \item camada convolucional: composta por um conjunto de filtros (ou pode ser apenas um), onde cada filtro é uma matriz com pesos apreendidos pela rede a partir das informações de entrada (e.g., uma imagem e seu respectivo rótulo). Inicialmente, os pesos geralmente são definidos aleatoriamente, sendo atualizados pela interação da rede com os dados entrada e o erro observado. A partir de cada filtro é aplicado uma convolução (dando nome a rede), nas imagens de entrada. Deste modo os filtros funcionam como extratores de características e ficam cada vez mais especializados em certas características (e.g., bordas, linhas) presentes nas imagens. A camada convolucional geralmente é seguida por uma função de ativação.
+
+    \item camada de \textit{pooling}: recebe o resultado das camadas anteriores, reduzindo seu tamanho de modo não influenciar muito no resultado final. Assim, essa camada tem por objetivo reduzir o custo computacional da rede, facilitando assim o treinamento da rede e sua utilização. E também possibilitar a invariância espacial, onde a rede conseguirá trabalhar com distorções e translações na imagens de entrada.
+
+    \item camada totalmente conectada: essa tipo de camada geralmente é utilizada após varias camadas de convolução e de \textit{pooling}. Nela tem-se ligação do resultado da camada anterior e seus pesos para, por exemplo, classificar a imagem de entrada em determinada categoria. A partir do erro observado, os pesos das camadas anteriores são atualizados.
+
+    %\item camada de saída: 
+\end{itemize}
+
+CNN para segmentação \dotsBlue
 
 \subsection{Trabalhos relacionados}
+
+Nesta seção serão discutidos alguns trabalhos relacionados que servirão de base para o desenvolvimento de novas metodologias para segmentação de imagens de VANTs associadas a AP e a detecção de linhas de plantio.
 
 \cite{Souza_2017} \dotsBlue
 
@@ -204,28 +227,33 @@ A dilatação pode ser utilizada para preencher lacunas entre os objetos de inte
 
 \linePage
 
-\cite{Bah_2020}
+\cite{Rozo_2019} \dotsBlue
 
 \linePage
 
-Em \citeonline{Silva_2020} foi desenvolvido duas abordagens para detecção de linhas de plantio de cana-de-açúcar, a primeira utilizando Algoritmo Genético (AG) resultando em \citeonline{Silva_Escarpinati_Backes_2021} e a segunda utilizando redes neurais artificiais. Para comparar os resultados, foram utilizados 4 \textit{datasets} (com plantas de variadas idades) e suas respectivas linhas de plantio, marcadas por um especialista. O AG foi utilizado para encontrar uma máscara (filtro convolucional que combina as bandas RGB da imagem para uma em escala de cinza), que maximize o Coeficiente de Dice (CD). Em sequência o método Otsu foi utilizado para binarizar as imagens e por fim, a TR foi utilizada para otimizar a detectação das linhas de plantio. Como resultado, a detecção das linhas ficou próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas (gerando um efeito de serrilhamento indesejado). Na abordagem com redes neurais, a LinkNet teve maior CD do que na abordagem anterior. A TR também foi aplicada nessa aborgem, contudo piorando o CD em muitos casos.
-
-
-\linePage
-
-\citeonline{Oliveira_2020} desenvolveu uma abordagem similar a \citeonline{Silva_2020}, na detecção das linhas de plantio de cana-de-açúcar, utilizando Algoritmo Genético para Multilimiarização, a Transformada
-Discreta de Wavelet e Transformada de Hough Probabilística.
-\dotsBlue
+\cite{Bah_2020} \dotsBlue
 
 \linePage
 
-\citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow}. Como esperado os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não foi possível detectar pequenas falhas ($<=$ 1 m) quando a planta já tinha certa altura ($>=$ 1 m) através do \textit{software}. Importante notar que mesmo o \textit{software} comercial não obteve bons resultados em certos cenários.
+Em \citeonline{Silva_2020} foi desenvolvido duas abordagens para detecção de linhas de plantio de cana-de-açúcar, a primeira utilizando Algoritmo Genético (AG) resultando em \citeonline{Silva_Escarpinati_Backes_2021} e a segunda utilizando redes neurais artificiais. Para comparar os resultados, foram utilizados 4 \textit{datasets} (com plantas de variadas idades) e suas respectivas linhas de plantio, marcadas por um especialista. O AG foi utilizado para encontrar uma máscara (filtro convolucional que combina as bandas RGB da imagem para uma em escala de cinza), que maximize o Coeficiente de Dice (CD). Em sequência o método Otsu foi utilizado para binarizar as imagens e por fim, a TR foi utilizada para otimizar a detecção das linhas de plantio. Como resultado, a detecção das linhas ficou próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas (gerando um efeito de serrilhamento indesejado). Na abordagem com redes neurais, a LinkNet teve maior CD do que na abordagem anterior. A TR também foi aplicada nessa abordagem, contudo piorando o CD em muitos casos.
+
+\linePage
+
+\citeonline{Oliveira_2020} desenvolveu uma abordagem similar a \citeonline{Silva_2020}, na detecção das linhas de plantio de cana-de-açúcar. Nela, o ortomosaico é dividido em pequenas imagens, que são convertidas para escala de cinza e feita redução dos níveis de cinza (de 256 para 32) pela Transformada Discreta de Wavelet. Na sequência, o AG é utilizado para encontrar 4 limiares, o maior é usado para segmentar a imagem, que segue para operações morfológicas de fechamento, erosão e esqueletização. Por fim a Transformada de Hough Probabilística Progressiva é utilizada para otimizar a detecção das linhas de plantio e suas falhas. O trabalho apresenta um bom resultado, mas foi aplicado apenas em uma pequena seção do ortomosaico, sem um padrão ouro para teste e considera as linhas de plantio como linhas retas.
+
+\linePage
+
+\citeonline{Pereira_Junior_2020} \dotsBlue
+
+\linePage
+
+\citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow}. Como esperado os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não foi possível detectar pequenas falhas $(\le 1$ m$)$ quando a planta já tinha certa altura $(\ge 1$ m$)$ através do \textit{software}. Importante notar que mesmo o \textit{software} comercial não obteve bons resultados em certos cenários.
 
 \linePage
 
 \textRed{parágrafo comentando os principais trabalhos de modo bem resumido}
 
-Na literatura, o trabalho de \citeonline{Silva_2020} contribuiu significativamente para detecção das linhas de plantio em plantações de cana-de-açúcar, contudo não obteve bons resultados com linhas curvas (gerando um efeito serrilhamento indesejado). \textRed{Na abordagem com redes neurais \dotsBlue}.
+Na literatura, o trabalho de \citeonline{Silva_2020} contribuiu significativamente para detecção das linhas de plantio em plantações de cana-de-açúcar, contudo não obteve bons resultados com linhas curvas (gerando um efeito serrilhamento indesejado). Por outro lado a abordagem com redes neurais teve melhor resultado, mas ainda pode ser melhor explorada. \citeonline{Oliveira_2020} apresenta uma abordagem similar, mas que não foi muito bem testada.  \dotsBlue.
 
 
 \section{Metodologia de pesquisa}
@@ -236,12 +264,29 @@ A metodologia deste projeto é composta por 5 etapas. A primeira etapa é a aqui
 A terceira etapa é o processamento principal, ou seja, a segmentação das imagens. Aqui serão testados e propostos métodos para melhorar a segmentação dessas imagens. Na quarta etapa será feito o pós-processamento para otimizar a segmentação e refinar as linhas detectadas pela etapa anterior, além de tratar linhas incompletas e linhas curvas. Por fim, será feita a avaliação dos resultados da detecção das linhas de plantio.
 
 \subsection{Aquisição das imagens}
+
+As imagens para os experimentos são de VANTs em culturas, inicialmente, de cana-de-açúcar e de \textit{datasets} disponíveis. Dentre os \textit{datasets}, poucos utilizam imagens de VANTs. Em \citeonline{Silva_2020} 4 mosaicos (\autoref{fig:mosaicos}) de plantações de cana-de-açúcar e suas respectivas linhas de plantio marcadas por um especialista foram utilizadas. As imagens foram capturadas por um VANT de mapeamento, modelo \textit{eBee SenseFly}, com uma câmera \textit{SenseFly S.O.D.A.} de uma polegada, tendo $5472\times3648$ pixels de resolução e lente RGB F/2.8-11, 10.6 mm. Onde cada pixel na imagem representa aproximadamente 5 cm (GSD de 0.053 m). Esses mosaicos têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
+
+\begin{figure}[htbp]
+    \centering
+    \subfigure[]{\includegraphics[width=0.24\textwidth]{img/a.png}} 
+    \subfigure[]{\includegraphics[width=0.24\textwidth]{img/b.png}} 
+    \subfigure[]{\includegraphics[width=0.24\textwidth]{img/c.png}}
+    \subfigure[]{\includegraphics[width=0.24\textwidth]{img/d.png}}
+    \caption{Mosaicos e seus respectivos tamanhos: (a) 11180 $\times$ 8449; (b) 16677 $\times$ 24181; (c) 17497 $\times$ 10771; (d) 19833 $\times$ 30255.}
+    \label{fig:mosaicos}
+\end{figure}
+
+Em \citeonline{Pereira_Junior_2020}, utilizaram 1 mosaico \cite{CropRowsDataset2019}
+
 \subsection{Pré-processamento}
+
 \subsection{Segmentação}
 
 As redes neurais podem ter bom resultado na segmentação, em comparação com os algoritmos tradicionais, por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair, como \dotsBlue
 
 \subsection{Prós-processamento}
+
 \subsection{Avaliação dos resultados}
 
 \section{Resultados esperados}
