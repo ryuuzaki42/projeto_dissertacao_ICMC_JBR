@@ -77,7 +77,7 @@
 		Previsão da Defesa: fevereiro de 2023\\ $\ $\\}
 \end{center}
 
-\textRed{Versão 0.1 - 22/09/2021}
+\textRed{Versão 0.2 - 06/10/2021}
 
 \section{Introdução}
 
@@ -108,7 +108,8 @@ Considerando o cenário de grande utilização dos VANTs para obtenção de imag
 %\subsection{Motivação}
     % Deixar dentro da introdução
  
-\subsection{Objetivos e Desafios da Pesquisa}
+\subsection{Objetivos e desafios da pesquisa}
+\textRed{Melhor mudar o título para objetivos? Comentei um pouco dos desafios na introdução.}
     % => Descreva claramente os desafios que o tema propõe e quais os objetivos que se pretende alcançar. Se o tema for muito abrangente, descreva os objetivos em termos de ``objetivo geral'' e ``objetivos específicos''. Cuidado com objetivos como ``desenvolver um sistema...''; ``explorar um método...'' Esses objetivos são triviais, ou seja, uma vez desenvolvido o sistema ou explorado o método, independente dos resultados, o objetivo foi atingido. Prefira verbos como: ``contribuir'', ``analisar'', ``investigar'', ``comparar''. Os membros da banca ao lerem essa seção farão o seguinte questionamento: Algum conhecimento novo para a humanidade foi produzido?
 
 Este projeto tem como objetivo estudar e analisar os diferentes métodos de segmentação automática em imagens de VANTs tendo, inicialmente, foco em imagem de plantio de cana-de-açúcar e propor melhorias na detecção de linhas de plantio. 
@@ -158,13 +159,13 @@ A escolha do limiar é uma tarefa complicada já que um limiar inadequado não c
 
 O limiar pode ser escolhido manualmente ou através de algoritmos. Para a escolha desse limiar muitos trabalhos na área de imagens utilizam o método de Otsu. Este método \cite{Otsu_1979} utiliza o histograma da imagem e busca um limiar ideal que separe a imagem em duas classes (objeto e fundo), de modo a maximizar a variância entre as classes e minimizar a variância interna das classes.
 
-\subsubsection{Transformada de Hough}
+\subsubsection{Transformada de hough}
 
 A Transformada de Hough (TH) é um método desenvolvido, inicialmente, para detectar linhas retas em imagens binárias, que depois foi expandido para a detecção de formas parametrizadas (e.g., círculos e elipses). A transformada tem por base um método de votação (acumulador) do espaço da imagem (pixels) para espaço de parâmetros, chamado de espaço de Hough. No espaço de Hough, as coordenadas polares geralmente são preteridas, pois podem ser limitadas em intervalos muito precisos, ao contrário das coordenadas cartesianas \cite{Bah_2020}.
 
 Uma linha reta em uma imagem é composta por um conjunto de pixels, onde pela TH é mapeada para um único ponto $(\rho, \theta)$ no espaço de Hough, de acordo com a equação da reta, $\rho = x \cos \theta + y \sin \theta$. Onde $\rho$ representa a distância da reta até a origem, e $\theta$ representa o ângulo entre o eixo $x$ e a reta. A TH é capaz de detectar que um conjunto de pixels pertencem a uma linha reta mesmo que ela esteja quebrada (faltando alguns pixels) e/ou com ruídos. Deste modo, todos os pontos alvo $(x, y)$ da imagem binária fazem a TH gerando os respectivos ($\rho, \theta$), sendo acumulados caso coincidirem, ou seja, serem pontos colineares \cite{Huiying_2015}.
 
-\subsubsection{Transformada de Radon}
+\subsubsection{Transformada de radon}
 
 A Transformada de Radon (TR), proposta por Johann Radon em 1917, mapeia uma função de coordenadas cartesianas $(x, y)$ para distância e espaço angular $(\rho, \theta)$, i.e., para o domínio de Radon. Aplicada em uma imagem, calcula as projeções ao longo dos ângulos especificados. O conjunto dessas projeções é chamado de sinograma. A TR é útil para detectar características lineares em uma imagem, onde transforma uma linha de pixel em um único ponto \cite{Kaur_Sahambi_2015}. É matematicamente definida como:
 
@@ -213,7 +214,8 @@ As CNNs podem utilizar vários tipos de camadas na sua construção, cujos as pr
     %\item camada de saída: 
 \end{itemize}
 
-CNN para segmentação \dotsBlue
+%CNN para segmentação \dotsBlue
+\dotsBlue
 
 \subsection{Trabalhos relacionados}
 
@@ -239,7 +241,7 @@ Em \citeonline{Silva_2020} foi desenvolvido duas abordagens para detecção de l
 
 \linePage
 
-\citeonline{Oliveira_2020} desenvolveu uma abordagem similar a \citeonline{Silva_2020}, na detecção das linhas de plantio de cana-de-açúcar. Nela, o ortomosaico é dividido em pequenas imagens, que são convertidas para escala de cinza e feita redução dos níveis de cinza (de 256 para 32) pela Transformada Discreta de Wavelet. Na sequência, o AG é utilizado para encontrar 4 limiares, o maior é usado para segmentar a imagem, que segue para operações morfológicas de fechamento, erosão e esqueletização. Por fim a Transformada de Hough Probabilística Progressiva é utilizada para otimizar a detecção das linhas de plantio e suas falhas. O trabalho apresenta um bom resultado, mas foi aplicado apenas em uma pequena seção do ortomosaico, sem um padrão ouro para teste e considera as linhas de plantio como linhas retas.
+\citeonline{Oliveira_2020} desenvolveu uma abordagem similar a \citeonline{Silva_2020}, na detecção das linhas de plantio de cana-de-açúcar. Nela, o mosaico é dividido em pequenas imagens, que são convertidas para escala de cinza e feita redução dos níveis de cinza (de 256 para 32) pela Transformada Discreta de Wavelet. Na sequência, o AG é utilizado para encontrar 4 limiares, o maior é usado para segmentar a imagem, que segue para operações morfológicas de fechamento, erosão e esqueletização. Por fim a Transformada de Hough Probabilística Progressiva é utilizada para otimizar a detecção das linhas de plantio e suas falhas. O trabalho apresenta um bom resultado, mas foi aplicado apenas em uma pequena seção do mosaico, sem um padrão ouro para teste e considera as linhas de plantio como linhas retas.
 
 \linePage
 
@@ -265,42 +267,80 @@ A terceira etapa é o processamento principal, ou seja, a segmentação das imag
 
 \subsection{Aquisição das imagens}
 
-As imagens para os experimentos são de VANTs em culturas, inicialmente, de cana-de-açúcar e de \textit{datasets} disponíveis. Dentre os \textit{datasets}, poucos utilizam imagens de VANTs. Em \citeonline{Silva_2020} 4 mosaicos (\autoref{fig:mosaicos}) de plantações de cana-de-açúcar e suas respectivas linhas de plantio marcadas por um especialista foram utilizadas. As imagens foram capturadas por um VANT de mapeamento, modelo \textit{eBee SenseFly}, com uma câmera \textit{SenseFly S.O.D.A.} de uma polegada, tendo $5472\times3648$ pixels de resolução e lente RGB F/2.8-11, 10.6 mm. Onde cada pixel na imagem representa aproximadamente 5 cm (GSD de 0.053 m). Esses mosaicos têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
+As imagens para os experimentos são de VANTs em culturas, inicialmente, de cana-de-açúcar e de \textit{datasets} disponíveis. Dentre os \textit{datasets}, poucos utilizam imagens de VANTs. Em \citeonline{Silva_2020} 4 mosaicos (\autoref{fig:mosaicos1}) de plantações de cana-de-açúcar e suas respectivas linhas de plantio (\autoref{fig:linhas}), marcadas por um especialista, foram utilizadas. As imagens foram capturadas por um VANT de mapeamento, modelo \textit{eBee SenseFly}, com uma câmera \textit{SenseFly S.O.D.A.} de uma polegada, tendo $5472\times3648$ pixels de resolução e lente RGB F/2.8-11, 10.6 mm. Onde cada pixel na imagem representa aproximadamente 5 cm (GSD de 0.053 m). Esses mosaicos têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
 
 \begin{figure}[htbp]
     \centering
-    \subfigure[]{\includegraphics[width=0.24\textwidth]{img/a.png}} 
-    \subfigure[]{\includegraphics[width=0.24\textwidth]{img/b.png}} 
-    \subfigure[]{\includegraphics[width=0.24\textwidth]{img/c.png}}
-    \subfigure[]{\includegraphics[width=0.24\textwidth]{img/d.png}}
+    \subfigure[]{\includegraphics[width=0.11\textwidth]{img/a2.jpg}} 
+    \subfigure[]{\includegraphics[width=0.32\textwidth]{img/b2.jpg}} 
+    \subfigure[]{\includegraphics[width=0.14\textwidth]{img/c2.jpg}}
+    \subfigure[]{\includegraphics[width=0.40\textwidth]{img/d2.jpg}}
     \caption{Mosaicos e seus respectivos tamanhos: (a) 11180 $\times$ 8449; (b) 16677 $\times$ 24181; (c) 17497 $\times$ 10771; (d) 19833 $\times$ 30255.}
-    \label{fig:mosaicos}
+    \label{fig:mosaicos1}
 \end{figure}
 
-Em \citeonline{Pereira_Junior_2020}, utilizaram 1 mosaico \cite{CropRowsDataset2019}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/linhas2.jpg}
+    \caption{Exemplos de marcações feitas pelo especialista nos 4 mosaicos em \citeonline{Silva_2020}.}
+    \label{fig:linhas}
+\end{figure}
+
+Em \citeonline{Pereira_Junior_2020}, utilizaram 1 mosaico \cite{CropRowsDataset2019} (\autoref{fig:mosaicos2}) capturado com uma câmera RGB \textit{Canon G9X} e VANT \textit{Horus Aeronaves}, resultando em um GSD aproximado de 5 cm. O mosaico foi marcado por um especialista; as linha de plantio em verde, o fundo/solo em vermelho, já fora do mosaico todos pixels foram definidos como pretos.
+
+\begin{figure}[htbp]
+    \centering
+    \subfigure[]{\includegraphics[width=0.49\textwidth]{img/sugarcane1-s2.jpg}} 
+    \subfigure[]{\includegraphics[width=0.49\textwidth]{img/sugarcane1-GT-s2.jpg}} 
+    \caption{Mosaico \citeonline{CropRowsDataset2019} (a) mosaico de tamanho (incluindo bordas pretas) 6595 $\times$ 9391; (b) marcação do especialista (de mesmo tamanho).}
+    \label{fig:mosaicos2}
+\end{figure}
+
+Além dos dois \textit{datasets} disponíveis, imagens/mosaicos devem ser capturados, dependendo da demanda dos experimentos, de culturas de cana-de-açúcar e outras, através dos VANTs. Depois sendo feita a marcação por um especialista, destacando as linhas de plantio do solo/fundo.
+
+\dotsBlue
 
 \subsection{Pré-processamento}
 
+No pré-processamento ajustes serão feitos nas imagens de modo a facilitar ou melhorar os resultados da segmentação. Dentre eles a correção de brilho e contraste, quando forem necessário. Além da remoção de ruídos que podem estar presentes nas imagens. Após converter as imagens para níveis de cinza, as operações morfológicas podem ser úteis.
+
+A dilatação pode ser utilizada para juntar plantas isoladas de suas respectivas linhas de plantio devido a pequenas falhas, assim expandir extremidades e conectar elas com a linha de plantio. Por outro lado, a erosão, pode ser utilizada para separar estreitos e compridos filamentos onde plantas podem estar ligadas com outras linhas de plantio ou com uma errada.
+
+\dotsBlue
+
 \subsection{Segmentação}
 
-As redes neurais podem ter bom resultado na segmentação, em comparação com os algoritmos tradicionais, por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair, como \dotsBlue
+O processamento principal, as vezes também chamado de segmentação é uma das partes mais importantes do PDI. Para esse projeto, inicialmente, foi escolhido redes neurais para segmentar as imagens das linhas de plantio. Elas podem ter bom resultado na segmentação, em comparação com os algoritmos tradicionais (e outros métodos como AG), por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair das imagens. Dentre essas características, podem ser contornos, formatos de linhas, outros tipos de formatos específicos. 
 
-\subsection{Prós-processamento}
+\dotsBlue
+
+\subsection{Pós-processamento}
+
+O pós-processamento é responsável por refinar a segmentação obtida na etapa anterior. Aqui também será refinado as linhas detectadas, por exemplo, utilizando a TR ou a TH. Além de tratar as linhas de plantio com formato de linhas retas e linhas curvas. Também pode ser utilizado as operações morfológica para juntar ou separar finos filamentos.
+
+\dotsBlue
 
 \subsection{Avaliação dos resultados}
+
+Para avaliação dos resultados é importante ter um método confiável e de fácil replicação/teste. Por isso as marcações por especialistas são tão importantes. Neste projeto será comparado as marcações feitas pelos especialistas com as linhas de plantio detectadas nas etapas anteriores. Para comparar os resultados será utilizado o Coeficiente de \textit{Dice} (CD), (como em \citeonline{Silva_Escarpinati_Backes_2021}). Com o CD é possível comparar o quão similar duas imagens binárias são. Considerando A e B como imagens binárias, o CD é definido por:
+
+\begin{equation}
+    CD = 2 \frac{|A \cap B|}{|A| + |B|}
+\end{equation}
+
+No resultado de CD, $0 \le CD \ge 1$, quanto mais próximo de 1, mais similar são as imagens A e B. Para a validação dos resultados serão utilizadas imagens de vários hectares de cana-de-açúcar contendo diferentes idades e tamanhos de plantas. Nesta validação, assume-se que o resultado gerado pelo especialista, sua marcação, de forma manual é o melhor resultado esperado. Assim quanto mais próximo deste resultado as imagens geradas pelos métodos propostos estiverem, mais assertivas elas serão consideradas.
+
+\dotsBlue
 
 \section{Resultados esperados}
 % => Liste os resultados mais importantes que você pretende obter a partir de seu trabalho de doutorado.
 
-\textBlue{
-1 Um método automático para detecção de linhas de plantio
+Ao fim do projeto, espera-se obter um método de avaliação automática capaz de realizar de forma mais eficiente e com maior precisão o processo de segmentação de imagens de linhas de plantio da cultura de cana-de-açúcar. O projeto é focado em imagens de VANTs, diferentes de outros trabalhos que utilizam imagens de satélites e, principalmente, de baixíssimas altitudes (tiradas do solo ou acopladas em maquinário agrícola). As técnicas estudas e desenvolvidas serão utilizadas em sua melhor combinação para detectar as linhas de plantio.
 
-2 Falhas também?
+Também é esperado que este método consiga lidar bem com linhas de plantio em formato de linhas retas e linhas curvas nas plantações de cana-de-açúcar em vários estágios (idades diferentes)
 
-3 Que consiga lidar bem com linhas retas, linhas curvas, plantações de cana-de-açúcar em vários estágios (idades diferentes) ?
+\dotsBlue
 
-...
-}
 
 %\section{Esquema Geral do Texto da Dissertação (opcional)}
 % => Descreva o “esqueleto” de sua dissertação, como vai estruturar os capítulos e seções. Dê um título, mesmo que provisório, a sua dissertação.
@@ -338,7 +378,7 @@ As atividades são descritas abaixo:
     \item A1: revisão bibliográfica sobre os métodos de segmentação e detecção de linhas de plantio.
     \item A2: estudo dos algoritmos e métodos encontrados na literatura correlata sobre segmentação de imagens.
     \item A3: estudo dos algoritmos e métodos encontrados na literatura correlata sobre \textit{deep learning} na segmentação de imagens.
-    \item A4. Avaliação dos algoritmos estudados com relação a possibilidade de aplicar as técnicas estudadas no contexto do nosso trabalho.
+    \item A4: avaliação dos algoritmos estudados com relação a possibilidade de aplicar as técnicas estudadas no contexto do nosso trabalho.
     \item A5: aplicação e análise dos algoritmos e métodos encontrados em imagens reais.
     \item A6: avaliação dos resultados e propostas de melhorias.
     \item A7: readequação dos parâmetros e mais experimentos (caso necessário).
