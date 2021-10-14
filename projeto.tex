@@ -101,28 +101,28 @@ A cana-de-açúcar é uma cultura semi-perene (seu manejo pode durar anos sem se
 
 Apesar de na literatura já existirem muitos trabalhos para detectar linhas de plantio, a maioria deles são para outras culturas (e.g., milho e beterraba) ou focados em linhas retas \cite{Pereira_Junior_2020}. Além de muitos utilizarem imagens de baixíssima altitude ($\le$ 2 m), tiradas a partir do solo (manualmente ou acopladas no maquinário agrícola) ou de alta altitude (imagens de satélites) \cite{Hasan_2021}.
 
-Outro ponto importante, atualmente não é possível encontrar (\textRed{não é uma afirmação muito forte o ``não é possível"?}) nenhum \textit{software} gratuito e de código aberto que faça a detecção das linhas de plantio corretamente (em cana-de-açúcar ou outro tipo de cultura), apenas \textit{softwares} comerciais. Assim este projeto também busca desenvolver uma metodologia de detecção das linhas de plantio que possa ser utilizada no desenvolvimento de um \textit{software}, promovendo uma democratização do conhecimento.
+Outro ponto importante, atualmente não é possível encontrar nenhum \textit{software} gratuito e de código aberto que faça a detecção das linhas de plantio corretamente (em cana-de-açúcar ou outro tipo de cultura), apenas \textit{softwares} comerciais, como o \citeonline{Inforow_2021}. Assim este projeto também busca desenvolver uma metodologia de detecção das linhas de plantio que possa ser utilizada no desenvolvimento de um \textit{software}, promovendo uma democratização do conhecimento.
 
 Considerando o cenário de grande utilização dos VANTs para obtenção de imagens para a Agricultura de precisão, a grande importância da detecção das linhas de plantio, este projeto tem como foco a detecção de linhas de plantio de cana-de-açúcar.
 
 %\subsection{Motivação}
     % Deixar dentro da introdução
  
-\subsection{Objetivos e desafios da pesquisa}
-\textRed{Melhor mudar o título para objetivos? Comentei um pouco dos desafios na introdução.}
+\subsection{Objetivos}
+
     % => Descreva claramente os desafios que o tema propõe e quais os objetivos que se pretende alcançar. Se o tema for muito abrangente, descreva os objetivos em termos de ``objetivo geral'' e ``objetivos específicos''. Cuidado com objetivos como ``desenvolver um sistema...''; ``explorar um método...'' Esses objetivos são triviais, ou seja, uma vez desenvolvido o sistema ou explorado o método, independente dos resultados, o objetivo foi atingido. Prefira verbos como: ``contribuir'', ``analisar'', ``investigar'', ``comparar''. Os membros da banca ao lerem essa seção farão o seguinte questionamento: Algum conhecimento novo para a humanidade foi produzido?
 
-Este projeto tem como objetivo estudar e analisar os diferentes métodos de segmentação automática em imagens de VANTs tendo, inicialmente, foco em imagem de plantio de cana-de-açúcar e propor melhorias na detecção de linhas de plantio. 
+Este projeto tem como objetivo principal estudar e analisar os diferentes métodos de segmentação automática em imagens de VANTs tendo, inicialmente, foco em imagens de plantio de cana-de-açúcar e propor melhorias na detecção de linhas de plantio. 
 Este projeto tem como objetivos específicos:
+
 \begin{itemize}
     \item Estudar e analisar os métodos propostos na literatura correlata para detecção das linhas de plantio, como por exemplo, transformada de Hough e Radon, segmentação, redes neurais convolucionais, índices de vegetação e operações morfológicas.
 
     \item Avaliar a detecção de linhas de plantio utilizando as imagens de VANTs em métodos de \textit{Deep Learning} juntamente com Índice de Vegetação.
 
-    \item Detectar nas imagens das plantações de cana-de-açúcar com plantas em variados estágios (antes do primeiro corte (cana-planta) e depois do primeiro corte (cana-soca)) a linha de plantio.
+    \item Detectar as linhas de plantio nas imagens das plantações de cana-de-açúcar, com plantas em variados estágios (antes do primeiro corte (cana-planta) e depois do primeiro corte (cana-soca)).
 
-    \item Detectar nas imagens obtidas por VANTs
-    as linhas de plantio com formatos de linhas retas e linhas curvas.
+    \item Desenvolver um método capaz de identificar, nas imagens obtidas por VANTs, as linhas de plantio com formatos de linhas retas e linhas curvas.
 
     \item Aplicar a proposta em imagem reais de plantações de cana-de-açúcar, analisar e avaliar os resultados provenientes das melhorias com ajuda de especialistas.
 \end{itemize}
@@ -143,38 +143,45 @@ Esta seção apresentará os principais conceitos utilizados neste projeto, bem 
 
 O Processamento Digital de Imagens (PDI) compreende a manipulação de imagens digitais por um computador de modo a atingir um objetivo específico com procedimentos envolvendo varias etapas \cite{Gonzalez_Woods_2010}.
 
-Após a aquisição das imagens, tem-se a importante etapa de pré-processamento das imagens, onde são feitos ajustes na intensidade dos pixels (sem conhecimento sobre o que representam). Esses ajustes visam remover imperfeições (e.g., presença de pixels ruidosos, contraste e/ou brilho inadequado) geradas no processo de aquisição das imagens e realçar detalhes importantes para análise. Assim, essa etapa tem como objetivo melhorar a imagem original para ser utilizada no processamento principal \cite{Marques_Filho_1999}.
+Após a aquisição das imagens, é comum utilizar uma etapa de pré-processamento das imagens, onde são feitos ajustes na intensidade dos pixels (sem conhecimento sobre o que representam). Esses ajustes visam remover imperfeições (e.g., presença de pixels ruidosos, contraste e/ou brilho inadequado) geradas no processo de aquisição e realçar detalhes importantes para análise. Assim, essa etapa tem como objetivo melhorar a imagem original para ser utilizada no processamento principal \cite{Marques_Filho_1999}.
 
 Dependendo do contexto da aplicação, muitas são as técnicas de pré-processamento que podem ser utilizadas, dentre elas a correção de brilho e contraste, realce de brilho, realce de bordas. A seguir são descritas em detalhes algumas dessas etapas.
 
 \subsubsection{Segmentação}
 
-A segmentação de imagens tem como objetivo dividir a imagem em regiões ou objetos de interesse. O nível de divisões depende do problema a ser resolvido, sendo executada até detectar todos os objetos de interesse. A segmentação de imagens é considerada uma das tarefas mais difíceis do PDI, já que implica diretamente no resultado da etapa de análise. Assim, é importante selecionar qual a técnica de segmentação mais adequada para o seu problema, de modo a aumentar a probabilidade de se obter uma segmentação precisa \cite{Gonzalez_Woods_2010}.
+A segmentação de imagens tem como objetivo dividir a imagem em regiões ou objetos de interesse. O nível de divisões depende do problema a ser resolvido, sendo a segmentação executada até que todos os objetos de interesse sejam detectados. A segmentação de imagens é considerada uma das tarefas mais difíceis do PDI, já que implica diretamente no resultado da etapa de análise. Assim, é importante selecionar qual a técnica de segmentação mais adequada para o seu problema, de modo a aumentar a probabilidade de se obter uma segmentação precisa \cite{Gonzalez_Woods_2010}.
 
 Ao fim da etapa de segmentação a imagem é dividida em várias regiões e sem sobreposição entre elas, ou seja, cada pixel pertence somente a uma região de interesse. Dentre as técnicas de segmentação, a limiarização é uma das mais utilizadas, por ser eficiente e simples do ponto de vista computacional \cite{Kuruvilla_2016}.
 
-A limiarização (\textit{Thresholding}, em inglês) consiste na divisão da imagem em duas classes (fundo e objeto) a partir de um limiar $T$. Caso o valor do pixel seja maior ou igual a $T$, esse terá valor 1 na imagem gerada; caso contrário, este receberá o valor 0. Como resultado esse processo produzirá uma imagem binária (com pixels de valor 0 ou 1), processo também chamado de binarização \cite{Marques_Filho_1999}.
+Uma forma bastante simples de segmentação é a limiarização (\textit{Thresholding}, em inglês), que consiste na divisão da imagem em duas classes (fundo e objeto) a partir de um limiar $T$. Caso o valor do pixel seja maior ou igual a $T$, esse terá valor 1 na imagem gerada; caso contrário, este receberá o valor 0. Como resultado, esse processo produzirá uma imagem binária (com pixels de valor 0 ou 1), processo também chamado de binarização \cite{Marques_Filho_1999}.
 
-A escolha do limiar é uma tarefa complicada já que um limiar inadequado não conseguirá separar de forma correta a imagem em duas classes. Nesse contexto, a aplicação de limiares locais (i.e., um para cada pequeno retângulo da imagem de modo a compensar a não uniformidade de iluminação e/ou a refletância), pode ser uma melhor opção. Outra abordagem é a utilização múltiplos limiares globais, onde a imagem é divida em função dos intervalos dos limiares em mais do que duas classes \cite{Gonzalez_Woods_2010}.
+A escolha do limiar é uma tarefa complicada já que um limiar inadequado não conseguirá separar de forma correta a imagem em duas classes. Nesse contexto, a aplicação de limiares locais (i.e., um para cada pequeno retângulo da imagem de modo a compensar a não uniformidade de iluminação e/ou a refletância), pode ser uma opção melhor. Outra abordagem é a utilização de múltiplos limiares globais, onde a imagem é divida em função dos intervalos dos limiares em mais de duas classes \cite{Gonzalez_Woods_2010}.
 
-O limiar pode ser escolhido manualmente ou através de algoritmos. Para a escolha desse limiar muitos trabalhos na área de imagens utilizam o método de Otsu. Este método \cite{Otsu_1979} utiliza o histograma da imagem e busca um limiar ideal que separe a imagem em duas classes (objeto e fundo), de modo a maximizar a variância entre as classes e minimizar a variância interna das classes.
+O limiar pode ser escolhido manualmente ou através do uso de algum algoritmo. Para a escolha desse limiar muitos trabalhos na área de imagens utilizam o método de Otsu. Este método \cite{Otsu_1979} utiliza o histograma da imagem e busca um limiar ideal que separe a imagem em duas classes (objeto e fundo), de modo a maximizar a variância entre as classes e minimizar a variância interna das classes.
 
 \subsubsection{Transformada de hough}
 
-A Transformada de Hough (TH) é um método desenvolvido, inicialmente, para detectar linhas retas em imagens binárias, que depois foi expandido para a detecção de formas parametrizadas (e.g., círculos e elipses). A transformada tem por base um método de votação (acumulador) do espaço da imagem (pixels) para espaço de parâmetros, chamado de espaço de Hough. No espaço de Hough, as coordenadas polares geralmente são preteridas, pois podem ser limitadas em intervalos muito precisos, ao contrário das coordenadas cartesianas \cite{Bah_2020}.
+A Transformada de Hough (TH) é um método desenvolvido, inicialmente, para detectar linhas retas em imagens binárias, que depois foi expandido para a detecção de formas parametrizadas (e.g., círculos e elipses). A transformada tem por base um método de votação (acumulador) do espaço da imagem (pixels) para o espaço de parâmetros, chamado de espaço de Hough. Nele, as coordenadas polares geralmente são preferidas, pois podem ser limitadas em intervalos muito precisos, ao contrário das coordenadas cartesianas \cite{Bah_2020}.
 
-Uma linha reta em uma imagem é composta por um conjunto de pixels, onde pela TH é mapeada para um único ponto $(\rho, \theta)$ no espaço de Hough, de acordo com a equação da reta, $\rho = x \cos \theta + y \sin \theta$. Onde $\rho$ representa a distância da reta até a origem, e $\theta$ representa o ângulo entre o eixo $x$ e a reta. A TH é capaz de detectar que um conjunto de pixels pertencem a uma linha reta mesmo que ela esteja quebrada (faltando alguns pixels) e/ou com ruídos. Deste modo, todos os pontos alvo $(x, y)$ da imagem binária fazem a TH gerando os respectivos ($\rho, \theta$), sendo acumulados caso coincidirem, ou seja, serem pontos colineares \cite{Huiying_2015}.
+Uma linha reta em uma imagem é composta por um conjunto de pixels, onde pela TH é mapeada para um único ponto $(\rho, \theta)$ no espaço de Hough, de acordo com a equação da reta, $\rho = x \cos \theta + y \sin \theta$, onde $\rho$ representa a distância da reta até a origem e $\theta$ representa o ângulo entre o eixo $x$ e a reta (\autoref{fig:tHough}). A TH é capaz de detectar que um conjunto de pixels pertencem a uma linha reta mesmo que a reta esteja descontinua (faltando alguns pixels) e/ou com ruídos. Deste modo, todos os pontos alvo $(x, y)$ da imagem binária após a execução da TH terão seus respectivos ($\rho, \theta$), sendo acumulados caso coincidirem, ou seja, serem pontos colineares \cite{Huiying_2015}.
+
+\begin{figure}[htbp]
+    \centering
+    \subfigure[]{\includegraphics[width=0.45\textwidth]{img/ht_a.jpg}} 
+    \subfigure[]{\includegraphics[width=0.45\textwidth]{img/ht_b.jpg}} 
+    \caption{Tranformada de Hough em uma linha reta: (a) espaço de entrada $(x,y)$; (b) espaço de Hough $(\rho, \theta)$ \cite{Lin_Otobe_2001}.}
+    \label{fig:tHough}
+\end{figure}
 
 \subsubsection{Transformada de radon}
 
-A Transformada de Radon (TR), proposta por Johann Radon em 1917, mapeia uma função de coordenadas cartesianas $(x, y)$ para distância e espaço angular $(\rho, \theta)$, i.e., para o domínio de Radon. Aplicada em uma imagem, calcula as projeções ao longo dos ângulos especificados. O conjunto dessas projeções é chamado de sinograma. A TR é útil para detectar características lineares em uma imagem, onde transforma uma linha de pixel em um único ponto \cite{Kaur_Sahambi_2015}. É matematicamente definida como:
+A Transformada de Radon (TR), proposta por Johann Radon em 1917, mapeia uma função de coordenadas cartesianas $(x, y)$ para distância e espaço angular $(\rho, \theta)$, i.e., para o domínio de Radon. Aplicada em uma imagem, ela calcula as projeções dos dados ao longo dos ângulos especificados. O conjunto dessas projeções é chamado de sinograma. A TR é útil para detectar características lineares em uma imagem, onde transforma uma linha de pixel em um único ponto \cite{Kaur_Sahambi_2015}. É matematicamente definida como:
 
 \begin{equation}
 R(\rho, \theta) = \int\limits _{-\infty}^\infty \int\limits _{-\infty}^\infty i (x, y) \delta (\rho - x\cos \theta - y\sin \theta ) dxdy
 \end{equation}
 
-Onde $i (x, y)$ representa a função ou imagem que a transformada foi aplicada, $\delta$ o Delta de Dirac e $(\rho - x\cos \theta - y\sin \theta)$ a equação da linha.
-Assim, a transformada de Radon em uma imagem pode ser definida como uma série de integrais de linha por meio de $i (x, y)$ em deslocamentos diferentes da origem \cite{Li_2019}. A TR é muito importante é muitas áreas, principalmente no processamento de imagens, sendo a base para tomografia computadorizada clássica \cite{Silva_Escarpinati_Backes_2021}.
+onde $i (x, y)$ representa a função ou imagem em que a transformada foi aplicada, $\delta$ é o Delta de Dirac e $(\rho - x\cos \theta - y\sin \theta)$ é a equação da linha. Assim, a transformada de Radon em uma imagem pode ser definida como uma série de integrais de linha por meio de $i (x, y)$ em deslocamentos diferentes da origem \cite{Li_2019}. A TR é muito importante em diversas áreas, principalmente no processamento de imagens, sendo a base para a tomografia computadorizada clássica \cite{Silva_Escarpinati_Backes_2021}.
 
 \subsubsection{Operações morfológicas}
 
@@ -182,46 +189,91 @@ A expressão morfologia é comumente utilizada no ramo da biologia para se refer
 
 A morfologia matemática utiliza a teoria dos conjuntos, onde os conjuntos representam objetos presentes na imagem. Em imagens binárias, os conjuntos são membros do espaço inteiro bidimensional $Z^2$ (onde cada elemento é um vetor de coordenadas $(x, y)$), já em imagem em escala de cinza os elementos são membros do $Z^3$, sendo os dois primeiros as coordenadas do pixel e o terceiro, seu nível de cinza \cite{Gonzalez_Woods_2010}.
 
-As operações morfológicas utilizam os chamados elementos os estruturantes (pequenos conjuntos ou subimagens) e as operações de conjunto (e.g., a reflexão e a translação) como base. A translação é definida por: $\hat{B} = \{w | w = -b$, para $b \in B\}$, onde os pontos em B, com as coordenadas $(x, y)$ foram substituídas por $(-x, -y)$. A reflexão é definida por $(B)_z = \{c | c = b + z$, para $b \in B\}$, onde os pontos em $B$, com as coordenadas $(x, y)$ foram substituídas por
+As operações morfológicas utilizam os chamados elementos os estruturantes (pequenos conjuntos ou subimagens) e as operações de conjunto (e.g., a reflexão e a translação) como base. A translação é definida pela \autoref{equa:translacao}, onde os pontos em B, com as coordenadas $(x, y)$ foram substituídas por $(-x, -y)$. Por outro lado, a reflexão é definida pela \autoref{equa:reflexao}, onde os pontos em $B$, com as coordenadas $(x, y)$ foram substituídas por
 $(x + z_1, y + z_2)$ \cite{AlAzawee_2015}.
 
-Dentre as operações morfológicas, aqui será comentado um pouco sobre quatro delas, a dilatação, a erosão, a abertura e o fechamento. As duas primeiras são mais básicas, enquanto as duas últimas são combinações das mesmas. Considerando A e B como conjuntos de $Z^2$ e assim sendo imagens binárias. A dilatação, definida por: $A \oplus B = \{z | (\hat{B})_z \cap A \neq \varnothing \}$, é responsável pelo aumento ou crescimento dos limites dos objetos na imagem em função do elemento estruturante. Por outro lado, a erosão, definida por: $A \ominus B = \{ z | (B)_z \subseteq A\}$, diminui a quantidade de pixeis de interesse em torno dos objetos dando origem à lacunas \cite{Marques_Filho_1999}.
+\begin{equation}
+    \hat{B} = \{w | w = -b\text{, para } b \in B\}
+    \label{equa:translacao}
+\end{equation}
 
-A dilatação pode ser utilizada para preencher lacunas entre os objetos de interesse, já a erosão para separar objetos que estejam ligados por pequenos filamentos. A aplicação de uma dilatação seguida por uma erosão (com o mesmo elemento estruturante) é definida como fechamento morfológico. Por outro lado a abertura é o oposto, uma erosão seguida de uma dilatação. A abertura e o fechamento geralmente suavizam os contornos dos objetos presentes na imagem, mas a abertura tende a quebrar trechos muito obtusos e estreitos, já o fechamento tende a frechar pequenas lacunas e preencher falhas de um contorno \cite{Gonzalez_Woods_2010, Kaur_Sahambi_2015}.
+\begin{equation}
+    (B)_z = \{c | c = b + z\text{, para } b \in B\}
+    \label{equa:reflexao}
+\end{equation}
+
+Dentre as operações morfológicas, quatro das mais utilizadas são, a dilatação, a erosão, a abertura e o fechamento. As duas primeiras são mais básicas, enquanto as duas últimas são combinações das mesmas. Considerando A e B como conjuntos de $Z^2$ e assim sendo imagens binárias. A dilatação, definida pela \autoref{equa:dilatacao}, é responsável pelo aumento ou crescimento dos limites dos objetos na imagem em função do elemento estruturante. Assim, a dilatação pode ser utilizada para preencher lacunas entre os objetos de interesse. Por outro lado, a erosão, definida pela \autoref{equa:erosao}, diminui a quantidade de pixeis de interesse em torno dos objetos dando origem à lacunas. Assim a erosão pode ser utilizada para separar objetos que estejam ligados por pequenos filamentos \cite{Marques_Filho_1999}.
+
+\begin{equation}
+    A \oplus B = \{z | (\hat{B})_z \cap A \neq \varnothing \}
+    \label{equa:dilatacao}
+\end{equation}
+
+\begin{equation}
+    A \ominus B = \{ z | (B)_z \subseteq A\}
+    \label{equa:erosao}
+\end{equation}
+
+A aplicação de uma dilatação seguida por uma erosão (com o mesmo elemento estruturante) é definida como fechamento morfológico. Por outro lado a abertura é o oposto, uma erosão seguida de uma dilatação. A abertura e o fechamento geralmente suavizam os contornos dos objetos presentes na imagem, mas a abertura tende a quebrar trechos muito obtusos e estreitos, já o fechamento tende a frechar pequenas lacunas e preencher falhas de um contorno \cite{Gonzalez_Woods_2010, Kaur_Sahambi_2015}.
 
 \subsubsection{Índices de vegetação}
 
-Índices de Vegetação (IV) são combinações algébricas de várias bandas espectrais, de modo a destacar a vegetação e suas as propriedades (e.g., quantidade de biomassa, ausência de determinados nutrientes, deficiências hídricas, porcentagem de cobertura do solo) \cite{Candiago_2015}. Cada IV tem foco em certas características da vegetação e um momento mais oportuno para seu uso. Dentre eles o índice de Excesso de Verde (do inglês \textit{Excess Green index} (ExG)) é um dos mais usados para câmeras RGB, já o 
-índice de vegetação de diferença normalizada (do inglês \textit{Normalized Difference Vegetation Index} (NDVI)) para câmeras com espectro infravermelho próximo \cite{Pereira_Junior_2020}.
+Índices de Vegetação (IV) são combinações algébricas de várias bandas espectrais, de modo a destacar a vegetação e suas as propriedades (e.g., quantidade de biomassa, ausência de determinados nutrientes, deficiências hídricas, porcentagem de cobertura do solo) \cite{Candiago_2015}. Cada IV tem foco em certas características da vegetação e um momento mais oportuno para seu uso. Dentre eles, o índice de Excesso de Verde (do inglês \textit{Excess Green index} (ExG)) é um dos mais usados para câmeras RGB \cite{Pereira_Junior_2020}. 
 
-\dotsBlue
+Para o cálculo do índice ExG, primeiramente cada banda da imagem RGB é normalizada no intervalo de $[0, 1]$, pela \autoref{equa:normalizada}, onde $R_{max}$, $G_{max}$ e $B_{max}$ são os valores máximos correspondente de cada canal, que geralmente é 255 para imagens de 24 bits de cor. Na sequência é calculado as coordenadas cromáticas, r, g e b pela \autoref{equa:chromatic}. Por fim o ExG é calculado pela \autoref{equa:exg} \cite{Garcia_2017}. 
+
+\begin{equation}
+    R_n = \frac{R}{R_{max}} \text{, } G_n = \frac{G}{G_{max}} \text{, } B_n = \frac{B}{B_{max}}
+    \label{equa:normalizada}
+\end{equation}
+
+\begin{equation}
+    r = \frac{R_n}{R_n + G_n + B_n} \text{, } g = \frac{G_n}{R_n + G_n + B_n} \text{, } b = \frac{B_n}{R_n + G_n + B_n}, \text{ onde } r + g + b = 1
+    \label{equa:chromatic}
+\end{equation}
+
+\begin{equation}
+    ExG = 2g - r - b
+    \label{equa:exg}
+\end{equation}
+
+Para câmeras com espectro infravermelho próximo, o 
+índice de vegetação de diferença normalizada (do inglês \textit{Normalized Difference Vegetation Index} (NDVI)) é um dos mais utilizados \cite{Pereira_Junior_2020}. O NDVI é calculado pela \autoref{equa:ndvi}, onde NIR é a banda do infravermelho próximo \cite{Candiago_2015}.
+
+\begin{equation}
+    NDVI = \frac{NIR - R}{NIR + R}
+    \label{equa:ndvi}
+\end{equation}
 
 \subsection{Deep learning}
 
 O aprendizado profundo (do inglês \textit{Deep Learning} (DL)) é uma subárea do Aprendizado de Máquina, com aprendizado por representações a partir dos dados e aprendizado continuado através das várias camadas (\textit{layers}). Essas camadas dão origem ao \textit{deep} em DL, caraterizando assim redes profundas, onde cada camada apreende informações cada vez mais significativas sobre os dados. Essas redes (neurais artificiais) se tornaram o estado da arte para vários problemas de Visão Computacional e PDI. Dentre elas, as Redes Neurais Convolucionais (do inglês \textit{Convolutional Networks Networks} (CNNs) são uma das mais conhecidas e utilizadas \cite{Ponti_2017}.
 
-As CNNs podem utilizar vários tipos de camadas na sua construção, cujos as principais são \cite{Rawat_Wang_2017}:
+As CNNs podem utilizar vários tipos de camadas na sua construção, sendo que as principais são \cite{Rawat_Wang_2017}:
 
 \begin{itemize}
     %\item camada de entrada: recebe imagem(ens) de entrada em tamanho/formato especifico para a rede e outras informações que forem importante (e.g., um rótulo descritivo da imagem).
 
-    \item camada convolucional: composta por um conjunto de filtros (ou pode ser apenas um), onde cada filtro é uma matriz com pesos apreendidos pela rede a partir das informações de entrada (e.g., uma imagem e seu respectivo rótulo). Inicialmente, os pesos geralmente são definidos aleatoriamente, sendo atualizados pela interação da rede com os dados entrada e o erro observado. A partir de cada filtro é aplicado uma convolução (dando nome a rede), nas imagens de entrada. Deste modo os filtros funcionam como extratores de características e ficam cada vez mais especializados em certas características (e.g., bordas, linhas) presentes nas imagens. A camada convolucional geralmente é seguida por uma função de ativação.
+    \item \textbf{camada convolucional}: composta por um conjunto de filtros (ou pode ser apenas um), onde cada filtro é uma matriz com pesos apreendidos pela rede a partir das informações de entrada (e.g., uma imagem e seu respectivo rótulo). Inicialmente, os pesos geralmente são definidos aleatoriamente, sendo atualizados pela interação da rede com os dados entrada e o erro observado. A partir de cada filtro é aplicado uma convolução (dando nome a rede), nas imagens de entrada. Deste modo os filtros funcionam como extratores de características e ficam cada vez mais especializados em certas características (e.g., bordas, linhas) presentes nas imagens. A camada convolucional geralmente é seguida por uma função de ativação, sendo a função ReLu (do inglês \textit{Rectified Linear Unit}) uma das mais utilizas, pelo seu bons resultados nos treinamentos das redes. A função retorna 0 se receber qualquer entrada negativa, mas para qualquer valor positivo $x$, ela retorna esse valor. 
 
-    \item camada de \textit{pooling}: recebe o resultado das camadas anteriores, reduzindo seu tamanho de modo não influenciar muito no resultado final. Assim, essa camada tem por objetivo reduzir o custo computacional da rede, facilitando assim o treinamento da rede e sua utilização. E também possibilitar a invariância espacial, onde a rede conseguirá trabalhar com distorções e translações na imagens de entrada.
+    \item \textbf{camada de \textit{pooling}}: recebe o resultado das camadas anteriores, reduzindo seu tamanho através de uma função de \textit{pooling}. Uma função de \textit{pooling} substitui a saída da rede num determinado local por uma estatística resumida das saídas próximas. Por exemplo, a operação de \textit{max pooling} retorna como saída o valor máximo na vizinhança (geralmente 2 $\times$ 2) analisada. Assim, essa camada tem por objetivo reduzir o custo computacional da rede, facilitando assim o treinamento da rede e sua utilização. E também possibilitar a invariância espacial, onde a rede conseguirá trabalhar com distorções e translações na imagens de entrada.
 
-    \item camada totalmente conectada: essa tipo de camada geralmente é utilizada após varias camadas de convolução e de \textit{pooling}. Nela tem-se ligação do resultado da camada anterior e seus pesos para, por exemplo, classificar a imagem de entrada em determinada categoria. A partir do erro observado, os pesos das camadas anteriores são atualizados.
+    \item \textbf{camada totalmente conectada}: essa tipo de camada geralmente é utilizada após várias camadas de convolução e de \textit{pooling}. Nela tem-se ligação do resultado da camada anterior e seus pesos para, por exemplo, classificar a imagem de entrada em determinada categoria. A partir do erro observado, os pesos das camadas anteriores são atualizados.
 
     %\item camada de saída: 
 \end{itemize}
 
-%CNN para segmentação \dotsBlue
-\dotsBlue
+CNN para segmentação \dotsBlue
 
 \subsection{Trabalhos relacionados}
 
 Nesta seção serão discutidos alguns trabalhos relacionados que servirão de base para o desenvolvimento de novas metodologias para segmentação de imagens de VANTs associadas a AP e a detecção de linhas de plantio.
 
 \cite{Souza_2017} \dotsBlue
+
+\linePage
+
+\cite{Garcia_2017} falar rapidamente, talvez
 
 \linePage
 
@@ -237,11 +289,11 @@ Nesta seção serão discutidos alguns trabalhos relacionados que servirão de b
 
 \linePage
 
-Em \citeonline{Silva_2020} foi desenvolvido duas abordagens para detecção de linhas de plantio de cana-de-açúcar, a primeira utilizando Algoritmo Genético (AG) resultando em \citeonline{Silva_Escarpinati_Backes_2021} e a segunda utilizando redes neurais artificiais. Para comparar os resultados, foram utilizados 4 \textit{datasets} (com plantas de variadas idades) e suas respectivas linhas de plantio, marcadas por um especialista. O AG foi utilizado para encontrar uma máscara (filtro convolucional que combina as bandas RGB da imagem para uma em escala de cinza), que maximize o Coeficiente de Dice (CD). Em sequência o método Otsu foi utilizado para binarizar as imagens e por fim, a TR foi utilizada para otimizar a detecção das linhas de plantio. Como resultado, a detecção das linhas ficou próximas do real (marcação do especialista), lidando melhor com linhas retas e não muito bem com linhas curvas (gerando um efeito de serrilhamento indesejado). Na abordagem com redes neurais, a LinkNet teve maior CD do que na abordagem anterior. A TR também foi aplicada nessa abordagem, contudo piorando o CD em muitos casos.
+Em \citeonline{Silva_2020} foram desenvolvidas duas abordagens para detecção de linhas de plantio de cana-de-açúcar, a primeira utilizando Algoritmo Genético (AG) resultando em \citeonline{Silva_Escarpinati_Backes_2021} e a segunda utilizando redes neurais artificiais. Para comparar os resultados, foram utilizados 4 \textit{datasets} (com plantas de variadas idades) e suas respectivas linhas de plantio, marcadas por um especialista. O AG foi utilizado para encontrar uma máscara (filtro convolucional que combina as bandas RGB da imagem para uma em escala de cinza), que maximize o Coeficiente de Dice (CD). Em sequência o método Otsu foi utilizado para binarizar as imagens e por fim, a TR foi utilizada para refinar a detecção das linhas de plantio. Como resultado, a detecção das linhas ficou próximas da marcação do especialista, lidando melhor com linhas retas e não muito bem com linhas curvas (gerando um efeito de serrilhamento indesejado). Na abordagem com redes neurais, a LinkNet apresentou melhor resultado que na abordagem anterior. A TR também foi aplicada nessa abordagem, contudo piorando o desempenho em muitos casos.
 
 \linePage
 
-\citeonline{Oliveira_2020} desenvolveu uma abordagem similar a \citeonline{Silva_2020}, na detecção das linhas de plantio de cana-de-açúcar. Nela, o mosaico é dividido em pequenas imagens, que são convertidas para escala de cinza e feita redução dos níveis de cinza (de 256 para 32) pela Transformada Discreta de Wavelet. Na sequência, o AG é utilizado para encontrar 4 limiares, o maior é usado para segmentar a imagem, que segue para operações morfológicas de fechamento, erosão e esqueletização. Por fim a Transformada de Hough Probabilística Progressiva é utilizada para otimizar a detecção das linhas de plantio e suas falhas. O trabalho apresenta um bom resultado, mas foi aplicado apenas em uma pequena seção do mosaico, sem um padrão ouro para teste e considera as linhas de plantio como linhas retas.
+\citeonline{Oliveira_2020} desenvolveu uma abordagem similar a \citeonline{Silva_2020}, para a detecção das linhas de plantio de cana-de-açúcar. Nela, o mosaico é dividido em pequenas imagens, que são convertidas para escala de cinza e feita redução dos níveis de cinza (de 256 para 32) pela Transformada Discreta de Wavelet. Na sequência, o AG é utilizado para encontrar 4 limiares, o maior é usado para segmentar a imagem, que segue para operações morfológicas de fechamento, erosão e esqueletização. Por fim a Transformada de Hough Probabilística Progressiva é utilizada para otimizar a detecção das linhas de plantio e suas falhas. O trabalho apresenta um bom resultado, mas foi aplicado apenas em uma pequena seção do mosaico, sem um padrão ouro para teste e considera as linhas de plantio como linhas retas.
 
 \linePage
 
@@ -249,7 +301,7 @@ Em \citeonline{Silva_2020} foi desenvolvido duas abordagens para detecção de l
 
 \linePage
 
-\citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow}. Como esperado os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não foi possível detectar pequenas falhas $(\le 1$ m$)$ quando a planta já tinha certa altura $(\ge 1$ m$)$ através do \textit{software}. Importante notar que mesmo o \textit{software} comercial não obteve bons resultados em certos cenários.
+\citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow} \cite{Inforow_2021}. Como esperado, os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não foi possível detectar pequenas falhas $(\le 1$ m$)$ quando a planta já tinha certa altura $(\ge 1$ m$)$ através do \textit{software}. É importante notar que mesmo o \textit{software} comercial não obteve bons resultados em certos cenários.
 
 \linePage
 
@@ -267,7 +319,7 @@ A terceira etapa é o processamento principal, ou seja, a segmentação das imag
 
 \subsection{Aquisição das imagens}
 
-As imagens para os experimentos são de VANTs em culturas, inicialmente, de cana-de-açúcar e de \textit{datasets} disponíveis. Dentre os \textit{datasets}, poucos utilizam imagens de VANTs. Em \citeonline{Silva_2020} 4 mosaicos (\autoref{fig:mosaicos1}) de plantações de cana-de-açúcar e suas respectivas linhas de plantio (\autoref{fig:linhas}), marcadas por um especialista, foram utilizadas. As imagens foram capturadas por um VANT de mapeamento, modelo \textit{eBee SenseFly}, com uma câmera \textit{SenseFly S.O.D.A.} de uma polegada, tendo $5472\times3648$ pixels de resolução e lente RGB F/2.8-11, 10.6 mm. Onde cada pixel na imagem representa aproximadamente 5 cm (GSD de 0.053 m). Esses mosaicos têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
+As imagens para os experimentos são de VANTs em culturas, inicialmente, de cana-de-açúcar e de \textit{datasets} disponíveis. Dentre os \textit{datasets}, poucos utilizam imagens de VANTs. Em \citeonline{Silva_2020} 4 mosaicos (\autoref{fig:mosaicos1}) de plantações de cana-de-açúcar e suas respectivas linhas de plantio (\autoref{fig:linhas}), marcadas por um especialista, foram utilizadas. As imagens foram capturadas por um VANT de mapeamento, modelo \textit{eBee SenseFly}, com uma câmera \textit{SenseFly S.O.D.A.} de uma polegada, tendo $5472\times3648$ pixels de resolução e lente RGB F/2.8-11, 10.6 mm. Cada pixel na imagem representa aproximadamente 5 cm (GSD de 0,053 m). Esses mosaicos têm canas-de-açúcar em variados estágios (idades). As marcação do especialista foram feitas onde existe a linha de plantio e também onde deveria existir, ou seja, locais de falhas no plantio também foram marcados como linha de plantio.
 
 \begin{figure}[htbp]
     \centering
@@ -292,17 +344,17 @@ Em \citeonline{Pereira_Junior_2020}, utilizaram 1 mosaico \cite{CropRowsDataset2
     \centering
     \subfigure[]{\includegraphics[width=0.49\textwidth]{img/sugarcane1-s2.jpg}} 
     \subfigure[]{\includegraphics[width=0.49\textwidth]{img/sugarcane1-GT-s2.jpg}} 
-    \caption{Mosaico \citeonline{CropRowsDataset2019} (a) mosaico de tamanho (incluindo bordas pretas) 6595 $\times$ 9391; (b) marcação do especialista (de mesmo tamanho).}
+    \caption{Mosaico \citeonline{CropRowsDataset2019}: (a) mosaico de tamanho (incluindo bordas pretas) 6595 $\times$ 9391; (b) marcação do especialista (de mesmo tamanho).}
     \label{fig:mosaicos2}
 \end{figure}
 
-Além dos dois \textit{datasets} disponíveis, imagens/mosaicos devem ser capturados, dependendo da demanda dos experimentos, de culturas de cana-de-açúcar e outras, através dos VANTs. Depois sendo feita a marcação por um especialista, destacando as linhas de plantio do solo/fundo.
+Além dos dois \textit{datasets} disponíveis, pretende-se capturar novos mosaicos, dependendo da demanda dos experimentos, de culturas de cana-de-açúcar e outras, através dos VANTs. Depois também será feita a marcação por um especialista, destacando as linhas de plantio do solo/fundo.
 
 \dotsBlue
 
 \subsection{Pré-processamento}
 
-No pré-processamento ajustes serão feitos nas imagens de modo a facilitar ou melhorar os resultados da segmentação. Dentre eles a correção de brilho e contraste, quando forem necessário. Além da remoção de ruídos que podem estar presentes nas imagens. Após converter as imagens para níveis de cinza, as operações morfológicas podem ser úteis.
+No pré-processamento serão feitos ajustes nas imagens de modo a facilitar ou melhorar os resultados da segmentação. Dentre eles a correção de brilho e contraste, quando forem necessário, além da remoção de ruídos que podem estar presentes nas imagens. Após converter as imagens para níveis de cinza, as operações morfológicas podem ser úteis.
 
 A dilatação pode ser utilizada para juntar plantas isoladas de suas respectivas linhas de plantio devido a pequenas falhas, assim expandir extremidades e conectar elas com a linha de plantio. Por outro lado, a erosão, pode ser utilizada para separar estreitos e compridos filamentos onde plantas podem estar ligadas com outras linhas de plantio ou com uma errada.
 
@@ -310,7 +362,7 @@ A dilatação pode ser utilizada para juntar plantas isoladas de suas respectiva
 
 \subsection{Segmentação}
 
-O processamento principal, as vezes também chamado de segmentação é uma das partes mais importantes do PDI. Para esse projeto, inicialmente, foi escolhido redes neurais para segmentar as imagens das linhas de plantio. Elas podem ter bom resultado na segmentação, em comparação com os algoritmos tradicionais (e outros métodos como AG), por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair das imagens. Dentre essas características, podem ser contornos, formatos de linhas, outros tipos de formatos específicos. 
+O processamento principal, as vezes também chamado de segmentação é uma das partes mais importantes do PDI. Para este projeto, inicialmente, foi escolhido redes neurais para segmentar as imagens das linhas de plantio. Elas podem ter bom resultado na segmentação, em comparação com os algoritmos tradicionais (e outros métodos como AG), por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair das imagens. Dentre essas características, podem ser contornos, formatos de linhas, outros tipos de formatos específicos. 
 
 \dotsBlue
 
@@ -322,20 +374,20 @@ O pós-processamento é responsável por refinar a segmentação obtida na etapa
 
 \subsection{Avaliação dos resultados}
 
-Para avaliação dos resultados é importante ter um método confiável e de fácil replicação/teste. Por isso as marcações por especialistas são tão importantes. Neste projeto será comparado as marcações feitas pelos especialistas com as linhas de plantio detectadas nas etapas anteriores. Para comparar os resultados será utilizado o Coeficiente de \textit{Dice} (CD), (como em \citeonline{Silva_Escarpinati_Backes_2021}). Com o CD é possível comparar o quão similar duas imagens binárias são. Considerando A e B como imagens binárias, o CD é definido por:
+Para a avaliação dos resultados é importante ter um método confiável e de fácil replicação/teste. Por isso as marcações por especialistas são tão importantes. Neste projeto serão comparado as marcações feitas pelos especialistas com as linhas de plantio detectadas pelo método proposto. Para comparar os resultados será utilizado o Coeficiente de \textit{Dice} (CD), (como em \citeonline{Silva_Escarpinati_Backes_2021}). Com o CD é possível comparar o quão similar duas imagens binárias são. Considerando A e B como imagens binárias, o CD é definido por:
 
 \begin{equation}
     CD = 2 \frac{|A \cap B|}{|A| + |B|}
 \end{equation}
 
-No resultado de CD, $0 \le CD \ge 1$, quanto mais próximo de 1, mais similar são as imagens A e B. Para a validação dos resultados serão utilizadas imagens de vários hectares de cana-de-açúcar contendo diferentes idades e tamanhos de plantas. Nesta validação, assume-se que o resultado gerado pelo especialista, sua marcação, de forma manual é o melhor resultado esperado. Assim quanto mais próximo deste resultado as imagens geradas pelos métodos propostos estiverem, mais assertivas elas serão consideradas.
+No resultado de CD, $0 \le CD \le 1$, quanto mais próximo de 1, mais similar são as imagens A e B. Para a validação dos resultados serão utilizadas imagens de vários hectares de cana-de-açúcar contendo plantas de diferentes idades e tamanhos. Nesta validação, assume-se que o resultado gerado pelo especialista, sua marcação, de forma manual é o melhor resultado esperado. Assim, quanto mais próximo deste resultado as imagens geradas pelos métodos propostos estiverem, mais assertivas elas serão consideradas.
 
 \dotsBlue
 
 \section{Resultados esperados}
 % => Liste os resultados mais importantes que você pretende obter a partir de seu trabalho de doutorado.
 
-Ao fim do projeto, espera-se obter um método de avaliação automática capaz de realizar de forma mais eficiente e com maior precisão o processo de segmentação de imagens de linhas de plantio da cultura de cana-de-açúcar. O projeto é focado em imagens de VANTs, diferentes de outros trabalhos que utilizam imagens de satélites e, principalmente, de baixíssimas altitudes (tiradas do solo ou acopladas em maquinário agrícola). As técnicas estudas e desenvolvidas serão utilizadas em sua melhor combinação para detectar as linhas de plantio.
+Ao fim do projeto, espera-se obter um método automático capaz de realizar de forma mais eficiente e com maior precisão o processo de segmentação de imagens de linhas de plantio da cultura de cana-de-açúcar. O projeto é focado em imagens de VANTs, diferentes de outros trabalhos que utilizam imagens de satélites e, principalmente, de baixíssimas altitudes (tiradas do solo ou acopladas em maquinário agrícola). As técnicas estudas e desenvolvidas serão utilizadas em sua melhor combinação para detectar as linhas de plantio.
 
 Também é esperado que este método consiga lidar bem com linhas de plantio em formato de linhas retas e linhas curvas nas plantações de cana-de-açúcar em vários estágios (idades diferentes)
 

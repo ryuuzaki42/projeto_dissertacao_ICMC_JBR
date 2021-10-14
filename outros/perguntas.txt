@@ -7,13 +7,12 @@ P: Colocar dissertação e teste também ou focar mais em artigos/papers?
 
 P: Dissertação, silva,
     => SOUZA; ESCARPINATI; ABDALA, 2018) They assumed the images are well segmented and, from a cloud of points representing the plants in filed
-
     R:
     
 P: Focar mais em detecção das linhas ou também na detecção das falhas?
-    R:
+    R: Primeiramente em detectar as linhas
+
 
 P: Nos 4 mosaicos em Silva, 2020 tem plantas em estágio de soqueira? Imagem 26 a)
     - Parece que nenhuma tem palha aparente
     R:
-    
