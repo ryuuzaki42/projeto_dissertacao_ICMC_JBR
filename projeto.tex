@@ -30,6 +30,8 @@
 \usepackage{lscape}
 
 \usepackage{fancyhdr}
+\usepackage[all]{hypcap}    %for going to the top of an image when a figure reference is clicked
+
 
 % -
 \usepackage{indentfirst}
@@ -151,7 +153,7 @@ Dependendo do contexto da aplicação, muitas são as técnicas de pré-processa
 
 A segmentação de imagens tem como objetivo dividir a imagem em regiões ou objetos de interesse. O nível de divisões depende do problema a ser resolvido, sendo a segmentação executada até que todos os objetos de interesse sejam detectados. A segmentação de imagens é considerada uma das tarefas mais difíceis do PDI, já que implica diretamente no resultado da etapa de análise. Assim, é importante selecionar qual a técnica de segmentação mais adequada para o seu problema, de modo a aumentar a probabilidade de se obter uma segmentação precisa \cite{Gonzalez_Woods_2010}.
 
-Ao fim da etapa de segmentação a imagem é dividida em várias regiões e sem sobreposição entre elas, ou seja, cada pixel pertence somente a uma região de interesse. Dentre as técnicas de segmentação, a limiarização é uma das mais utilizadas, por ser eficiente e simples do ponto de vista computacional \cite{Kuruvilla_2016}.
+Ao fim da etapa de segmentação a imagem é dividida em várias regiões e sem sobreposição entre elas, ou seja, uma parte da imagem pertence somente a uma região de interesse. O tipo de segmentação utilizada depende do problema a ser tratado, por exemplo, se for necessário dividir a imagem em regiões sem rotular elas (segmentação clássica), ou se for necessário rotular cada pixel da imagem a uma determinada classe (segmentação semântica). Dentre as técnicas de segmentação, a limiarização é uma das mais utilizadas, por ser eficiente e simples do ponto de vista computacional \cite{Kuruvilla_2016}.
 
 Uma forma bastante simples de segmentação é a limiarização (\textit{Thresholding}, em inglês), que consiste na divisão da imagem em duas classes (fundo e objeto) a partir de um limiar $T$. Caso o valor do pixel seja maior ou igual a $T$, esse terá valor 1 na imagem gerada; caso contrário, este receberá o valor 0. Como resultado, esse processo produzirá uma imagem binária (com pixels de valor 0 ou 1), processo também chamado de binarização \cite{Marques_Filho_1999}.
 
@@ -167,8 +169,8 @@ Uma linha reta em uma imagem é composta por um conjunto de pixels, onde pela TH
 
 \begin{figure}[htbp]
     \centering
-    \subfigure[]{\includegraphics[width=0.45\textwidth]{img/ht_a.jpg}} 
-    \subfigure[]{\includegraphics[width=0.45\textwidth]{img/ht_b.jpg}} 
+    \subfigure[]{\includegraphics[width=0.45\textwidth]{img/ht_a.jpg}}
+    \subfigure[]{\includegraphics[width=0.45\textwidth]{img/ht_b.jpg}}
     \caption{Tranformada de Hough em uma linha reta: (a) espaço de entrada $(x,y)$; (b) espaço de Hough $(\rho, \theta)$ \cite{Lin_Otobe_2001}.}
     \label{fig:tHough}
 \end{figure}
@@ -249,21 +251,78 @@ Para câmeras com espectro infravermelho próximo, o
 
 O aprendizado profundo (do inglês \textit{Deep Learning} (DL)) é uma subárea do Aprendizado de Máquina, com aprendizado por representações a partir dos dados e aprendizado continuado através das várias camadas (\textit{layers}). Essas camadas dão origem ao \textit{deep} em DL, caraterizando assim redes profundas, onde cada camada apreende informações cada vez mais significativas sobre os dados. Essas redes (neurais artificiais) se tornaram o estado da arte para vários problemas de Visão Computacional e PDI. Dentre elas, as Redes Neurais Convolucionais (do inglês \textit{Convolutional Networks Networks} (CNNs) são uma das mais conhecidas e utilizadas \cite{Ponti_2017}.
 
-As CNNs podem utilizar vários tipos de camadas na sua construção, sendo que as principais são \cite{Rawat_Wang_2017}:
+As CNNs podem utilizar vários tipos de camadas na sua construção (\autoref{fig:cnn}), sendo que as principais são \cite{Rawat_Wang_2017}:
 
 \begin{itemize}
     %\item camada de entrada: recebe imagem(ens) de entrada em tamanho/formato especifico para a rede e outras informações que forem importante (e.g., um rótulo descritivo da imagem).
 
-    \item \textbf{camada convolucional}: composta por um conjunto de filtros (ou pode ser apenas um), onde cada filtro é uma matriz com pesos apreendidos pela rede a partir das informações de entrada (e.g., uma imagem e seu respectivo rótulo). Inicialmente, os pesos geralmente são definidos aleatoriamente, sendo atualizados pela interação da rede com os dados entrada e o erro observado. A partir de cada filtro é aplicado uma convolução (dando nome a rede), nas imagens de entrada. Deste modo os filtros funcionam como extratores de características e ficam cada vez mais especializados em certas características (e.g., bordas, linhas) presentes nas imagens. A camada convolucional geralmente é seguida por uma função de ativação, sendo a função ReLu (do inglês \textit{Rectified Linear Unit}) uma das mais utilizas, pelo seu bons resultados nos treinamentos das redes. A função retorna 0 se receber qualquer entrada negativa, mas para qualquer valor positivo $x$, ela retorna esse valor. 
+    \item \textbf{camada convolucional}: composta por um conjunto de filtros (ou pode ser apenas um), onde cada filtro é uma matriz com pesos apreendidos pela rede a partir das informações de entrada (e.g., uma imagem e seu respectivo rótulo). Inicialmente, os pesos geralmente são definidos aleatoriamente, sendo atualizados pela interação da rede com os dados entrada e o erro observado. A partir de cada filtro é aplicado uma convolução (\autoref{fig:conv}) (dando nome a rede), nas imagens de entrada. Deste modo os filtros funcionam como extratores de características e ficam cada vez mais especializados em certas características (e.g., bordas, linhas) presentes nas imagens. A camada convolucional geralmente é seguida por uma função de ativação, sendo a função ReLu (do inglês \textit{Rectified Linear Unit}) uma das mais utilizas, pelo seu bons resultados nos treinamentos das redes. A função retorna 0 se receber qualquer entrada negativa, mas para qualquer valor positivo $x$, ela retorna esse valor. 
 
-    \item \textbf{camada de \textit{pooling}}: recebe o resultado das camadas anteriores, reduzindo seu tamanho através de uma função de \textit{pooling}. Uma função de \textit{pooling} substitui a saída da rede num determinado local por uma estatística resumida das saídas próximas. Por exemplo, a operação de \textit{max pooling} retorna como saída o valor máximo na vizinhança (geralmente 2 $\times$ 2) analisada. Assim, essa camada tem por objetivo reduzir o custo computacional da rede, facilitando assim o treinamento da rede e sua utilização. E também possibilitar a invariância espacial, onde a rede conseguirá trabalhar com distorções e translações na imagens de entrada.
+    \item \textbf{camada de \textit{pooling}}: recebe o resultado das camadas anteriores, reduzindo seu tamanho através de uma função de \textit{pooling}. Uma função de \textit{pooling} substitui a saída da rede num determinado local por uma estatística resumida das saídas próximas. Por exemplo, a operação de \textit{max pooling} (\autoref{fig:pooling}) retorna como saída o valor máximo na vizinhança (geralmente 2 $\times$ 2) analisada. Assim, essa camada tem por objetivo reduzir o custo computacional da rede, facilitando assim o treinamento da rede e sua utilização. E também possibilitar a invariância espacial, onde a rede conseguirá trabalhar com distorções e translações na imagens de entrada.
 
     \item \textbf{camada totalmente conectada}: essa tipo de camada geralmente é utilizada após várias camadas de convolução e de \textit{pooling}. Nela tem-se ligação do resultado da camada anterior e seus pesos para, por exemplo, classificar a imagem de entrada em determinada categoria. A partir do erro observado, os pesos das camadas anteriores são atualizados.
 
     %\item camada de saída: 
 \end{itemize}
 
+\begin{figure}[htbp]
+    \includegraphics[width=0.95\textwidth]{img/cnn.jpg}
+    \caption{Modelo visual da arquitetura de uma CNN \cite{Rawat_Wang_2017}}
+    \label{fig:cnn}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/conv.jpg}
+    \caption{Exemplo de convolução numa entrada 2D de $3\times3\times1$ por um filtro (\textit{kernel}) $2\times2\times1$, com \textit{stride} 1 (para altura e largura) e sem \textit{padding}. Operação de convolução para a posição $(0, 0) = 0\times0 + 1 \times 1 + 3 \times 2 + 4 \times 3 = 19$ \cite{Zhang_2021}.}
+    \label{fig:conv}
+\end{figure}
+
+
+Algumas das arquiteturas de CNN mais conhecidas incluem AlexNet, VGGNet e ResNet \cite{Minaee_2021}. Uma CNN conseguem classificar uma imagem para uma das várias categorias que foi treinada ou reconhecer a presença de um objeto em qualquer parte da imagem analisada. Por outro lado, para a segmentação de imagens a informação espacial precisa ser preservada, por isso outros modelos de redes (e suas variações) são utilizadas \cite{Ponti_2017}.
+
+
+
 CNN para segmentação \dotsBlue
+
+Muitos modelos (algoritmos) de DL foram (e estão sendo) desenvolvidos para segmentação de imagens, e.g., rede totalmente convolucional, U-net, Linknet, Segnet, \mbox{PSPNet}. Essas redes as vezes são treinadas a partir do zero com os dados a serem segmentados, já outras vezes são utilizados modelos pré-treinados com \textit{datasets} (como o ImageNet), além de se utilizar variados \textit{backbones} como extratores de características (e.g., VGGNet e ResNet) \cite{Minaee_2021}. \textRed{Assim um dos desafios está em qual rede utiliza, pré-treinada ou não, e com qual rede CNN como \textit{backbone}} . 
+
+
+As redes totalmente convolucionais (do inglês \textit{Fully Convolutional Netwoks} (FCN) são baseadas nas CNNs, onde a camada totalmente conectada é removida e sendo adicionado camadas de \textit{unpooling} (\autoref{fig:pooling}) e de \textit{transposed convolution} (convolução transposta) (\autoref{fig:transposteConv}). Nelas a saída terá o mesmo tamanho da entrada, contendo uma segmentação da imagem de entrada. A U-net (\autoref{fig:unet}), usada inicialmente para segmentar imagens médicas, foi baseada nas FCNs. Ela apresentada um formato em U (dando nome a rede), sendo simétrica, na sua primeira metade tem-se a contração e na outra metade a expansão com \textit{skip connection} entre as partes. Na contração as 
+\cite{Ronneberge_2015}
+
+
+\begin{figure}[htbp]
+    \centering
+    \subfigure[]{\includegraphics[height=0.2\textwidth]{img/pool1.jpg}} 
+    \subfigure[]{\includegraphics[height=0.2\textwidth]{img/pool2.jpg}} 
+    \subfigure[]{\includegraphics[height=0.2\textwidth]{img/pool3.jpg}}
+    \caption{Exemplo de \textit{pooling} e \textit{unpooling}. (a) entrada 2D de $4\times4\times1$; (b) resultado da aplicação do \textit{max pooling} com janela de $2\times2$ e \textit{stride} de 2; (c) resultado da aplicação do \textit{unpooling} (posições dos valores é guardada na operação de \textit{pooling} \cite{Fang_2017}}
+    \label{fig:pooling}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/trans_conv.jpg}
+    \caption{Exemplo de convolução transposta numa entrada 2D de $2\times2\times1$ por um filtro (\textit{kernel}) $2\times2\times1$, com \textit{stride} 1 (para altura e largura) e sem \textit{padding} \cite{Zhang_2021}.}
+    \label{fig:transposteConv}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/unet.jpg}
+    \caption{Arquitetura da U-net \cite{Ronneberge_2015}.}
+    \label{fig:unet}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/segnet.jpg}
+    \caption{Arquitetura da Segnet \cite{Ronneberge_2015}.}
+    \label{fig:segnet}
+\end{figure}
+
+\dotsBlue
 
 \subsection{Trabalhos relacionados}
 
@@ -348,17 +407,13 @@ Em \citeonline{Pereira_Junior_2020}, utilizaram 1 mosaico \cite{CropRowsDataset2
     \label{fig:mosaicos2}
 \end{figure}
 
-Além dos dois \textit{datasets} disponíveis, pretende-se capturar novos mosaicos, dependendo da demanda dos experimentos, de culturas de cana-de-açúcar e outras, através dos VANTs. Depois também será feita a marcação por um especialista, destacando as linhas de plantio do solo/fundo.
-
-\dotsBlue
+Além dos dois \textit{datasets} disponíveis, pretende-se capturar novos mosaicos, dependendo da demanda dos experimentos, de culturas de cana-de-açúcar e outras, através dos VANTs. Depois também será feita neles a marcação por um especialista, destacando as linhas de plantio do solo/fundo.
 
 \subsection{Pré-processamento}
 
 No pré-processamento serão feitos ajustes nas imagens de modo a facilitar ou melhorar os resultados da segmentação. Dentre eles a correção de brilho e contraste, quando forem necessário, além da remoção de ruídos que podem estar presentes nas imagens. Após converter as imagens para níveis de cinza, as operações morfológicas podem ser úteis.
 
 A dilatação pode ser utilizada para juntar plantas isoladas de suas respectivas linhas de plantio devido a pequenas falhas, assim expandir extremidades e conectar elas com a linha de plantio. Por outro lado, a erosão, pode ser utilizada para separar estreitos e compridos filamentos onde plantas podem estar ligadas com outras linhas de plantio ou com uma errada.
-
-\dotsBlue
 
 \subsection{Segmentação}
 
@@ -381,8 +436,6 @@ Para a avaliação dos resultados é importante ter um método confiável e de f
 \end{equation}
 
 No resultado de CD, $0 \le CD \le 1$, quanto mais próximo de 1, mais similar são as imagens A e B. Para a validação dos resultados serão utilizadas imagens de vários hectares de cana-de-açúcar contendo plantas de diferentes idades e tamanhos. Nesta validação, assume-se que o resultado gerado pelo especialista, sua marcação, de forma manual é o melhor resultado esperado. Assim, quanto mais próximo deste resultado as imagens geradas pelos métodos propostos estiverem, mais assertivas elas serão consideradas.
-
-\dotsBlue
 
 \section{Resultados esperados}
 % => Liste os resultados mais importantes que você pretende obter a partir de seu trabalho de doutorado.

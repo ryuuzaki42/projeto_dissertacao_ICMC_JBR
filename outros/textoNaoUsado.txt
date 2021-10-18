@@ -126,3 +126,9 @@ A LinkNet teve o melhor resultado ($CD = 0.90 \pm 0.0062$), sendo escolhida para
 LinkNet teve melhor resultado que o AG por utilizar não apenas o tem avermelhado do solo e esverdado da plantas, mas outras características que as redes neurais conseguem extrair, \textRed{contudo ainda é uma área que merece ser melhor explorada e analisada.} \dotsBlue
 
 --------------------------------------------------
+ % CNN
+
+As técnicas de DL revolucionariam a área visão computação, principalmente pela disponibilidade de \textit{datasets} com milhões de imagens rotuladas e pelo desenvolvimento de \textit{hardware} com capacidade de processar esses \textit{datasets} em tempo hábil.
+
+
+Os grandes avanços das técnicas de DL se tornaram possíveis pelo desenvolvimento de \textit{hardware} com grande capacidade de cálculos por segundo e a disponibilidade de \textit{datasets} com milhões de imagens rotuladas. 
