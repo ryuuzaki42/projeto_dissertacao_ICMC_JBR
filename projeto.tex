@@ -32,6 +32,8 @@
 \usepackage{fancyhdr}
 \usepackage[all]{hypcap}    %for going to the top of an image when a figure reference is clicked
 
+\usepackage{booktabs}
+\usepackage{multirow}
 
 % -
 \usepackage{indentfirst}
@@ -79,7 +81,7 @@
 		Previsão da Defesa: fevereiro de 2023\\ $\ $\\}
 \end{center}
 
-\textRed{Versão 0.2 - 06/10/2021}
+\textRed{Versão 3 - 28/10/2021}
 
 \section{Introdução}
 
@@ -167,7 +169,7 @@ A Transformada de Hough (TH) é um método desenvolvido, inicialmente, para dete
 
 Uma linha reta em uma imagem é composta por um conjunto de pixels, onde pela TH é mapeada para um único ponto $(\rho, \theta)$ no espaço de Hough, de acordo com a equação da reta, $\rho = x \cos \theta + y \sin \theta$, onde $\rho$ representa a distância da reta até a origem e $\theta$ representa o ângulo entre o eixo $x$ e a reta (\autoref{fig:tHough}). A TH é capaz de detectar que um conjunto de pixels pertencem a uma linha reta mesmo que a reta esteja descontinua (faltando alguns pixels) e/ou com ruídos. Deste modo, todos os pontos alvo $(x, y)$ da imagem binária após a execução da TH terão seus respectivos ($\rho, \theta$), sendo acumulados caso coincidirem, ou seja, serem pontos colineares \cite{Huiying_2015}.
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \subfigure[]{\includegraphics[width=0.45\textwidth]{img/ht_a.jpg}}
     \subfigure[]{\includegraphics[width=0.45\textwidth]{img/ht_b.jpg}}
@@ -222,7 +224,7 @@ A aplicação de uma dilatação seguida por uma erosão (com o mesmo elemento e
 
 Índices de Vegetação (IV) são combinações algébricas de várias bandas espectrais, de modo a destacar a vegetação e suas as propriedades (e.g., quantidade de biomassa, ausência de determinados nutrientes, deficiências hídricas, porcentagem de cobertura do solo) \cite{Candiago_2015}. Cada IV tem foco em certas características da vegetação e um momento mais oportuno para seu uso. Dentre eles, o índice de Excesso de Verde (do inglês \textit{Excess Green index} (ExG)) é um dos mais usados para câmeras RGB \cite{Pereira_Junior_2020}. 
 
-Para o cálculo do índice ExG, primeiramente cada banda da imagem RGB é normalizada no intervalo de $[0, 1]$, pela \autoref{equa:normalizada}, onde $R_{max}$, $G_{max}$ e $B_{max}$ são os valores máximos correspondente de cada canal, que geralmente é 255 para imagens de 24 bits de cor. Na sequência é calculado as coordenadas cromáticas, r, g e b pela \autoref{equa:chromatic}. Por fim o ExG é calculado pela \autoref{equa:exg} \cite{Garcia_2017}. 
+Para o cálculo do índice ExG, primeiramente cada banda da imagem RGB é normalizada no intervalo de $[0, 1]$, pela \autoref{equa:normalizada}, onde $R_{max}$, $G_{max}$ e $B_{max}$ são os valores máximos correspondente de cada canal, que geralmente é 255 para imagens de 24 bits de cor. $R$, $G$ e $B$ correspondem as bandas RGB de uma imagem, R (\textit{Red} - vermelho),  G (\textit{Green} - verde) e B (\textit{Blue} - azul). Na sequência é calculado as coordenadas cromáticas, r, g e b pela \autoref{equa:chromatic}. Por fim o ExG é calculado pela \autoref{equa:exg} \cite{Garcia_2017}.
 
 \begin{equation}
     R_n = \frac{R}{R_{max}} \text{, } G_n = \frac{G}{G_{max}} \text{, } B_n = \frac{B}{B_{max}}
@@ -235,7 +237,7 @@ Para o cálculo do índice ExG, primeiramente cada banda da imagem RGB é normal
 \end{equation}
 
 \begin{equation}
-    ExG = 2g - r - b
+    \text{ExG} = 2 * g - r - b
     \label{equa:exg}
 \end{equation}
 
@@ -243,13 +245,13 @@ Para câmeras com espectro infravermelho próximo, o
 índice de vegetação de diferença normalizada (do inglês \textit{Normalized Difference Vegetation Index} (NDVI)) é um dos mais utilizados \cite{Pereira_Junior_2020}. O NDVI é calculado pela \autoref{equa:ndvi}, onde NIR é a banda do infravermelho próximo \cite{Candiago_2015}.
 
 \begin{equation}
-    NDVI = \frac{NIR - R}{NIR + R}
+    \text{NDVI} = \frac{NIR - R}{NIR + R}
     \label{equa:ndvi}
 \end{equation}
 
-\subsection{Deep learning}
+\subsection{Deep learning} \label{sec:dl}
 
-O aprendizado profundo (do inglês \textit{Deep Learning} (DL)) é uma subárea do Aprendizado de Máquina, com aprendizado por representações a partir dos dados e aprendizado continuado através das várias camadas (\textit{layers}). Essas camadas dão origem ao \textit{deep} em DL, caraterizando assim redes profundas, onde cada camada apreende informações cada vez mais significativas sobre os dados. Essas redes (neurais artificiais) se tornaram o estado da arte para vários problemas de Visão Computacional e PDI. Dentre elas, as Redes Neurais Convolucionais (do inglês \textit{Convolutional Networks Networks} (CNNs) são uma das mais conhecidas e utilizadas \cite{Ponti_2017}.
+O aprendizado profundo (do inglês \textit{Deep Learning} (DL)) é uma subárea do Aprendizado de Máquina, com aprendizado por representações a partir dos dados e aprendizado continuado através das várias camadas (\textit{layers}). Essas camadas dão origem ao \textit{deep} em DL, caraterizando assim redes profundas, onde cada camada apreende informações cada vez mais significativas sobre os dados. Essas redes (neurais artificiais) se tornaram o estado da arte para vários problemas de Visão Computacional e PDI. Dentre elas, as Redes Neurais Convolucionais (do inglês \textit{Convolutional Neural Networks} (CNNs)) são uma das mais conhecidas e utilizadas \cite{Ponti_2017}.
 
 As CNNs podem utilizar vários tipos de camadas na sua construção (\autoref{fig:cnn}), sendo que as principais são \cite{Rawat_Wang_2017}:
 
@@ -266,85 +268,125 @@ As CNNs podem utilizar vários tipos de camadas na sua construção (\autoref{fi
 \end{itemize}
 
 \begin{figure}[htbp]
+    \centering
     \includegraphics[width=0.95\textwidth]{img/cnn.jpg}
-    \caption{Modelo visual da arquitetura de uma CNN \cite{Rawat_Wang_2017}}
+    \caption{Modelo visual da arquitetura de uma CNN \cite{Rawat_Wang_2017}.}
     \label{fig:cnn}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{img/conv.jpg}
-    \caption{Exemplo de convolução numa entrada 2D de $3\times3\times1$ por um filtro (\textit{kernel}) $2\times2\times1$, com \textit{stride} 1 (para altura e largura) e sem \textit{padding}. Operação de convolução para a posição $(0, 0) = 0\times0 + 1 \times 1 + 3 \times 2 + 4 \times 3 = 19$ \cite{Zhang_2021}.}
+    \caption{Exemplo de convolução ($\circledast$) numa entrada 2D de $3\times3\times1$ por um filtro (\textit{kernel}) $2\times2\times1$, com \textit{stride} de 1 (para altura e largura) e sem \textit{padding}. Operação de convolução para a posição $(0, 0) = 0 * 0 + 1 * 1 + 3 * 2 + 4 * 3 = 19$ \cite{Zhang_2021}.}
     \label{fig:conv}
 \end{figure}
 
-
-Algumas das arquiteturas de CNN mais conhecidas incluem AlexNet, VGGNet e ResNet \cite{Minaee_2021}. Uma CNN conseguem classificar uma imagem para uma das várias categorias que foi treinada ou reconhecer a presença de um objeto em qualquer parte da imagem analisada. Por outro lado, para a segmentação de imagens a informação espacial precisa ser preservada, por isso outros modelos de redes (e suas variações) são utilizadas \cite{Ponti_2017}.
-
-
-
-CNN para segmentação \dotsBlue
-
-Muitos modelos (algoritmos) de DL foram (e estão sendo) desenvolvidos para segmentação de imagens, e.g., rede totalmente convolucional, U-net, Linknet, Segnet, \mbox{PSPNet}. Essas redes as vezes são treinadas a partir do zero com os dados a serem segmentados, já outras vezes são utilizados modelos pré-treinados com \textit{datasets} (como o ImageNet), além de se utilizar variados \textit{backbones} como extratores de características (e.g., VGGNet e ResNet) \cite{Minaee_2021}. \textRed{Assim um dos desafios está em qual rede utiliza, pré-treinada ou não, e com qual rede CNN como \textit{backbone}} . 
-
-
-As redes totalmente convolucionais (do inglês \textit{Fully Convolutional Netwoks} (FCN) são baseadas nas CNNs, onde a camada totalmente conectada é removida e sendo adicionado camadas de \textit{unpooling} (\autoref{fig:pooling}) e de \textit{transposed convolution} (convolução transposta) (\autoref{fig:transposteConv}). Nelas a saída terá o mesmo tamanho da entrada, contendo uma segmentação da imagem de entrada. A U-net (\autoref{fig:unet}), usada inicialmente para segmentar imagens médicas, foi baseada nas FCNs. Ela apresentada um formato em U (dando nome a rede), sendo simétrica, na sua primeira metade tem-se a contração e na outra metade a expansão com \textit{skip connection} entre as partes. Na contração as 
-\cite{Ronneberge_2015}
-
-
 \begin{figure}[htbp]
     \centering
-    \subfigure[]{\includegraphics[height=0.2\textwidth]{img/pool1.jpg}} 
-    \subfigure[]{\includegraphics[height=0.2\textwidth]{img/pool2.jpg}} 
+    \subfigure[]{\includegraphics[height=0.2\textwidth]{img/pool1.jpg}}
+    \subfigure[]{\includegraphics[height=0.2\textwidth]{img/pool2.jpg}}
     \subfigure[]{\includegraphics[height=0.2\textwidth]{img/pool3.jpg}}
-    \caption{Exemplo de \textit{pooling} e \textit{unpooling}. (a) entrada 2D de $4\times4\times1$; (b) resultado da aplicação do \textit{max pooling} com janela de $2\times2$ e \textit{stride} de 2; (c) resultado da aplicação do \textit{unpooling} (posições dos valores é guardada na operação de \textit{pooling} \cite{Fang_2017}}
+    \caption{Exemplo de \textit{pooling} e \textit{unpooling}. (a) entrada 2D de $4\times4\times1$; (b) resultado da aplicação do \textit{max pooling} com janela de $2\times2$ e \textit{stride} de 2; (c) resultado da aplicação do \textit{unpooling} (\textit{max unpooling}) (a posição dos valores é guardada na operação de \textit{pooling}) \cite{Fang_2017}.}
     \label{fig:pooling}
 \end{figure}
 
+Algumas das arquiteturas de CNNs mais conhecidas incluem AlexNet, VGGNet e ResNet \cite{Minaee_2021}. Uma CNN consegue classificar uma imagem para uma das várias categorias que foi treinada ou reconhecer a presença de um objeto em qualquer parte da imagem analisada. Por outro lado, para a segmentação de imagens a informação espacial precisa ser preservada, por isso outros modelos de redes (e suas variações) são utilizadas \cite{Ponti_2017}.
+
+Muitos modelos (algoritmos) de DL foram (e estão sendo) desenvolvidos para segmentação de imagens, e.g., redes totalmente convolucionais, U-net, Linknet, PSPNet. Nelas a saída terá o mesmo tamanho da entrada (ou pouco menor), contendo uma segmentação da imagem de entrada. Elas podem ser treinadas a partir do zero com os dados a serem segmentados, ou utilizar modelos pré-treinados (\textit{transfer learning}) com \textit{datasets} (como o ImageNet), além de serem utilizados variados \textit{backbones} como extratores de características \cite{Hao_2020, Minaee_2021}. Dentre as CNNs, a VGGNet e a ResNet são as mais utilizadas como \textit{backbones} \cite{Lateef_2019}.
+
+As redes totalmente convolucionais (do inglês \textit{Fully Convolutional Netwoks} (FCNs)) (\autoref{fig:fcn}) são baseadas nas CNNs, onde a camada totalmente conectada é removida e sendo adicionado camadas de \textit{unpooling} e de \textit{transposed convolution} (convolução transposta).
+O \textit{unpooling} (\autoref{fig:pooling}), ao contrário do \textit{pooling}, gera um mapa de características de maior resolução como saída. Outrossim a \textit{transposed convolution} (\autoref{fig:transposteConv}), as vezes chamada de \textit{deconvolution}, mesmo que a operação executada não é o oposto da convolução, também é aplicada de modo a aumentar a resolução do mapa de características \cite{Long_2015, Fang_2017}. 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/trans_conv.jpg}
-    \caption{Exemplo de convolução transposta numa entrada 2D de $2\times2\times1$ por um filtro (\textit{kernel}) $2\times2\times1$, com \textit{stride} 1 (para altura e largura) e sem \textit{padding} \cite{Zhang_2021}.}
-    \label{fig:transposteConv}
+    \includegraphics[width=0.6\textwidth]{img/fcn.jpg}
+    \caption{Arquitetura simplificada de uma FCN \cite{Long_2015}.}
+    \label{fig:fcn}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{img/unet.jpg}
+    \includegraphics[width=0.7\textwidth]{img/trans_conv.jpg}
+    \caption{Exemplo de convolução transposta numa entrada 2D de $2\times2\times1$ por um filtro (\textit{kernel}) $2\times2\times1$, com \textit{stride} de 1 (para altura e largura) e sem \textit{padding} \cite{Zhang_2021}.}
+    \label{fig:transposteConv}
+\end{figure}
+
+A U-net (\autoref{fig:unet}), usada inicialmente para segmentar imagens médicas, foi baseada nas FCNs. Ela apresentada um formato em U (dando nome a rede), sendo simétrica: na primeira metade tem-se o \textit{encoder}, reduzindo os mapas de características e na outra metade o decoder expandindo eles até o tamanho de entrada original. A U-net tem \textit{skip connection} como as FCN, contudo aqui os mapas de características também são concatenado com seu simétrico na outra metade \cite{Ronneberge_2015, Hao_2020}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/unet.jpg}
     \caption{Arquitetura da U-net \cite{Ronneberge_2015}.}
     \label{fig:unet}
 \end{figure}
 
+A Linknet (\autoref{fig:linknet}) é similar a U-net, contudo utiliza  \textit{residual blocks} (blocos residuais) no \textit{encoder} e \textit{decoder}. Ela foi desenvolvida tendo como foco a segmentação semântica, com a arquitetura da ResNet de base. Os \textit{residual blocks} (\autoref{fig:residual_block}), também chamados de \textit{shortcut connections}, são úteis no problema de \textit{vanishing gradient} (dissipação do gradiente) em redes muito profundas, pois enviam o resultado para uma ou mais camadas a frente \cite{Chaurasia_2017, Ebrahimi_2021}.
+
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/segnet.jpg}
-    \caption{Arquitetura da Segnet \cite{Ronneberge_2015}.}
-    \label{fig:segnet}
+    \subfigure[]{\includegraphics[height=0.45\textwidth]{img/residual_block1.jpg}}
+    \subfigure[]{\includegraphics[height=0.45\textwidth]{img/residual_block2.jpg}}
+    \caption{Exemplo de \textit{residual block}. (a) bloco regular; (b) bloco residual, onde a linha sólida leva a entrada $\textbf{x}$ até operador de adição, propagando mais rápido pela rede \cite{Zhang_2021}.}
+    \label{fig:residual_block}
 \end{figure}
 
-\dotsBlue
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.55\textwidth]{img/linknet.jpg}
+    \caption{Arquitetura da Linknet \cite{Chaurasia_2017}.}
+    \label{fig:linknet}
+\end{figure}
+
+%\textRed{Segnet}
+
+A \textit{Pyramid Scene Parsing Network} (PSPNet) (\autoref{fig:pspnet}) utiliza o módulo \textit{pyramid parsing}, que explora informações de contexto global através de diferentes regiões baseadas em agregação de contexto. As informações locais e globais são agrupadas para fazer uma predição final de maior confiança. Por base a PSPNet utiliza uma ResNet pré-treinada utilizando \textit{dilated convolution} (convoluções dilatadas) como extratores de características. As \textit{dilated convolution} (\autoref{fig:dilated_conv}) são um tipo de convolução que dilata o filtro ao inserir espaços entre os valores do mesmo. Os espaços são definidos pelo parâmetro $l$, a taxa de dilatação, com $l = 1$ é a convolução tradicional, já $l > 1$ são convoluções dilatadas \cite{Zhao_2017, Minaee_2021}.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.99\textwidth]{img/pspnet.jpg}
+    \caption{Arquitetura da PSPNet \cite{Zhao_2017}.}
+    \label{fig:pspnet}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \subfigure[]{\includegraphics[height=0.25\textwidth]{img/dilated_conv1.jpg}}
+    \subfigure[]{\includegraphics[height=0.25\textwidth]{img/dilated_conv2.jpg}}
+    \subfigure[]{\includegraphics[height=0.25\textwidth]{img/dilated_conv3.jpg}}
+    \caption{Exemplo de \textit{dilated convolution} com 3 valores de dilatação ($l$).; (a) $l = 1$; (b) $l = 2$; (c) $l = 4$ \cite{Minaee_2021}.}
+    \label{fig:dilated_conv}
+\end{figure}
+
+% \dotsBlue
+
+% \clearpage % force all image be placed
 
 \subsection{Trabalhos relacionados}
 
-Nesta seção serão discutidos alguns trabalhos relacionados que servirão de base para o desenvolvimento de novas metodologias para segmentação de imagens de VANTs associadas a AP e a detecção de linhas de plantio.
+Nesta seção serão discutidos alguns trabalhos (recentes) relacionados que servirão de base para o desenvolvimento de novas metodologias para segmentação de imagens de VANTs associadas a AP e a detecção de linhas de plantio.
 
-\cite{Souza_2017} \dotsBlue
+\citeonline{Souza_2017} desenvolveram um método para detectar linhas de plantio em imagens de VANTs de plantações de cana-de-açúcar e suas falhas. Uma das etapas do método é calcular o NDVI, assim as imagens utilizadas tem as bandas RGB e a NIR.
 
-\linePage
-
-\cite{Garcia_2017} falar rapidamente, talvez
+\dotsBlue
 
 \linePage
 
-\cite{Souza_2018} \dotsBlue
+\citeonline{Garcia_2017} falar rapidamente, talvez
 
 \linePage
 
-\cite{Rozo_2019} \dotsBlue
+\citeonline{Souza_2018} 
 
 \linePage
 
-\cite{Bah_2020} \dotsBlue
+\citeonline{Soares_2018} comentam que a TH é uma boa escolha inicial para detectar linhas de plantio, justificando vários trabalhos anteriores utilizarem esse método. Contudo a TH necessita que o formato do objeto a ser detectado seja conhecido antecipadamente, o que limita sua utilização para detectar as linhas de plantio. Para mitigar essa limitação, no trabalho utilizam a TH com o esquema janelamento (\textit{tiling scheme}), onde as linhas de plantio se aproximam de linhas retas. No método desenvolvido a TH foi aplicada com o janelamento com variados tamanhos de janela e porcentagem de sobreposição. O método foi avaliado em 8 imagens de VANTs de plantações de café e suas marcações feitas por um especialista. Os melhores resultados foram com janela de 200 pixels e sobreposição de 48 \%. A sobreposição ajuda evitar descontinuidades nas linhas detectadas.
+
+\linePage
+
+\citeonline{Rozo_2019} \dotsBlue
+
+\linePage
+
+\citeonline{Bah_2020} \dotsBlue
 
 \linePage
 
@@ -417,7 +459,81 @@ A dilatação pode ser utilizada para juntar plantas isoladas de suas respectiva
 
 \subsection{Segmentação}
 
-O processamento principal, as vezes também chamado de segmentação é uma das partes mais importantes do PDI. Para este projeto, inicialmente, foi escolhido redes neurais para segmentar as imagens das linhas de plantio. Elas podem ter bom resultado na segmentação, em comparação com os algoritmos tradicionais (e outros métodos como AG), por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair das imagens. Dentre essas características, podem ser contornos, formatos de linhas, outros tipos de formatos específicos. 
+A próxima etapa é a segmentação, que as vezes é chamada de processamento principal, devido a sua importância e complexidade. Inicialmente é importante conhecer as imagens que serão segmentadas e quais métodos de segmentação serão utilizados. Para este projeto serão utilizadas imagens de VANTs com as bandas RGB. De modo a ficar mais barato as suas capturas do que de imagens com banda infravermelho e/ou infravermelho próximo, pois essas precisas de uma câmera específica que consiga capturar tais bandas, contudo alguns informações úteis poderiam ser obtidas dessas bandas e IV (como o NDVI).
+
+Como as imagens são de plantações de cana-de-açúcar (e de outras culturas, dependendo do desenvolvimento do projeto) é certo encontrar nelas fileiras da cultura e variadas partes de solo exposto. As culturas de cana-de-açúcar geralmente são classificadas em 4 fases de desenvolvimento (brotação e estabelecimento, perfilamento, crescimento de colmos e maturação) (\autoref{fig:cana_estagios}) \cite{Lu_Zhou_2019}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.99\textwidth]{img/cana_estagios.jpg}
+    \caption{Fases de desenvolvimento da cana-de-açúcar: 0-60 dias, fase de brotação e estabelecimento; 60-150 dias, fase de perfilamento, 150-240; fase de crescimento dos colmos; 240-360 dias, fase de maturação) \cite{Molijn_2019}.}
+    \label{fig:cana_estagios}
+\end{figure}
+
+Dentre as fases de desenvolvimento seus respectivos dias, \citeonline{Souza_2017} recomenda que as imagens sejam capturadas entre 60-90 dias após o plantio (ou corte/colheita), quando a cana-de-açúcar já cresceu o suficiente para preencher a linha de plantio, mas sem cobrir os espaços entre as linhas. Entretanto esse período pode variar dependendo da variedade de cana-de-açúcar plantada, da quantidade plantas/socas na linha, da quantidade de chuva entre outros fatores. Assim, também é recomendado uma análise visual da plantação para confirmação do melhor momento para capturar as imagens.
+
+Considerando que as imagens foram capturas dentre os períodos recomendados, é esperado ter uma boa visibilidade da linhas de plantio e das partes de solo exposto. Deste modo, dois cenários são esperados: com cana-planta e cana-soca (\autoref{fig:cana_planta_soca}). No estágio de cana-soca, o solo está coberto com folhas secas do último corte/colheita, dando aspecto amarelado, dificultando a análise computação, já no estágio de cana-planta o solo está mais visível.
+
+\begin{figure}[htbp]
+    \centering
+    \subfigure[]{\includegraphics[width=0.49\textwidth]{img/cana_planta.jpg}} 
+    \subfigure[]{\includegraphics[width=0.49\textwidth]{img/cana_soca.jpg}} 
+    \caption{Cana-de-açúcar: (a) estágio de cana-planta (após o plantio e o nascimento, mas antes do primeiro corte); (b) estágio de cana-soca (após o corte) \cite{Silva_2020}.}
+    \label{fig:cana_planta_soca}
+\end{figure}
+
+Sobre os métodos de segmentação, neste projeto, inicialmente, foi escolhido as redes neurais para segmentar as imagens das linhas de plantio. Elas podem ter bom resultado na segmentação, em comparação com os algoritmos tradicionais (e outros métodos como AG), por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair das imagens \cite{Silva_2020}. Dentre essas características, podem ser contornos, formatos de linhas, outros tipos de formatos específicos. 
+
+As redes para segmentação (algumas apresentadas na \autoref{sec:dl}) serão analisada para segmentar as linhas de plantio utilizando algumas abordagens. Elas serão treinadas com as imagens RGB, índices de vegetação, ou a combinação de ambos.
+
+
+\textRed{Reescrever, dizer que inicialmente serão usadas as redes de segmentação, que poderemos treinar elas com imagens RGB, índice de vegetação, ou combinação de ambos, etc.
+
+Dizer que se espera que a rede seja capaz de aprender as características visuais das plantas e do solo, sendo assim capaz de diferencia-los etc}
+
+\begin{table}[htb]
+    \centering
+    \caption{Índices de Vegetação \cite{Lu_Zhou_2019}}
+    \label{tab:iv}
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        Índice & \multicolumn{1}{c}{Nome} & \multicolumn{1}{c}{Equação} \\ \midrule
+
+        \multirow{2}{*}{VARI} & \multirow{2}{*}{\textit{Visible Atmospherically Resistant Index}} & \multirow{2}{*}{$\displaystyle \text{VARI} = \frac{g - r}{g + r - b} $} \\
+        & & \\ \midrule
+
+        \multirow{2}{*}{ExG} & \multirow{2}{*}{\textit{Excess Green Index}} & \multirow{2}{*}{$\displaystyle \text{ExG} = 2 * g - r - b$} \\
+        & & \\ \midrule
+
+        \multirow{2}{*}{ExR} & \multirow{2}{*}{\textit{Excess Red Vegetation Index}} & \multirow{2}{*}{$\displaystyle \text{ExR} = \frac{1,4 * R - G}{G + R + B} $ } \\
+        & & \\ \midrule
+
+        \multirow{2}{*}{ExB} & \multirow{2}{*}{\textit{Excess Blue Vegetation Index}} & \multirow{2}{*}{$\displaystyle \text{ExB} = \frac{1,4 * B - G}{G + R + B}$} \\
+        & & \\ \midrule
+
+        \multirow{2}{*}{ExGR} & \multirow{2}{*}{\textit{Excess Green minus Excess Red}} & \multirow{2}{*}{$\displaystyle \text{ExGR} = \text{ExG} - \text{ExR}$} \\
+        & & \\ \midrule
+
+        \multirow{2}{*}{GRVI} & \multirow{2}{*}{\textit{Green Red Vegetation Index}} & \multirow{2}{*}{$\displaystyle \text{GRVI} = \frac{G - R}{G + R}$} \\
+        & & \\ \midrule
+
+        \multirow{2}{*}{MGRVI} & \multirow{2}{*}{\textit{Modified Green Red Vegetation Index}} & \multirow{2}{*}{$\displaystyle \text{MGRVI} = \frac{G^2 - R^2}{G^2+R^2}$} \\
+        & & \\ \midrule
+
+        \multirow{2}{*}{GLI} & \multirow{2}{*}{\textit{Green Leaf Index}} & \multirow{2}{*}{$\displaystyle \text{GLI} = \frac{2 * g - r - b}{-r - b}$} \\
+        & & \\ \midrule
+
+        \multirow{2}{*}{RGBVI} & \multirow{2}{*}{\textit{Red Green Blue Vegetation Index}} & \multirow{2}{*}{$\displaystyle \text{RGBVI} = \frac{G^2 - B * R}{G^2 + B * R}$} \\
+        & & \\ \midrule
+
+        \multirow{2}{*}{IKAW} & \multirow{2}{*}{\textit{Kawashima Index}} & \multirow{2}{*}{$\displaystyle \text{IKAW} = \frac{R - B}{R + B}$} \\
+        & & \\ \bottomrule
+
+         \multicolumn{3}{l}{$R$, $G$ e $B$ correspondem as bandas RGB de uma imagem.} \\
+         \multicolumn{3}{l}{$r$, $g$ e $b$ são as coordenadas cromáticas (\autoref{equa:chromatic}).} \\
+
+    \end{tabular}
+\end{table}
 
 \dotsBlue
 
@@ -442,7 +558,11 @@ No resultado de CD, $0 \le CD \le 1$, quanto mais próximo de 1, mais similar s�
 
 Ao fim do projeto, espera-se obter um método automático capaz de realizar de forma mais eficiente e com maior precisão o processo de segmentação de imagens de linhas de plantio da cultura de cana-de-açúcar. O projeto é focado em imagens de VANTs, diferentes de outros trabalhos que utilizam imagens de satélites e, principalmente, de baixíssimas altitudes (tiradas do solo ou acopladas em maquinário agrícola). As técnicas estudas e desenvolvidas serão utilizadas em sua melhor combinação para detectar as linhas de plantio.
 
-Também é esperado que este método consiga lidar bem com linhas de plantio em formato de linhas retas e linhas curvas nas plantações de cana-de-açúcar em vários estágios (idades diferentes)
+É esperado que o método lide bem com linhas de plantio que se aproximam de linhas retas e também com linhas curvas, que não tiveram bons resultados nos trabalhos encontrados na literatura. Apesar de que as plantações geralmente são planejadas em linhas retas, em muitos casos as linhas curvas estão presentes, seja por uma limitação do terreno (como um obstáculo ou um declive), por um deslise do maquinário agrícola durante o plantio, algum erro entre outros. Assim é importante o método proposto conseguir identificar bem essas linhas curvas ou outros formatos.
+
+Outro ponto importante é a idade das plantações analisadas. As imagens de cana-de-açúcar podem ser obtidas em qualquer um dos seus estágios, seja no começo do nascimento, após 30 (60, 90 ou mais) dias, pouco antes da colheita (muitas folhas tapando quase toda visibilidade do solo), após a colheita (com muitas folhas ao solo e começando a secar), alguns dias depois da colheita (folhas secas ao solo com cor em tom amarelado e soqueiras começando a brotar), muitos dias após a colheita (similar ao anterior com muito dias após a plantação, quase nenhuma folha no solo.) 
+
+Também é esperado que este método consiga lidar bem com linhas de plantio em formato de linhas retas e linhas curvas nas plantações de cana-de-açúcar em vários estágios (idades diferentes). Assim é
 
 \dotsBlue
 
