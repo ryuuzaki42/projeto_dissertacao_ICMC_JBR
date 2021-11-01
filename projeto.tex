@@ -81,7 +81,7 @@
 		Previsão da Defesa: fevereiro de 2023\\ $\ $\\}
 \end{center}
 
-\textRed{Versão 3 - 28/10/2021}
+\textRed{Versão 3 - 01/11/2021}
 
 \section{Introdução}
 
@@ -364,20 +364,22 @@ A \textit{Pyramid Scene Parsing Network} (PSPNet) (\autoref{fig:pspnet}) utiliza
 
 Nesta seção serão discutidos alguns trabalhos (recentes) relacionados que servirão de base para o desenvolvimento de novas metodologias para segmentação de imagens de VANTs associadas a AP e a detecção de linhas de plantio.
 
-\citeonline{Souza_2017} desenvolveram um método para detectar linhas de plantio em imagens de VANTs de plantações de cana-de-açúcar (GSD de aproximadamente 0.10 m) e suas falhas. Para a análise das imagens e para a execução do processo de análise de imagem baseada em objeto (OBIA), foi utilizado o \textit{software} comercial \textit{eCognition Developer}\footnote{https://geospatial.trimble.com/products-and-solutions/ecognition} 8 (\textit{Trimble GeoSpatial}). A OBIA primeiramente identifica unidades espacialmente e espectralmente homogêneas, chamadas de ``objetos'', criados pelo agrupamento de pixels adjacentes e, em seguida, os utiliza como elementos básicos para análise.
-Para identificar as linhas de plantio foi utilizado o NDVI (as imagens utilizadas têm as bandas RGB e a NIR). Também foi utilizado o \textit{software} comercial \textit{Arcgis}\footnote{https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview} (Esri) para extrair automaticamente falhas nas linhas (através do ``\textit{ModelBuilder}''). O método foi avaliado comparando 54 falhas estimadas pelo método as observadas (medias com fita métrica). Apesar dos resultados estimados serem próximo dos observados, o método apresenta limitações em relação aos \textit{softwares} comerciais utilizados e poucos testes foram realizados.
+\citeonline{Souza_2017} desenvolveram um método para detectar linhas de plantio em imagens de VANTs de plantações de cana-de-açúcar (GSD de aproximadamente 0.10 m) e suas falhas. Para a análise das imagens e para a execução do processo de análise de imagem baseada em objeto (OBIA), foi utilizado o \textit{software} comercial \textit{eCognition Developer}\footnote{https://geospatial.trimble.com/products-and-solutions/ecognition} 8 (\textit{Trimble GeoSpatial}). A OBIA primeiramente identifica unidades espacialmente e espectralmente homogêneas, chamadas de ``objetos'', criados pelo agrupamento de pixels adjacentes e, em seguida, os utiliza como elementos básicos para análise. Para identificar as linhas de plantio foi utilizado o NDVI (as imagens utilizadas têm as bandas RGB e a NIR). Também foi utilizado o \textit{software} comercial \textit{Arcgis}\footnote{https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview} (Esri) para extrair automaticamente falhas nas linhas (através do ``\textit{ModelBuilder}''). O método foi avaliado comparando 54 falhas estimadas pelo método e as observadas (medição por fita métrica). Apesar dos resultados estimados serem próximo dos observados, o método apresenta limitações em relação aos \textit{softwares} comerciais utilizados e aos poucos testes que foram realizados.
+
+\citeonline{Garcia_2017} desenvolveram um método para identificar linhas retas e curvas em plantações de milho. As imagens são de baixíssima altitude (2 m, câmera acoplada no maquinário agrícola). Para a segmentação foi utilizado o índice de vegetação ExG (para facilitar a diferenciação de plantas e ervas daninhas do solo), em seguida é aplicado o método de Otsu com dois limiares (dividindo a imagem em 3 classes: milho, erva daninha e solo) e depois operações morfológicas são aplicadas. Após a segmentação, a TH foi utilizada para identificar 4 pontos - começos de linhas de plantio na imagem (necessário para o veículo autônomo se guiar).
 
 
-
-\dotsBlue
-
-\linePage
-
-\citeonline{Garcia_2017} desenvolveram um método para identificar linhas retas e curvas em plantações de milho. As imagens são de baixa altitude (câmera acoplada no maquinário agrícola). Para a segmentação das imagens foi utilizado o índice de vegetação ExG (para difenciar as plantas do solo), em seguida é aplicado o método de Otsu com dois limiares e por fim operações morfológicas são aplicadas na imagem. Depois da segmentação a TH foi utilizada para identificar linhas na imagem \dotsBlue
+\textRed{Esse 4 pontos são as linhas de plantio esperada para estar presentes nas imagens e são identificadas até certa distância a frente, assim podendo ser tratadas como linhas retas. Imagens com menos de 4 começos de linhas são rejeitadas} \dotsBlue
 
 \linePage
 
 \citeonline{Souza_2018} \dotsBlue
+café e cana
+
+HT
+curva
+linhas e escolhas das linhas
+algoritmo
 
 \linePage
 
@@ -386,10 +388,17 @@ Para identificar as linhas de plantio foi utilizado o NDVI (as imagens utilizada
 \linePage
 
 \citeonline{Rozo_2019} \dotsBlue
-
+Gis - plugin
+semente, direção da imagem-mosaico
+linhas retas
+cana
 \linePage
 
 \citeonline{Bah_2020} \dotsBlue
+dl
+ht
+cnn
+cana
 
 \linePage
 
@@ -402,7 +411,8 @@ Em \citeonline{Silva_2020} foram desenvolvidas duas abordagens para detecção d
 \linePage
 
 \citeonline{Pereira_Junior_2020} \dotsBlue
-
+algoritmos tradicionais
+cana
 \linePage
 
 \citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow} \cite{Inforow_2021}. Como esperado, os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não foi possível detectar pequenas falhas $(\le 1$ m$)$ quando a planta já tinha certa altura $(\ge 1$ m$)$ através do \textit{software}. É importante notar que mesmo o \textit{software} comercial não obteve bons resultados em certos cenários.
@@ -417,9 +427,9 @@ Na literatura, o trabalho de \citeonline{Silva_2020} contribuiu significativamen
 \section{Metodologia de pesquisa}
 % => Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
 
-A metodologia deste projeto é composta por 5 etapas. A primeira etapa é a aquisição das imagens/\textit{datasets} coletadas por VANTs utilizando câmera RGB em plantações de cana-de-açúcar. A segunda etapa é o pré-processamento dessas imagens, buscando realçar as linhas de plantio e corrigir pequenas imperfeições.
+A metodologia deste projeto é composta por 5 etapas. A primeira etapa é a aquisição das imagens/\textit{datasets} coletadas por VANTs utilizando uma câmera RGB em plantações de cana-de-açúcar. A segunda etapa é o pré-processamento dessas imagens, buscando realçar as linhas de plantio e corrigir pequenas imperfeições.
 
-A terceira etapa é o processamento principal, ou seja, a segmentação das imagens. Aqui serão testados e propostos métodos para melhorar a segmentação dessas imagens. Na quarta etapa será feito o pós-processamento para otimizar a segmentação e refinar as linhas detectadas pela etapa anterior, além de tratar linhas incompletas e linhas curvas. Por fim, será feita a avaliação dos resultados da detecção das linhas de plantio.
+A terceira etapa é o processamento principal, ou seja, a segmentação das imagens. Nela serão testados e propostos métodos para melhorar a segmentação dessas imagens. Na quarta etapa será feito o pós-processamento para otimizar a segmentação e refinar as linhas detectadas pela etapa anterior, além de tratar linhas incompletas e linhas curvas. Por fim, será feita a avaliação dos resultados da detecção das linhas de plantio.
 
 \subsection{Aquisição das imagens}
 
@@ -427,8 +437,8 @@ As imagens para os experimentos são de VANTs em culturas, inicialmente, de cana
 
 \begin{figure}[htbp]
     \centering
-    \subfigure[]{\includegraphics[width=0.11\textwidth]{img/a2.jpg}} 
-    \subfigure[]{\includegraphics[width=0.32\textwidth]{img/b2.jpg}} 
+    \subfigure[]{\includegraphics[width=0.12\textwidth]{img/a2.jpg}} 
+    \subfigure[]{\includegraphics[width=0.31\textwidth]{img/b2.jpg}} 
     \subfigure[]{\includegraphics[width=0.14\textwidth]{img/c2.jpg}}
     \subfigure[]{\includegraphics[width=0.40\textwidth]{img/d2.jpg}}
     \caption{Mosaicos e seus respectivos tamanhos: (a) 11180 $\times$ 8449; (b) 16677 $\times$ 24181; (c) 17497 $\times$ 10771; (d) 19833 $\times$ 30255.}
@@ -464,18 +474,18 @@ A dilatação pode ser utilizada para juntar plantas isoladas de suas respectiva
 
 A próxima etapa é a segmentação, que as vezes é chamada de processamento principal, devido a sua importância e complexidade. Inicialmente é importante conhecer as imagens que serão segmentadas e quais métodos de segmentação serão utilizados. Para este projeto serão utilizadas imagens de VANTs com as bandas RGB. De modo a ficar mais barato as suas capturas do que de imagens com banda infravermelho e/ou infravermelho próximo, pois essas precisam de uma câmera específica que consiga capturar tais bandas, contudo alguns informações úteis poderiam ser obtidas dessas bandas e IV (como o NDVI).
 
-Como as imagens são de plantações de cana-de-açúcar (e de outras culturas, dependendo do desenvolvimento do projeto) é certo encontrar nelas fileiras da cultura e variadas partes de solo exposto. As culturas de cana-de-açúcar geralmente são classificadas em 4 fases de desenvolvimento (brotação e estabelecimento, perfilamento, crescimento de colmos e maturação) (\autoref{fig:cana_estagios}) \cite{Lu_Zhou_2019}.
+Como as imagens são de plantações de cana-de-açúcar (e de outras culturas, dependendo do desenvolvimento do projeto) é certo encontrar nelas fileiras da cultura e variadas partes de solo exposto. As culturas de cana-de-açúcar geralmente são classificadas em 4 fases de desenvolvimento (brotação e estabelecimento, perfilamento, crescimento de colmos e maturação), como pode ser visualizado na \autoref{fig:cana_estagios} \cite{Lu_Zhou_2019}.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.99\textwidth]{img/cana_estagios.jpg}
-    \caption{Fases de desenvolvimento da cana-de-açúcar: 0-60 dias, fase de brotação e estabelecimento; 60-150 dias, fase de perfilamento, 150-240; fase de crescimento dos colmos; 240-360 dias, fase de maturação) \cite{Molijn_2019}.}
+    \includegraphics[width=0.95\textwidth]{img/cana_estagios.jpg}
+    \caption{Fases de desenvolvimento da cana-de-açúcar: 0-60 dias, fase de brotação e estabelecimento; 60-150 dias, fase de perfilamento; 150-240, fase de crescimento dos colmos; 240-360 dias, fase de maturação) \cite{Molijn_2019}.}
     \label{fig:cana_estagios}
 \end{figure}
 
-Dentre as fases de desenvolvimento seus respectivos dias, \citeonline{Souza_2017} recomenda que as imagens sejam capturadas entre 60-90 dias após o plantio (ou corte/colheita), quando a cana-de-açúcar já cresceu o suficiente para preencher a linha de plantio, mas sem cobrir os espaços entre as linhas. Entretanto esse período pode variar dependendo da variedade de cana-de-açúcar plantada, da quantidade plantas/socas na linha, da quantidade de chuva entre outros fatores. Assim, também é recomendado uma análise visual da plantação para confirmação do melhor momento para capturar as imagens.
+Dentre as fases de desenvolvimento e seus respectivos dias, \citeonline{Souza_2017} recomenda que as imagens sejam capturadas entre 60-90 dias após o plantio (ou corte/colheita), quando a cana-de-açúcar já cresceu o suficiente para preencher a linha de plantio, mas sem cobrir os espaços entre as linhas. Entretanto esse período pode variar dependendo da variedade de cana-de-açúcar plantada, da quantidade plantas/socas na linha, da quantidade de chuva entre outros fatores. Assim, também é recomendado uma análise visual da plantação para confirmação do melhor momento para capturar as imagens.
 
-Considerando que as imagens foram capturas dentre os períodos recomendados, é esperado ter uma boa visibilidade da linhas de plantio e das partes de solo exposto. Deste modo, dois cenários são esperados: com cana-planta e cana-soca (\autoref{fig:cana_planta_soca}). No estágio de cana-soca, o solo está coberto com folhas secas do último corte/colheita, dando aspecto amarelado, dificultando a análise computação, já no estágio de cana-planta o solo está mais visível.
+Considerando que as imagens foram capturas dentre os períodos recomendados, é esperado ter uma boa visibilidade da linhas de plantio e das partes de solo exposto. Deste modo, dois cenários são mais esperados: com cana-planta e cana-soca, como na \autoref{fig:cana_planta_soca}. No estágio de cana-soca, o solo está coberto com folhas secas do último corte/colheita, dando aspecto amarelado, dificultando a análise computação, já no estágio de cana-planta o solo está mais visível.
 
 \begin{figure}[htbp]
     \centering
@@ -485,9 +495,9 @@ Considerando que as imagens foram capturas dentre os períodos recomendados, é 
     \label{fig:cana_planta_soca}
 \end{figure}
 
-Sobre os métodos de segmentação, neste projeto, inicialmente, foi escolhido as redes neurais para segmentar as imagens. Elas podem ter bom resultado na segmentação, em comparação com os algoritmos tradicionais (e outros métodos como AG), por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair das imagens \cite{Silva_2020}. Dentre essas características, podem ser contornos, formatos de linhas e outros tipos de formatos específicos. 
+Sobre os métodos de segmentação, neste projeto, inicialmente, foi escolhido as redes neurais para segmentar as imagens. Elas têm melhor resultado na segmentação, em comparação com os algoritmos tradicionais (e outros métodos como AG), por utilizar não apenas o tom avermelhado do solo e esverdado da plantas, mas outras características que elas conseguem extrair das imagens \cite{Silva_2020}. Dentre essas características, podem ser contornos, formatos de linhas e outros tipos de formatos específicos. 
 
-As redes para segmentação (algumas apresentadas na \autoref{sec:dl}) serão treinadas para segmentar as linhas de plantio utilizando algumas abordagens. Elas serão treinadas com as imagens RGB, índices de vegetação, ou a combinação de ambos. Dentre os IVs para imagens RGB, alguns são mais utilizados, como o ExG, contudo vários outros podem ser utilizados, como pode ser visualizado na \autoref{tab:iv}. A utilização dos IVs é motivada pela hipótese de que as redes irão apreender mais características visuais das plantas e do solo do que apenas com a imagem RGB, sendo assim capaz de diferencia-los com maior precisão.
+As redes para segmentação (algumas apresentadas na \autoref{sec:dl}) serão treinadas para segmentar as linhas de plantio utilizando algumas abordagens. Elas serão treinadas com as imagens (RGB) das plantações, índices de vegetação, ou a combinação de ambos. Dentre os IVs para imagens RGB, alguns são mais utilizados, como o ExG, contudo vários outros podem ser utilizados, como pode ser visualizado na \autoref{tab:iv}. A utilização dos IVs é motivada pela hipótese de que as redes irão apreender mais características visuais das plantas e do solo do que apenas com a imagem RGB, sendo assim capaz de diferencia-los com maior precisão.
 
 \begin{table}[htb]
     \centering
@@ -535,9 +545,9 @@ As redes para segmentação (algumas apresentadas na \autoref{sec:dl}) serão tr
 
 \subsection{Pós-processamento}
 
-A etapa de pós-processamento é responsável por refinar a segmentação obtida na etapa anterior. Assim, refinar as linhas detectadas pelas redes neurais, testando alguns métodos que podem ou não melhorar o resultado. Inicialmente as operações morfológicas são utilizadas para separar pequenos e finos filamentos ligando duas linhas de plantio (algum erro na segmentação, e.g., pela presença de ervas daninha ou plantas caídas) ou agrupar pequenos filamentos da mesma linha de plantio (e.g., pela presença de pequenas falhas ou plantas deslocadas da sua linha de plantio). Após a aplicação das operações morfológicas, é esperado que essas pequenas imperfeições sejam corrigidas, deixando as imagens preparadas para as próximas operações.
+A etapa de pós-processamento é responsável por refinar a segmentação obtida na etapa anterior. Assim, refinar as linhas detectadas pelas redes neurais, testando alguns métodos que podem ou não melhorar o resultado. Inicialmente as operações morfológicas são utilizadas para separar pequenos e finos filamentos ligando duas linhas de plantio (algum erro na segmentação, e.g., pela presença de ervas daninhas ou plantas caídas) ou agrupar pequenos filamentos da mesma linha de plantio (e.g., pela presença de pequenas falhas ou plantas deslocadas da sua linha de plantio). Após a aplicação das operações morfológicas, é esperado que essas pequenas imperfeições sejam corrigidas, deixando as imagens preparadas para as próximas operações.
 
-Na sequência, a transformada de Hough e/ou a transformada de Radon são aplicadas para identificar as linhas presentes nas imagens. Com o resultados das transformadas (posições das linhas e seus respectivos ângulos de inclinação), novas correções são feitas. Verificando, por exemplos, se linhas estão muito próximas (fazendo escolha da possível linha de plantio), com partes sobrepostas (uma das linhas deve estar errada) ou grande espaço sem linhas (uma possível linha de plantio não foi identificada). Além de-se analisar e tratar as linhas curvas, sendo o método de janelamento uma promissora abordagem para resolver o desafio.
+Na sequência, a transformada de Hough e/ou a transformada de Radon são aplicadas para identificar as linhas presentes nas imagens. Com o resultados das transformadas (posições das linhas e seus respectivos ângulos de inclinação), novas correções são feitas. Verificando, por exemplo, se linhas estão muito próximas (verificar se são de fato linhas de plantio), com partes sobrepostas (alguma das linhas não deve ser de plantio) ou grande espaço sem linhas (uma possível linha de plantio não foi identificada). Além de-se analisar e tratar as linhas curvas, sendo o método de janelamento uma promissora abordagem para resolver esse desafio.
 
 \subsection{Avaliação dos resultados}
 
@@ -554,11 +564,11 @@ No resultado de CD, $0 \le CD \le 1$, quanto mais próximo de 1, mais similar s�
 
 Ao fim do projeto, espera-se obter um método automático capaz de realizar de forma mais eficiente e com maior precisão o processo de segmentação de imagens de plantações de cana-de-açúcar. O projeto é focado em imagens de VANTs, diferentes de outros trabalhos que utilizam imagens de satélites ou de baixíssimas altitudes (tiradas do solo ou acopladas em maquinário agrícola). As técnicas estudas e desenvolvidas serão utilizadas em sua melhor combinação para detectar as linhas de plantio.
 
-É esperado que o método lide bem com linhas de plantio que se aproximam de linhas retas e também com linhas curvas, que não tiveram bons resultados nos trabalhos encontrados na literatura. Apesar das plantações geralmente serem planejadas em linhas retas, em muitos casos as linhas curvas estão presentes, seja por uma limitação do terreno (como um obstáculo ou um declive acentuado), por um deslise do maquinário agrícola durante o plantio, algum erro entre outros. Assim é importante o método proposto consiga identificar bem essas linhas curvas ou em outros formatos.
+É esperado que o método lide bem com linhas de plantio que se aproximam de linhas retas e também com linhas curvas, que não tiveram bons resultados nos trabalhos encontrados na literatura. Apesar das plantações geralmente serem planejadas em linhas retas, em muitos casos as linhas curvas estão presentes, seja por uma limitação do terreno (como um obstáculo ou um declive acentuado), por um deslise do maquinário agrícola durante o plantio, algum erro entre outros. Assim é importante o método proposto consiga identificar bem essas linhas curvas e outros formatos.
 
-Outro ponto importante e esperado, é que o método proposto consiga lidar bem com imagens de plantações cana-de-açúcar de diferentes idades e até imagens de plantas fora dos períodos recomendados. Considerando assim culturas (no estágio de cana-planta ou planta-soca) após a brotação (ponto após se tornar visível as linhas de plantio e suas falhas) até antes do fechamento das partes de solo exposto entre as linhas. Contudo a presença de ervas daninhas, plantas caídas, ou de períodos próximo dos dois extremos (muito no começo da brotação ou próximo da maturação e fechamento dos espaço de solo) é esperado uma degradação no resultado. Contudo é esperado que consiga bons resultados nos cenários após o corte/colheita, com muitas folhas secas presentes no solo, para imagens dos períodos recomendados.
+Outro ponto importante e esperado, é que o método proposto consiga lidar bem com imagens de plantações cana-de-açúcar de diferentes idades e até imagens de plantas fora dos períodos recomendados. Considerando assim culturas (no estágio de cana-planta ou planta-soca) após a brotação (ponto após se tornar visível as linhas de plantio e suas falhas) até antes do fechamento das partes de solo exposto entre as linhas. Contudo a presença de ervas daninhas, plantas caídas, ou de períodos próximo dos dois extremos (muito no começo da brotação ou muito próximo do fechamento dos espaços de solo exposto) é esperado uma degradação no resultado. Contudo é esperado que consiga bons resultados nos cenários após o corte/colheita, com muitas folhas secas presentes no solo, para imagens dos períodos recomendados.
 
-Com base nos objetivos, é esperado que o método consiga bons resultados na sua aplicação em imagens reais e assim possa ser ser incorporado em um \textit{software} para a identificação das linhas de plantio. Além das plantações de cana-de-açúcar, também é esperado que este método possa ser utilizado em outras culturas, fazendo-se os ajustes necessários.
+Com base nos objetivos, é esperado que o método consiga bons resultados na sua aplicação em imagens reais e assim possa ser incorporado em um \textit{software} para a identificação das linhas de plantio. Além das plantações de cana-de-açúcar, também é esperado que o método proposto possa ser utilizado em outras culturas, fazendo-se os ajustes necessários.
 
 %\section{Esquema Geral do Texto da Dissertação (opcional)}
 % => Descreva o “esqueleto” de sua dissertação, como vai estruturar os capítulos e seções. Dê um título, mesmo que provisório, a sua dissertação.
