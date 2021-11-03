@@ -81,7 +81,7 @@
 		Previsão da Defesa: fevereiro de 2023\\ $\ $\\}
 \end{center}
 
-\textRed{Versão 3 - 01/11/2021}
+\textRed{Versão 3 - 03/11/2021}
 
 \section{Introdução}
 
@@ -310,7 +310,7 @@ O \textit{unpooling} (\autoref{fig:pooling}), ao contrário do \textit{pooling},
     \label{fig:transposteConv}
 \end{figure}
 
-A U-net (\autoref{fig:unet}), usada inicialmente para segmentar imagens médicas, foi baseada nas FCNs. Ela apresentada um formato em U (dando nome a rede), sendo simétrica: na primeira metade tem-se o \textit{encoder}, reduzindo os mapas de características e na outra metade o decoder expandindo eles até o tamanho de entrada original. A U-net tem \textit{skip connection} como as FCN, contudo aqui os mapas de características também são concatenado com seu simétrico na outra metade \cite{Ronneberge_2015, Hao_2020}
+A U-net (\autoref{fig:unet}), usada inicialmente para segmentar imagens médicas, foi baseada nas FCNs. Ela apresentada um formato em U (dando nome a rede), sendo simétrica: na primeira metade tem-se os \textit{encoders}, reduzindo os mapas de características e na outra metade os \textit{decoders} expandindo eles até o tamanho de entrada original. A U-net tem \textit{skip connection} como as FCN, contudo aqui os mapas de características também são concatenado com seu simétrico na outra metade \cite{Ronneberge_2015, Hao_2020}
 
 \begin{figure}[htbp]
     \centering
@@ -319,7 +319,7 @@ A U-net (\autoref{fig:unet}), usada inicialmente para segmentar imagens médicas
     \label{fig:unet}
 \end{figure}
 
-A Linknet (\autoref{fig:linknet}) é similar a U-net, contudo utiliza  \textit{residual blocks} (blocos residuais) no \textit{encoder} e \textit{decoder}. Ela foi desenvolvida tendo como foco a segmentação semântica, com a arquitetura da ResNet de base. Os \textit{residual blocks} (\autoref{fig:residual_block}), também chamados de \textit{shortcut connections}, são úteis no problema de \textit{vanishing gradient} (dissipação do gradiente) em redes muito profundas, pois enviam o resultado para uma ou mais camadas a frente \cite{Chaurasia_2017, Ebrahimi_2021}.
+A Linknet (\autoref{fig:linknet}) é similar a U-net, contudo utiliza \textit{residual blocks} (blocos residuais) nos \textit{encoders} e nos \textit{decoders}. Ela foi desenvolvida tendo como foco a segmentação semântica, com a arquitetura da ResNet de base. Os \textit{residual blocks} (\autoref{fig:residual_block}), também chamados de \textit{shortcut connections}, são úteis no problema de \textit{vanishing gradient} (dissipação do gradiente) em redes muito profundas, pois enviam o resultado para uma ou mais camadas a frente \cite{Chaurasia_2017, Ebrahimi_2021}.
 
 \begin{figure}[htbp]
     \centering
@@ -356,73 +356,46 @@ A \textit{Pyramid Scene Parsing Network} (PSPNet) (\autoref{fig:pspnet}) utiliza
     \label{fig:dilated_conv}
 \end{figure}
 
-% \dotsBlue
-
 % \clearpage % force all image be placed
 
 \subsection{Trabalhos relacionados}
 
 Nesta seção serão discutidos alguns trabalhos (recentes) relacionados que servirão de base para o desenvolvimento de novas metodologias para segmentação de imagens de VANTs associadas a AP e a detecção de linhas de plantio.
 
-\citeonline{Souza_2017} desenvolveram um método para detectar linhas de plantio em imagens de VANTs de plantações de cana-de-açúcar (GSD de aproximadamente 0.10 m) e suas falhas. Para a análise das imagens e para a execução do processo de análise de imagem baseada em objeto (OBIA), foi utilizado o \textit{software} comercial \textit{eCognition Developer}\footnote{https://geospatial.trimble.com/products-and-solutions/ecognition} 8 (\textit{Trimble GeoSpatial}). A OBIA primeiramente identifica unidades espacialmente e espectralmente homogêneas, chamadas de ``objetos'', criados pelo agrupamento de pixels adjacentes e, em seguida, os utiliza como elementos básicos para análise. Para identificar as linhas de plantio foi utilizado o NDVI (as imagens utilizadas têm as bandas RGB e a NIR). Também foi utilizado o \textit{software} comercial \textit{Arcgis}\footnote{https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview} (Esri) para extrair automaticamente falhas nas linhas (através do ``\textit{ModelBuilder}''). O método foi avaliado comparando 54 falhas estimadas pelo método e as observadas (medição por fita métrica). Apesar dos resultados estimados serem próximo dos observados, o método apresenta limitações em relação aos \textit{softwares} comerciais utilizados e aos poucos testes que foram realizados.
+\citeonline{Souza_2017} desenvolveram um método para detectar linhas de plantio em imagens de VANTs de plantações de cana-de-açúcar (GSD de aproximadamente 0.10 m) e suas falhas. Para a análise das imagens e para a execução do processo de análise de imagem baseada em objeto (OBIA), foi utilizado o \textit{software} comercial \textit{eCognition Developer}\footnote{https://geospatial.trimble.com/products-and-solutions/ecognition} 8 (\textit{Trimble GeoSpatial}). A OBIA, primeiramente identifica unidades espacialmente e espectralmente homogêneas, chamadas de ``objetos'', criados pelo agrupamento de pixels adjacentes e, em seguida, os utiliza como elementos básicos para análise. Para identificar as linhas de plantio foi utilizado o NDVI (as imagens utilizadas têm as bandas RGB e a NIR). Também foi utilizado o \textit{software} comercial \textit{Arcgis}\footnote{https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview} (\textit{Esri}) para extrair automaticamente falhas nas linhas (através do ``\textit{ModelBuilder}''). O método foi avaliado comparando 54 falhas estimadas pelo método e as observadas (medidas por fita métrica). Apesar dos resultados estimados serem próximo dos observados, o método apresenta limitações em relação aos \textit{softwares} comerciais utilizados e aos poucos testes que foram realizados.
 
-\citeonline{Garcia_2017} desenvolveram um método para identificar linhas retas e curvas em plantações de milho. As imagens são de baixíssima altitude (2 m, câmera acoplada no maquinário agrícola). Para a segmentação foi utilizado o índice de vegetação ExG (para facilitar a diferenciação de plantas e ervas daninhas do solo), em seguida é aplicado o método de Otsu com dois limiares (dividindo a imagem em 3 classes: milho, erva daninha e solo) e depois operações morfológicas são aplicadas. Após a segmentação, a TH foi utilizada para identificar 4 pontos - começos de linhas de plantio na imagem (necessário para o veículo autônomo se guiar).
+O trabalho de \citeonline{Garcia_2017} utiliza imagens de baixíssima altitude (2 m, câmera acoplada no maquinário agrícola) para identificar linhas em plantações de milho. A partir das imagens capturas, apenas uma região (de interesse) é utilizada. Para a segmentação foi utilizado o índice de vegetação ExG (para facilitar a diferenciação de plantas e ervas daninhas do solo), em seguida é aplicado o método de Otsu com dois limiares (dividindo a imagem em 3 classes: milho, erva daninha e solo) e depois operações morfológicas são aplicadas. Após a segmentação, a TH foi utilizada para identificar 4 pontos, que são o começo de 4 linhas de plantio presentes na imagem. A partir deles é feita projeção de 4 linhas retas até o meio da imagem (dividindo em sub-regiões de interesse). Em seguida um algoritmo é utilizado para ajustar a inclinação das linas em micro-regiões e expandir para a parte superior da imagem. O método foi testado com marcações de um especialista e teve bom resultado, contudo ele é limitado ao cenário que foi proposto (imagens de baixa altitudes, com 4 linhas de plantio na parte inferior da imagem e linhas um pouco curvas na parte superior).
 
-
-\textRed{Esse 4 pontos são as linhas de plantio esperada para estar presentes nas imagens e são identificadas até certa distância a frente, assim podendo ser tratadas como linhas retas. Imagens com menos de 4 começos de linhas são rejeitadas} \dotsBlue
-
-\linePage
-
-\citeonline{Souza_2018} \dotsBlue
-café e cana
-
-HT
-curva
-linhas e escolhas das linhas
-algoritmo
-
-\linePage
+%\citeonline{Souza_2018} \dotsBlue
+%café e cana HT curva linhas e escolhas das linhas
+%algoritmo
 
 \citeonline{Soares_2018} comentam que a TH é uma boa escolha inicial para detectar linhas de plantio, justificando vários trabalhos anteriores utilizarem esse método. Contudo a TH necessita que o formato do objeto a ser detectado seja conhecido antecipadamente, o que limita sua utilização para detectar as linhas de plantio. Para mitigar essa limitação, no trabalho utilizam a TH com o esquema janelamento (\textit{tiling scheme}), onde as linhas de plantio se aproximam de linhas retas. No método desenvolvido a TH foi aplicada com o janelamento com variados tamanhos de janela e porcentagem de sobreposição. O método foi avaliado em 8 imagens de VANTs de plantações de café e suas marcações feitas por um especialista. Os melhores resultados foram com janela de 200 pixels e sobreposição de 48 \%. A sobreposição ajuda evitar descontinuidades nas linhas detectadas.
 
-\linePage
+No trabalho de \citeonline{Rozo_2019} foi desenvolvido um \textit{plugin} para o \textit{software} de código aberto QGIS\footnote{https://qgis.org/} (\textit{QGIS Development Team}) para identificar linhas de plantio. O trabalho teve como foco imagens de plantações de cana-de-açúcar capturadas por VANTs. O \textit{plugin} utiliza uma ``semente'' inserida pelo usuário, que indica a direção das linhas de plantio no mosaico. Em seguida o mosaico é dividido em pequenos retângulos e em seguida processados. Em cada um deles é aplicado em sequência o ExG, o método de Otsu e as operações morfológicas. Depois a imagem (pequeno retângulo) é binarizada e contornos retangulares são adicionados nos seguimentos que representam as plantas. A partir desses segmentos é calculado a orientação da linha de plantio dentro deles e depois expandido e processado (utilizando a ''semente``) para toda a imagem. O método/\textit{plugin} consegui identificar boa parte das linhas de plantio nos mosaicos (com GSD aproximado de 2 cm) testados, contudo ele precisa que o mosaico tenha as linhas de plantio numa mesma direção, o que difere de cenários reais.
 
-\citeonline{Rozo_2019} \dotsBlue
-Gis - plugin
-semente, direção da imagem-mosaico
-linhas retas
-cana
-\linePage
-
-\citeonline{Bah_2020} \dotsBlue
-dl
-ht
-cnn
-cana
-
-\linePage
+\citeonline{Bah_2020} propuseram uma abordagem utilizando \textit{deep learning}, que chamaram de  \textit{CRowNet}. Nela é utilizado uma FCN, a Segnet, que tem a arquitetura composta por \textit{encoders} (VGG16) e \textit{decoders}. A SegNet é utilizada para segmentar as imagens (RGB) e tem como resultado uma imagem binária (pra cada uma delas), indicando os locais mais prováveis das linhas de plantio. Na sequência uma combinação da TH com uma CNN (5 convolução dilatadas com 32 filtros cada) é utilizada, de nome \textit{HoughCNet}. As várias linhas são detectadas pela TH e depois a CNN é utiliza para detectar as linhas principais (mais longas), que os autores consideram como as linhas de plantio. A \textit{CRowNet} foi testada em imagens de VANTs de plantações de beterraba (GSD aproximado de 1 cm) e milho (sem informação do GSD), tendo bom resultado na maioria delas.
 
 Em \citeonline{Silva_2020} foram desenvolvidas duas abordagens para detecção de linhas de plantio de cana-de-açúcar, a primeira utilizando Algoritmo Genético (AG) resultando em \citeonline{Silva_Escarpinati_Backes_2021} e a segunda utilizando redes neurais artificiais. Para comparar os resultados, foram utilizados 4 \textit{datasets} (com plantas de variadas idades) e suas respectivas linhas de plantio, marcadas por um especialista. O AG foi utilizado para encontrar uma máscara (filtro convolucional que combina as bandas RGB da imagem para uma em escala de cinza), que maximize o Coeficiente de Dice (CD). Em sequência o método Otsu foi utilizado para binarizar as imagens e por fim, a TR foi utilizada para refinar a detecção das linhas de plantio. Como resultado, a detecção das linhas ficou próximas da marcação do especialista, lidando melhor com linhas retas e não muito bem com linhas curvas (gerando um efeito de serrilhamento indesejado). Na abordagem com redes neurais, a LinkNet apresentou melhor resultado que na abordagem anterior. A TR também foi aplicada nessa abordagem, contudo piorando o desempenho em muitos casos.
 
-\linePage
-
 \citeonline{Oliveira_2020} desenvolveu uma abordagem similar a \citeonline{Silva_2020}, para a detecção das linhas de plantio de cana-de-açúcar. Nela, o mosaico é dividido em pequenas imagens, que são convertidas para escala de cinza e feita redução dos níveis de cinza (de 256 para 32) pela Transformada Discreta de Wavelet. Na sequência, o AG é utilizado para encontrar 4 limiares, o maior é usado para segmentar a imagem, que segue para operações morfológicas de fechamento, erosão e esqueletização. Por fim a Transformada de Hough Probabilística Progressiva é utilizada para otimizar a detecção das linhas de plantio e suas falhas. O trabalho apresenta um bom resultado, mas foi aplicado apenas em uma pequena seção do mosaico, sem um padrão ouro para teste e considera as linhas de plantio como linhas retas.
 
-\linePage
 
-\citeonline{Pereira_Junior_2020} \dotsBlue
-algoritmos tradicionais
-cana
-\linePage
+\citeonline{Pereira_Junior_2020} fizeram uma revisão sistemática (de 2008 até 2018) sobre os métodos (tradicionais) de classificação supervisionada e extratores de características para segmentação de imagens de linhas de plantio capturadas por VANTs. Dentre os métodos, \textit{Support Vector Machine} (SVM), \textit{Random Forest} (RF), \textit{Mahalanobis classifier} (MC) e \textit{K-nearest neighbors} (KNN) foram encontrados nos trabalhos analisados e assim selecionados para comparação. Por outro lado, para extratores de características, índices de vegetação e \textit{Gray Level Co-occurrence Matrices} (GLCM) são os mais usados, sendo incluídos na comparação em conjunto com \textit{Gabor filters}. O IV escolhido foi o ExG, por ser um dos mais usados. A experimentos foram feitos utilizando o mosaico (\cite{CropRowsDataset2019}) e as marcações de um especialista. O melhor resultado obtido foi da linear SVM com RGB + ExG + Gabor. Corroborando a ideia de que índices de vegetação são bons para diferenciar plantas do solo e assim extrair características de cada um.
+
+%2021 - Osco et al. - A CNN approach to simultaneously count plants
+
+%\linePage
 
 \citeonline{Barbosa_Junior_2021} fez uma análise exploratória do uso de imagens de VANTs na detecção das falhas nas plantações de cana-de-açúcar, variando o GSD (3.5 cm, 6 cm e 8.2 cm), a altura da planta (0.5 m, 0.9 m, 1.2 m e 1.7 m), e o comprimento das falhas (0.5 m, 1.0 m, 1.5 m, 2.0 e 2.5 m). Na identificação das falhas foi utilizado o \textit{software} comercial \textit{Inforow} \cite{Inforow_2021}. Como esperado, os melhores resultados foram com GSD pequeno (3.5 cm ou próximo) e plantas com menor altura (e.g., 0.5 m). A altura das plantas foi apontada como um dos fatores mais importantes, seguido pelo GSD, para detecção das falhas nas plantações de cana-de-açúcar. Não foi possível detectar pequenas falhas $(\le 1$ m$)$ quando a planta já tinha certa altura $(\ge 1$ m$)$ através do \textit{software}. É importante notar que mesmo o \textit{software} comercial não obteve bons resultados em certos cenários.
 
 \linePage
 
-\textRed{parágrafo comentando os principais trabalhos de modo bem resumido}
+\textRed{Adicionar mais trabalhos relacionados?}
 
-Na literatura, o trabalho de \citeonline{Silva_2020} contribuiu significativamente para detecção das linhas de plantio em plantações de cana-de-açúcar, contudo não obteve bons resultados com linhas curvas (gerando um efeito serrilhamento indesejado). Por outro lado a abordagem com redes neurais teve melhor resultado, mas ainda pode ser melhor explorada. \citeonline{Oliveira_2020} apresenta uma abordagem similar, mas que não foi muito bem testada.  \dotsBlue.
+\linePage
 
+Na literatura muitos trabalhos foram encontrados, contudo boa parte utilizou imagens de baixíssimas altitudes, onde as linhas curvas se aproximam de linhas retas. Muitos utilizam a transformada de Hough para identificar ou refinar a identificação das linhas de plantio. Alguns deles trabalham imagens de plantações de cana-de-açúcar, contudo é raro utilizarem imagens de variados estágios da cultura. Trabalhos recentes utilizam técnicas de \textit{deep learning}, indicando que são promissoras e que ainda podem ser muito exploradas.
 
 \section{Metodologia de pesquisa}
 % => Descreva de forma mais detalhada sua proposta de trabalho, detalhando as estratégias que pretende utilizar para atingir os objetivos propostos. Descreva o método de pesquisa que deverá ser utilizado para validar a sua hipótese incluindo as medidas de avaliação, conjunto de parâmetros, bases de dados e os trabalhos com os quais a sua proposta será comparada.
